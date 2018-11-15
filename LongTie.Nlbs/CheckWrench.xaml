@@ -1,0 +1,147 @@
+﻿<Window x:Class="LongTie.Nlbs.CheckWrench"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CheckWrench" Height="735" Width="1300">
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="1*" ></RowDefinition>
+            <RowDefinition Height="6*" ></RowDefinition>
+            <RowDefinition Height="30" ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="220"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="1" Grid.Column="0" Grid.RowSpan ="2"  BorderBrush="Black" BorderThickness="2">
+
+            <StackPanel Width="220" Margin="0,0,0,57" HorizontalAlignment="Left">
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal"  >
+                    <Label Content="工具条形码：" />
+                    <TextBox x:Name="toolid" Width=" 120" Height=" 30"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                    <Label  >目标值:</Label>
+                    <TextBox Width="120" Height="30"/>
+                </StackPanel>
+
+                <Grid x:Name="toolslist" Width="220" Height=" 400" Margin="5,20,5,10" >
+                    <Grid.RowDefinitions >
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*" />
+                        <ColumnDefinition Width="19*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row=" 0" Grid.Column=" 0" HorizontalAlignment="Center"   Content="工具条码:" Width="61"  />
+                    <Label Grid.Row=" 1" Grid.Column=" 0" HorizontalAlignment="Center" Content="工具p/n" Width="54" />
+                    <Label Grid.Row=" 2" Grid.Column=" 0"  HorizontalAlignment="Center" Content="最大量程" Width="58"/>
+                    <Label Grid.Row=" 3" Grid.Column=" 0" HorizontalAlignment="Center" Content="最小量程" Width="58" />
+                    <Label Grid.Row=" 4" Grid.Column=" 0" HorizontalAlignment="Center" Content="生产厂家" Width="58"/>
+                    <Label Grid.Row=" 5" Grid.Column=" 0" HorizontalAlignment="Center" Content="购买日期" Width="58" />
+                    <Label Grid.Row=" 6" Grid.Column=" 0" HorizontalAlignment="Center" Content="IP" Width="21" />
+                    <Label Grid.Row=" 7" Grid.Column=" 0" HorizontalAlignment="Center" Content="port" Width="34"/>
+                    <Label Grid.Row=" 0" Grid.Column=" 1" HorizontalAlignment="Left"   Content="10000" Width="45"  />
+                    <Label Grid.Row=" 1" Grid.Column=" 1" HorizontalAlignment="Left" Content="svn9999999" Width="79"/>
+                    <Label Grid.Row=" 2" Grid.Column=" 1" HorizontalAlignment="Left" Content="10000N/m" Width="71"/>
+                    <Label Grid.Row=" 3" Grid.Column=" 1" HorizontalAlignment="Left"  Content="10N/m"  Width="50"/>
+                    <Label Grid.Row=" 4" Grid.Column=" 1" HorizontalAlignment="Left"  Content="诺霸"  Width="34" />
+                    <Label Grid.Row=" 5" Grid.Column=" 1" HorizontalAlignment="Left" Content="2014"  Width="38"/>
+                    <Label Grid.Row=" 6" Grid.Column=" 1" HorizontalAlignment="Left" Content="192.168.0.1"  Width="76"/>
+                    <Label Grid.Row=" 7" Grid.Column=" 1" HorizontalAlignment="Left"  Content="80"  Width="24"/>
+                </Grid>
+
+
+
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="1" Grid.RowSpan="2"  Width="937"  BorderThickness="2" BorderBrush="Black" >
+        <StackPanel x:Name="main" >
+            <Grid x:Name="maingrid"  Height="578" ShowGridLines="True"  >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="6*"/>
+
+                </Grid.RowDefinitions>
+
+                <StackPanel  x:Name="main_center" Grid.Row="0" >
+                    <Grid   Margin="5" MinWidth="780" HorizontalAlignment="Left" >
+                        <Grid.RowDefinitions >
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions  >
+                            <ColumnDefinition Width="80" ></ColumnDefinition>
+                            <ColumnDefinition Width="80" ></ColumnDefinition>
+                            <ColumnDefinition Width="80"></ColumnDefinition>
+                            <ColumnDefinition  Width=" 80"></ColumnDefinition>
+                            <ColumnDefinition  Width="300"></ColumnDefinition>
+                            <ColumnDefinition Width=" 80"></ColumnDefinition>
+                            <ColumnDefinition Width=" 80"></ColumnDefinition>
+                            <ColumnDefinition Width=" 80" ></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock  Grid.Row="0" Grid.Column=" 0" HorizontalAlignment="Center" VerticalAlignment="Center" >ID</TextBlock>
+                        <TextBlock  Grid.Row="0" Grid.Column=" 1" HorizontalAlignment="Center" VerticalAlignment="Center" >扭力扳手标号</TextBlock>
+                        <TextBlock  Grid.Row="0" Grid.Column="2"  HorizontalAlignment="Center" VerticalAlignment="Center">量程</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">设定值</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">测量数据</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">校验结果</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">校验员</TextBlock>
+                        <TextBlock Grid.Row="0" Grid.Column=" 7" HorizontalAlignment="Center" VerticalAlignment="Center">日期</TextBlock>
+                    </Grid>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" Height="500" >
+                        <Grid Name="checkdata"  MinWidth="780" HorizontalAlignment="Left" >
+                            <Grid.RowDefinitions >
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions  >
+                                <ColumnDefinition Width="80" ></ColumnDefinition>
+                                <ColumnDefinition Width="80" ></ColumnDefinition>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition  Width=" 80"></ColumnDefinition>
+                                <ColumnDefinition  Width="300"></ColumnDefinition>
+                                <ColumnDefinition Width=" 80"></ColumnDefinition>
+                                <ColumnDefinition Width=" 80"></ColumnDefinition>
+                                <ColumnDefinition Width=" 80" ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ScrollViewer>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        </Border>
+        <StackPanel Name="right"  Grid.Row="1" Grid.Column="2">
+
+            <Button  x:Name="bt_start" Height="30" Width=" 100" Content="开始" Click="bt_start_Click"/>
+            <Button  Grid.Column="1" x:Name="bt_finish" Height="30" Width="100" Content="完成" Click="bt_finish_Click"/>
+
+        </StackPanel>
+
+        <WrapPanel    x:Name="userlist" Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Left"  VerticalAlignment ="Center" >
+            <StackPanel Orientation="Horizontal" >
+                <Label   Content="卡ID：" />
+                <TextBlock x:Name="cardid"  Text="0000"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,0"  >
+                <Label  Content="名称:"/>
+                <TextBlock  Text="张三"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"  Margin="10,0,10,0" >
+                <Label   Content="员工编号："/>
+                <TextBlock   Text="0000"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10,0,10,0" >
+                <Label   Content="联系方式：" RenderTransformOrigin="0.5,0.5"></Label>
+                <TextBlock  Text="13247777888"/>
+            </StackPanel>
+
+
+
+        </WrapPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,154 @@
+﻿<Window x:Class="LongTie.Nlbs.Main"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+       xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+       xmlns:tn="clr-namespace:WPFTaskbarNotifier;assembly=WPFTaskbarNotifier"
+    
+        Title="智能扭矩校验系统V2.0"
+        Height="768" 
+        Width="1024" 
+        Name="Mainwindow"
+        Loaded="Mainwindow_Loaded"
+        Closing="Mainwindow_Closing" 
+     WindowStartupLocation="CenterScreen"
+         AllowsTransparency="False"
+        WindowStyle="None"  
+        >
+    <!--Style="{DynamicResource NoResize_window}"-->
+
+
+    <Window.Resources >
+        <Style  TargetType="Separator">
+            <Setter Property="Background" Value="LightBlue" />
+                  
+        </Style>
+    </Window.Resources>
+
+    <Grid >
+        <Grid.RowDefinitions >
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition ></RowDefinition>  
+            <RowDefinition Height="20" ></RowDefinition>
+       </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderBrush="Silver" BorderThickness="1">
+            <Menu Name="menu"  Padding="0,5">
+                <MenuItem Header="系 统" IsEnabled="False" >                
+                    <MenuItem Name="login" Header="登录状态" IsEnabled="False"  Height="20" Click="login_Click"></MenuItem>
+                    <Separator />
+                    <MenuItem Name="updatepwd" Header="密码修改"  IsEnabled="False"  Height="20" Click="updatepwd_Click"></MenuItem>
+                    <Separator />
+                    <MenuItem Name="systemreset" Header="系统注销" IsEnabled="False"  Height="20" Click="systemreset_Click"  ></MenuItem>
+                    <Separator />
+                    <MenuItem Name="logout" Header="系统退出"  IsEnabled="False"  Height="20" Click="logout_Click" ></MenuItem>
+                </MenuItem>
+                <MenuItem Header="校 验" Name="menu_check" IsEnabled="False">
+                    <MenuItem Name="checkdata"   Header="扳手校验" Click="checkdata_Click" IsEnabled="False">
+                    </MenuItem>
+                </MenuItem>
+                <!--<MenuItem Header="借 还" Name="menu_br" IsEnabled="False">
+                    <MenuItem Name="borrow"   Header="扳手借出" IsEnabled="False" Click="borrow_Click">
+                    </MenuItem>
+                    <MenuItem Name="return"   Header="扳手归还" IsEnabled="False" Click="return_Click">
+                    </MenuItem>
+                </MenuItem>-->
+
+
+                <MenuItem Header="信息管理" IsEnabled="False">
+                    <MenuItem   Header="人员管理" Height="20"  Name="menu_usermang" IsEnabled="False">
+                        <MenuItem Name="adduser" Height="20"  Header="人员信息编辑" IsEnabled="False" Click="adduser_Click"></MenuItem>
+                        <Separator/>
+
+                        <MenuItem Name="department"   Height="20"  Header="部门编辑" IsEnabled="False" Click="MenuItem_Click"></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="rolemenu"  Height="20"  Header="角色编辑" IsEnabled="False" Click="rolemenu_Click" ></MenuItem>
+                        <Separator/>                    
+                        <MenuItem Name="duty"  Height="20"  Header="职位编辑" IsEnabled="False" Click="duty_Click"></MenuItem>                       
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem  Header="扳手管理" Height="20" IsEnabled="False">
+                        <MenuItem Name="addwrench"  Height="20" Header="扳手信息编辑" IsEnabled="False" Click="addwrench_Click"></MenuItem>
+                        <Separator/>                     
+                        <MenuItem Name="wrenchspecies" Height="20"  Header="扳手种类编辑" IsEnabled="False" Click="wrenchspecies_Click" ></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="addwrenchstatus" Height="20" Header="扳手状态编辑"  IsEnabled="False"  Click="addwrenchstatus_Click">              
+                        </MenuItem>                        
+                        <Separator/>
+                        <MenuItem Name="wrenchalter" Height="20" Header="扳手状态修改"  IsEnabled="False" Click="wrenchalter_Click"></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="checkdataset"   Height="20"  IsEnabled="False" Header="扳手校验误差设置" Click="checkdataset_Click"></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="wrenchwaring" Height="20"   IsEnabled="False" Header="扳手维护周期设置" Click="wrenchwaring_Click" ></MenuItem>
+
+                        <!--<MenuItem  Header="扳手设置" Height="20" IsEnabled="False">                          
+                        </MenuItem>-->
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Header="系统设置" Height="20" IsEnabled="False">
+                        <MenuItem Name="powermenu" Height="20"  IsEnabled="False"  Header="权限分配" Click="powermenu_Click"></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="checkset" Height="20"   IsEnabled="False" Header="校验参数设置" Click="checkset_Click"></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="tongxin" Height="20"  IsEnabled="False" Header="通信参数设置" Click="tongxin_Click"></MenuItem>
+                      
+                    </MenuItem>
+                </MenuItem>
+
+                <MenuItem  Header="数据管理" IsEnabled="False">
+                    <MenuItem Name="searchuser"  Height="20"  IsEnabled="False" Header="人员信息查询" Click="searchuser_Click"></MenuItem>
+                    <Separator/>
+                    <MenuItem Name="searchwrench"  Height="20"  IsEnabled="False" Header="扳手信息查询" Click="searchwrench_Click"></MenuItem>
+                    <Separator/>
+                    <MenuItem Header="校验数据" Height="20" IsEnabled="False">
+                        <MenuItem Name="checkoutsearch" IsEnabled="False"  Height="20"   Header="校验数据查询" Click="checkoutsearch_Click"></MenuItem>
+                        <Separator/>
+                        <MenuItem Name="tongji" Header="扳手校验频率统计" Height="20" IsEnabled="False" Click="tongji_Click"></MenuItem>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="searchwrenchdata"  Height="20"  IsEnabled="False" Header="到期维护扳手" Click="searchwrenchdata_Click" ></MenuItem>
+
+                </MenuItem>
+                <MenuItem Header="条码设计" IsEnabled="False">
+                    <MenuItem Name="barcodeprint" Header="条码打印" Height="20" IsEnabled="False" Click="barcodeprint_Click"></MenuItem>  
+                </MenuItem>
+                <MenuItem Name="help" Header="帮 助" IsEnabled="False">
+                    <MenuItem Name="instruction" Header="软件使用说明" Height="20" IsEnabled="False" Click="instruction_Click"></MenuItem>
+                    <Separator/>
+                    <MenuItem Name="about" Header="关于本软件" IsEnabled="False" Height="20" Click="about_Click"></MenuItem>
+            
+                    <!--<MenuItem Name="service" Header="售后服务" IsEnabled="False" Visibility="Hidden"  Height="20" Click="service_Click"></MenuItem>-->
+                </MenuItem>
+            </Menu>
+        </Border>   
+        <Grid Grid.Row="1" Name="main">
+            <WindowsFormsHost Name="WindowsFormsHost" Margin="2,0">
+                
+            </WindowsFormsHost>
+        </Grid>
+
+        <StackPanel Grid.Row="2"  VerticalAlignment="Center"  >
+            <StatusBar >
+                <StatusBarItem >
+                    <Label Name="porterror"></Label>                    
+                </StatusBarItem>
+                <StatusBarItem >
+                    <Label Name="time"></Label>
+                </StatusBarItem>
+                <StatusBarItem >
+                    <Label Name="user"></Label>
+                </StatusBarItem>
+            </StatusBar>
+           
+        </StackPanel>
+        <!--<tn:NotifyIcon x:Name="NotifyIcon" Text="Example Notifier"  Icon="Images/Logo.ico" MouseDoubleClick="NotifyIcon_DoubleClick">      
+            <tn:NotifyIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="打开" Click="NotifyIconOpen_Click" />
+                    --><!--<MenuItem Header="" Click="NotifyIconConfigure_Click" />--><!--
+                    <Separator/>
+                    <MenuItem Header="退出" Click="NotifyIconExit_Click" />
+                </ContextMenu>
+            </tn:NotifyIcon.ContextMenu>
+        </tn:NotifyIcon>-->
+   
+    </Grid>
+</Window>

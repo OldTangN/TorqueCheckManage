@@ -1,0 +1,99 @@
+﻿<Grid x:Class="LongTie.Nlbs.User.EditerDuty"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:LongTie.Nlbs.Common"
+             d:DesignHeight="700" d:DesignWidth="1024">
+    <Grid.Resources >
+        <Style x:Key="dghead" TargetType="DataGridColumnHeader" >
+            <Setter Property="HorizontalContentAlignment" Value="Center"   ></Setter>
+        </Style>
+        <Style x:Key="dgCell" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter  Property="VerticalAlignment" Value="Bottom" ></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />       
+        </Style>
+        <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
+            <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>      
+        </Style>
+    </Grid.Resources>
+    <Grid.RowDefinitions >
+        <RowDefinition Height="1"></RowDefinition>
+        <RowDefinition Height="60"></RowDefinition>
+        <RowDefinition Height="639"></RowDefinition>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions >  
+        <ColumnDefinition ></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1,1,1,0" Margin="20,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"   >
+            <Label Content="职位信息添加" HorizontalAlignment="Center"  FontSize="20"></Label>
+        </StackPanel>
+
+    </Border>
+
+    <Border Grid.Column="1" Grid.Row="2"  Margin="20,0,20,40">
+        <Grid >
+            <Grid.RowDefinitions >
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" BorderBrush="Silver"  BorderThickness="1,1,1,0" >
+                <StackPanel HorizontalAlignment="Center"  Orientation="Horizontal" >
+                    <StackPanel Orientation="Horizontal" Margin="10,10" >
+                        <Label Content=" 部门名称：" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                        <ComboBox Height="30" Width="120" Name="cb_department" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,10" >
+                        <Label Content=" 职位名称：" Width="80" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ></Label>
+                        <TextBox Name="tb_dutyname" VerticalContentAlignment="Center"  Height="30" Width="150"></TextBox>
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"  Orientation="Horizontal" >
+                        <Label Content="备注" VerticalContentAlignment="Center" ></Label>
+                        <TextBox Name="tb_comm" Width="150" Height="30" VerticalContentAlignment="Center" ></TextBox>
+                    </StackPanel>
+                    <StackPanel >
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
+                        <Button Content="保 存" Background="#1E90FF" Height="30" Width="100" Margin="50,0" Click="Button_Click"></Button>
+                        <Button Content="取 消" Visibility="Hidden"  Background="#1E90FF" Height="30" Width="80" Click="Button_Click_1"></Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1">
+                <DataGrid  Name="dt_showdata" AutoGenerateColumns="False"  CanUserAddRows="False" RowHeaderWidth="0" Margin="10,20" AlternationCount="2" AlternatingRowBackground="#f0fff0">
+                <DataGrid.Background>
+                    <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
+                </DataGrid.Background>
+                <DataGrid.Columns >
+                        <DataGridTextColumn Header="编 号" IsReadOnly="True"  Width="150" Binding="{Binding Path=id}" Visibility="Hidden" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="部门名称" IsReadOnly="True"  Width="150" Binding="{Binding Path=departmentName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="职位名称" IsReadOnly="True"  Width="150" Binding="{Binding Path=dutiesName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="备注" IsReadOnly="True"  Width="350" Binding="{Binding Path=comment}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="操 作" Width="350" HeaderStyle="{StaticResource dghead}">
+                        <DataGridTemplateColumn.CellTemplate >
+                            <DataTemplate >
+                                <Grid  HorizontalAlignment="Center"  >
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width="120"></ColumnDefinition>
+                                        <ColumnDefinition Width="120"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Button Content="编 辑"  Name="bt_editer" BorderBrush="{x:Null}" Height="20" Click="bt_editer_Click"  Background="#f0e68c" Margin="10,0"></Button>
+                                        <Button Content="删 除" Grid.Column="1" Name="bt_del" BorderBrush="{x:Null}" Height="20" Click="bt_del_Click"  Background="#f0e68c" Margin="10,0"></Button>
+                                    </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+
+            </DataGrid>
+            </Border>
+        </Grid>
+    
+    </Border>
+
+</Grid>

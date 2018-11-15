@@ -1,0 +1,30 @@
+﻿<Window x:Class="LongTie.Nlbs.Check.CheckdataDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:LongTie.Nlbs.Common"
+        Title="校验数据详情" Height="300" Width="670" ResizeMode="NoResize" Icon="/LongTie.Nlbs;component/Manager.ico"  WindowStartupLocation="CenterOwner" >
+    <Window.Resources >
+        <local:Converter x:Key="converter"></local:Converter>
+        <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
+            <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
+        </Style>
+        <Style x:Key="dgCell" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter  Property="VerticalAlignment" Value="Center"  ></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <DataGrid Name="dt_datadetail" RowHeaderWidth="0" CanUserAddRows="False" AutoGenerateColumns="False"  AlternationCount="2" AlternatingRowBackground="Silver">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="工具条码" IsReadOnly="True"  Width="120"  Binding="{Binding Path=wrenchbarcode}"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTextColumn Header="目标值(N.m)" IsReadOnly="True" Width="100" Binding="{Binding Path=torquetargetvalue}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTextColumn Header="实测值(N.m)" IsReadOnly="True" Width="100" Binding="{Binding Path=checkdata}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTextColumn Header="正常范围(N.m)" IsReadOnly="True" Width="120" Binding="{Binding Path=errorrang}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTextColumn Header="校验时间" Width="130" IsReadOnly="True" Binding="{Binding Path=checktime}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTextColumn Header="是否合格" Width="*"  IsReadOnly="True" Binding="{Binding Path=iseffect,Converter={StaticResource converter},Mode=OneWay}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

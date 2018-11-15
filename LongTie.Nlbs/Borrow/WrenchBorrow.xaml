@@ -1,0 +1,181 @@
+﻿<Grid x:Class="LongTie.Nlbs.Borrow.WrenchBorrow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:LongTie.Nlbs.Common"
+             d:DesignHeight="700" d:DesignWidth="1024">
+    <Grid.Resources >
+        <Style TargetType="Label" >
+            <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center" ></Setter>
+        </Style>
+        
+        <Style TargetType="StackPanel" >
+            <Setter Property="HorizontalAlignment" Value="Center" ></Setter>
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Border" >
+            <Setter Property="BorderBrush" Value="Silver" ></Setter>
+            <Setter Property="BorderThickness" Value="1"/>        
+            
+        </Style> 
+        
+        <Style TargetType="TextBox" >
+            <Setter Property="VerticalContentAlignment" Value="Center" ></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="120"></Setter>
+            
+        </Style>
+        <Style TargetType="TextBlock" >
+            <Setter Property="TextAlignment" Value="Center" ></Setter>
+            <Setter Property="VerticalAlignment" Value="Bottom" ></Setter>
+            <!--<Setter Property="Height" Value="30"/>-->
+            <Setter Property="Width" Value="120"/>
+
+        </Style>
+        
+        <Style TargetType="ComboBox" >
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            
+        </Style>
+
+        <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
+            <Setter Property="HorizontalContentAlignment" Value="Center"   ></Setter>     
+        </Style>
+
+        <Style x:Key="dgCell" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter  Property="VerticalAlignment" Value="Center"  ></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button" >
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="120"/>
+            <Setter Property="Background" Value="#1E90FF"/>
+            <Setter Property="BorderBrush" Value="{x:Null}"/>
+        </Style>
+        
+    </Grid.Resources>
+    <Grid.RowDefinitions >
+        <RowDefinition Height="60"></RowDefinition>
+        <RowDefinition  Height="50"></RowDefinition>
+        <RowDefinition  Height="50"></RowDefinition>
+        <RowDefinition Height="50"></RowDefinition>
+        <RowDefinition ></RowDefinition>
+    </Grid.RowDefinitions>
+    <Border BorderBrush="Silver" BorderThickness="1" Margin="20,10,20,0">
+        <StackPanel >
+            <Label Content="扳手借出" FontSize="20"></Label>
+        </StackPanel>         
+        </Border>
+    <Border Grid.Row="1" Margin="20,0,20,0">
+        <StackPanel Orientation="Horizontal" >
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+                <Label Content="员工卡号："></Label>
+                <TextBox Name="cardid" GotFocus="cardid_GotFocus" ></TextBox>
+                <Button Width="32" Height="32" Name="bt_card" Margin="10,0" Click="bt_card_Click" Background="{x:Null}">
+                    <Image Source="/LongTie.Nlbs;component/Images/search.png"/>                  
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+                <Label Content="员工姓名："></Label>
+                <Border BorderThickness="0,0,0,1" BorderBrush="Black" >
+                    <TextBlock Name="username"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+                <Label Content="联系方式："></Label>
+                <Border BorderThickness="0,0,0,1" BorderBrush="Black" >
+                    <TextBlock Name="telphone"></TextBlock>
+                </Border>              
+            </StackPanel>
+            <StackPanel Margin="40,0,20,0">
+                <ComboBox SelectedIndex="0" Name="cb_user" SelectionChanged="cb_user_SelectionChanged" IsEnabled="False" >
+                    <ComboBoxItem >详细信息</ComboBoxItem>
+                    <ComboBoxItem >员工信息</ComboBoxItem>
+                    <ComboBoxItem >借出记录</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+    <Border Grid.Row="2" Margin="20,0,20,0" >
+        <StackPanel Orientation="Horizontal" >
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+                <Label Content="扳手条码："></Label>
+                <TextBox Name="wrenchbarcode" KeyUp="wrenchbarcode_KeyUp" SelectedText="" GotFocus="wrenchbarcode_GotFocus"></TextBox>
+                <Button Width="32" Height="32" Name="bt_wrenchbarcode" Margin="10,0" Click="bt_wrenchbarcode_Click" Background="{x:Null}">
+                    <Image Source="/LongTie.Nlbs;component/Images/search.png"></Image>  
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+                <Label Content="扳手状态："></Label>
+                <Border BorderThickness="0,0,0,1" BorderBrush="Black" >
+                    <TextBlock Name="wrenchstatus"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,0">
+                <Label Content="扳手编号："></Label>
+                <Border BorderThickness="0,0,0,1" BorderBrush="Black" >
+                    <TextBlock Name="wrenchcode"></TextBlock>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Margin="40,0,20,0">
+                <ComboBox SelectedIndex ="0" Name="cb_wrench" SelectionChanged="cb_wrench_SelectionChanged" IsEnabled="False">
+                    <ComboBoxItem >详细信息</ComboBoxItem>
+                    <ComboBoxItem >工具信息</ComboBoxItem>
+                    <ComboBoxItem >借出记录</ComboBoxItem>                    
+                </ComboBox>                
+            </StackPanel>
+        </StackPanel>
+    </Border>
+    
+    <Border Grid.Row="3" Margin="20,0,20,0"   >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" >
+            <StackPanel >
+                <Image Height="40" Width="120" Name="userborrow"  Source="/LongTie.Nlbs;component/Images/userborrow.png">                  
+                </Image>
+                <!--<Label Content=" 本次借出扳手" HorizontalAlignment="Left" ></Label>-->
+            </StackPanel>          
+            <StackPanel Orientation="Horizontal" Margin="300,0,10,0">
+                <Label Content="本次所借扳手数量"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="count"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Margin="155,0,0,0">
+                <Button Content="确认借出" Name="bt_submit" Click="bt_submit_Click"></Button>
+            </StackPanel>
+
+        </StackPanel>
+
+    </Border>
+    <Border Grid.Row="4" Margin="20,0,20,0">
+        <DataGrid Name="gd_borrow" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0" AlternationCount="2" AlternatingRowBackground="#f0fff0" Background="{x:Null}">
+            <DataGrid.Columns >
+                <DataGridTextColumn IsReadOnly="True" Header="扳手条码号" Binding="{Binding Path=wrenchbarcode}" Width="140" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="扳手编号" Binding="{Binding Path=wrenchcode}"  Width="140" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="生产厂家" Binding="{Binding Path=factory}" Width="140" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="借出日期" Binding="{Binding Path=borrowdate}" Width="140" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="借用人" Binding="{Binding Path=username}" Width="140" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                <DataGridTextColumn IsReadOnly="True" Header="操作人" Binding="{Binding Path=options}"  Width="140" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                <DataGridTemplateColumn IsReadOnly="False" Header="操作" Width="140" HeaderStyle="{StaticResource dgheader}">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate >
+                            <Grid HorizontalAlignment="Center" >
+                                <Button Content="删除" Name="bt_del" Click="bt_del_Click" Height="20"></Button>
+                            </Grid>
+                        </DataTemplate>
+                        
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+  
+    </Border>
+</Grid>

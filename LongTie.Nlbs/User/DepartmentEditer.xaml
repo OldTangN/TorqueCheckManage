@@ -1,0 +1,141 @@
+﻿<Grid x:Class="LongTie.Nlbs.User.DepartmentEditer"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:LongTie.Nlbs.Common"
+             d:DesignHeight="700" d:DesignWidth="1024" Loaded="Grid_Loaded">
+    <Grid.Resources >
+        <local:Converter x:Key="converter"></local:Converter>
+        <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
+            <Setter Property="HorizontalContentAlignment" Value="Center"   ></Setter>
+        </Style>
+    
+        <Style x:Key="dgCell" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter  Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <!--<ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../themes/Dictionary_app.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <ContextMenu x:Key="sampleContextMenu">
+                <MenuItem Header="增加下级部门" Name="addDepartMenu"   Click="addDepartMenu_Click" />
+                <MenuItem Header="修改部门名称" Name="updateDepartMenu" Click="updateDepartMenu_Click" />
+                <MenuItem Header="删除部门" Name="deleteDepartMenu" Click="deleteDepartMenu_Click" />
+
+            </ContextMenu>
+        </ResourceDictionary>-->
+
+    </Grid.Resources>
+
+    <Grid.RowDefinitions >
+        <RowDefinition Height="1"></RowDefinition>
+        <RowDefinition Height="60"></RowDefinition>
+        <RowDefinition Height="639"></RowDefinition>
+    </Grid.RowDefinitions>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="300"></ColumnDefinition>
+        <ColumnDefinition ></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+    <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1,1,1,0" Margin="20,10,20,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Label HorizontalAlignment="Center"   Content="部门编辑" FontSize="20"></Label>
+        </StackPanel>
+
+    </Border>
+
+    <Border Grid.Row="1" Grid.Column="1" BorderBrush="Silver" BorderThickness="1,1,1,0" Margin="0,10,20,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"   >
+            <Label Content="部门信息" HorizontalAlignment="Center"  FontSize="20"></Label>
+        </StackPanel>
+
+    </Border>
+
+
+    <Border Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="20,0,20,20">
+
+        <Grid >
+            <Grid.RowDefinitions >
+                <RowDefinition ></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+               
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="2">
+                <Label Content="注 : 选中部门后鼠标右击编辑、修改、删除"></Label>
+            </StackPanel>
+            <TreeView  x:Name="tvProperties"  SelectedItemChanged="tvProperties_SelectedItemChanged" Background="{x:Null}" Margin="5,10">
+                
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="{x:Type TreeViewItem}">
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded}"></Setter>
+                        <Setter Property="FontSize" Value="15"></Setter>                    
+                    </Style>
+                </TreeView.ItemContainerStyle>
+                <TreeView.ContextMenu>
+                    <ContextMenu Name="popMenu" StaysOpen="True">
+                        <MenuItem Name="add" Header="添加" Click="add_Click" ></MenuItem>
+                        <MenuItem Name="editer" Header="编辑" Click="editer_Click" ></MenuItem>
+                        <MenuItem Name="del" Header="删除" Click="del_Click" ></MenuItem>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+                <TreeView.ItemTemplate>
+
+                    <HierarchicalDataTemplate  ItemsSource="{Binding Path=Children}">
+
+                        <StackPanel Orientation="Horizontal">
+
+                            <Image VerticalAlignment="Center" Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,2,2"></Image>
+
+                            <TextBlock VerticalAlignment="Center" Name="nodeName" Text="{Binding DisplayName}"></TextBlock>
+
+                            <Image VerticalAlignment="Center" Source="{Binding EditIcon}" Margin="2,0,0,0"></Image>
+
+                            <StackPanel.ToolTip>
+
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" TextWrapping="Wrap" MaxWidth="200" ></TextBlock>
+
+                            </StackPanel.ToolTip>
+
+                        </StackPanel>
+
+                    </HierarchicalDataTemplate>
+
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+    </Border>
+
+    <Border Grid.Column="1" Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="0,0,20,20">
+        <DataGrid Grid.Row="0" CanUserAddRows="False" RowHeaderWidth="0" AutoGenerateColumns="False"  Margin="-1,-1,1,1" Name="dataGrid1" AlternationCount="2" AlternatingRowBackground="#f0fff0">
+            <DataGrid.Background>
+                <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
+            </DataGrid.Background>
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding id}"  Header="序 号" Width="100" Visibility="Hidden" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding parentname}"  Header="上级名称" Width="230" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding departmentName}"  Header="部门名称" Width="230" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding comment}"  Header="说 明" Width="240" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"  Width="*" Visibility="Hidden"  HeaderStyle="{StaticResource dgheader}">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Grid  HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"  Tag="{Binding Path=id}"    Content="删 除"   Background="#f0e68c" BorderBrush="{x:Null}"  Margin="10,0" ></Button>
+                            </Grid>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+   
+    </Border>
+</Grid>
