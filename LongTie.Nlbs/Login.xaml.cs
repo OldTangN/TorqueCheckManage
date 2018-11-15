@@ -1,4 +1,5 @@
 ﻿using LongTie.Nlbs.Check;
+using LongTie.Nlbs.Common;
 using LongTie.Nlbs.Notify;
 using LT.BLL;
 using LT.Comm;
@@ -17,34 +18,26 @@ namespace LongTie.Nlbs
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login
+    public partial class Login : Window
     {
 
         GetRole getrole = new GetRole();
-        Main _m = null;
+        //  Main _m = null;
         IWrench Wrench = DataAccess.CreateWrench();
         List<MenuItem> mll = new List<MenuItem>();
-        public Login(Main m)
+        public Login()
         {
             InitializeComponent();
-            _m = m;
-            //databind();
+            //  _m = m; 
         }
         public UserLogin userlogin = null;
-        public userinfo _userinfo = null;
-        public bool success = false;
-        //void databind() {
-        //    cb_role.ItemsSource = null;
-        //    cb_role.ItemsSource = getrole.getrole();
-        //    cb_role.DisplayMemberPath = "roleName";
-        //    cb_role.SelectedValuePath = "guid";
-        //}
+        public bool success = false; 
         private void Grid_Load(object sender, RoutedEventArgs e)
         {
 
-            this.tb_name.Clear();
-            this.tb_password.Clear();
-            this.tb_name.Focus();
+            //this.tb_name.Clear();
+            //this.tb_password.Clear();
+            //this.tb_name.Focus();
             //try
             //{
             //    string path = OperationConfig.GetValue("imagelogo") + ".jpg";
@@ -63,52 +56,53 @@ namespace LongTie.Nlbs
                 return;
             }
             userlogin = new UserLogin(this.tb_name.Text.Trim(), this.tb_password.Password.Trim());
-            _userinfo = userlogin._userinfo;
-            if ((this.tb_name.Text.Trim() == "LongTie.com" && this.tb_password.Password.Trim() == "!@#$%^&*()"))
-            {
-                showall();
-                return;
-            }
+            SystData.userInfo = userlogin._userinfo;
+            //if ((this.tb_name.Text.Trim() == "LongTie.com" && this.tb_password.Password.Trim() == "!@#$%^&*()"))
+            //{
+            //    showall();
+            //    return;
+            //}
 
             if ((userlogin.emplogin() == 1))
             {
-                if (!show())
-                {
-                    return;
-                }
-                _m._userinfo = _userinfo;
-                _m.main.Children.Clear();
-                if (_m.cf == null)
-                {
-                    _m.main.Children.Add(_m.cf = new CheckFinal(_m.ruc, _m.rct1, _m.rct2));
-                    _m.cf.SetSerialPort = _m.EncoderPlcPort;
-                }
-                else
-                    _m.main.Children.Add(_m.cf);
-                _m.user.Content = "当前登录用户:" + _m._userinfo.user.username;
-                List<systemcheckset> ls = new List<systemcheckset>();
-                try
-                {
-                    ls = SerializeXML<systemcheckset>.Getlist();
-                    if (ls != null && ls.Count > 0)
-                    {
-                        if (ls.FirstOrDefault().noticeshow)
-                        {
-                            //this.taskbarNotifier.Show();
-                            //this.taskbarNotifier.NotifyContent.Clear();
-                            //this.taskbarNotifier.NotifyContent.Add(new NotifyObject(GetWrenchList(Convert.ToInt32(ls.FirstOrDefault().noticedays))));
-                            WinWrenchRepair WinWrenchRepair = new WinWrenchRepair(GetWrenchList(Convert.ToInt32(ls.FirstOrDefault().noticedays)));
-                            WinWrenchRepair.Show();
-                        }
-                    }
-                }
-                catch { }
-                return;
+                Main main = new Main();
+                Application.Current.MainWindow = main;
+                this.Close();
+                main.Show();
+                //if (!show())
+                //{
+                //    return;
+                //}
+                //_m._userinfo = _userinfo;
+                //_m.main.Children.Clear();
+                //if (_m.cf == null)
+                //{
+                //    _m.main.Children.Add(_m.cf = new CheckFinal(_m.ruc, _m.rct1, _m.rct2));
+                //    _m.cf.SetSerialPort = _m.EncoderPlcPort;
+                //}
+                //else
+                //    _m.main.Children.Add(_m.cf);
+                //_m.user.Content = "当前登录用户:" + _m._userinfo.user.username;
+                //List<systemcheckset> ls = new List<systemcheckset>();
+                //try
+                //{
+                //    ls = SerializeXML<systemcheckset>.Getlist();
+                //    if (ls != null && ls.Count > 0)
+                //    {
+                //        if (ls.FirstOrDefault().noticeshow)
+                //        { 
+                //            WinWrenchRepair WinWrenchRepair = new WinWrenchRepair(GetWrenchList(Convert.ToInt32(ls.FirstOrDefault().noticedays)));
+                //            WinWrenchRepair.Show();
+                //        }
+                //    }
+                //}
+                //catch { }
+               // return;
             }
             else
             {
                 MessageAlert.Alert("登录名或密码错误!\n   登录失败！");
-                _m._userinfo = null;
+                // _m._userinfo = null;
                 return;
             }
         }
@@ -149,60 +143,19 @@ namespace LongTie.Nlbs
             return overdata;
 
         }
-        void showall()
-        {
-            list(_m.menu);
+        //void showall()
+        //{
+        //    list(_m.menu);
 
-            foreach (MenuItem m in mll)
-            {
-                m.IsEnabled = true;
+        //    foreach (MenuItem m in mll)
+        //    {
+        //        m.IsEnabled = true;
 
-            }
+        //    }
 
-        }
+        //}
 
-        List<PowerList> getpower()
-        {
-            return SerializeXML<PowerList>.Getlist();
-        }
-        PowerList GetPowerList()
-        {
-            return getpower().Find(p => p.role == _userinfo.role.roleName);
-        }
 
-        private bool show()
-        {
-            try
-            {
-                PowerList pl = GetPowerList();
-                if (pl == null)
-                {
-                    MessageAlert.Alert("没有任何功能权限，无法登陆！");
-                    return false;
-                }
-                list(_m.menu);
-                foreach (string s in pl.rolepower)
-                {
-                    foreach (MenuItem m in mll)
-                    {
-                        if (m.Items.Count > 0)
-                        {
-                            m.IsEnabled = true;
-                        }
-                        if (s == m.Header.ToString())
-                        {
-                            m.IsEnabled = true;
-                        }
-                    }
-                }
-                return true;
-            }
-            catch
-            {
-                MessageAlert.Error("出现文件错误请联系管理员！");
-                return false;
-            }
-        }
         private void list(Menu m)
         {
             List<MenuItem> ml = new List<MenuItem>();
@@ -255,7 +208,8 @@ namespace LongTie.Nlbs
 
         private void Btout_Click(object sender, RoutedEventArgs e)
         {
-            _m.Close();
+            //  _m.Close();
+            Environment.Exit(0);
         }
     }
 }

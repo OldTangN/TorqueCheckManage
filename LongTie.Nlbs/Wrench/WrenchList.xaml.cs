@@ -31,7 +31,7 @@ namespace LongTie.Nlbs.Wrench
         IWrench Wrench = DataAccess.CreateWrench();
         IWrenchStatus WrenchStatus = DataAccess.CreateWrenchStatus();
         IWrenchSpecies WrenchSpecies = DataAccess.CreateWrenchSpecies();
-        MainWindow _mw = new MainWindow();
+       
         public WrenchList()
         {
             InitializeComponent();           

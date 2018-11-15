@@ -1,5 +1,6 @@
 ﻿using LongTie.Nlbs.Borrow;
 using LongTie.Nlbs.Check;
+using LongTie.Nlbs.Common;
 using LongTie.Nlbs.Help;
 using LongTie.Nlbs.Notify;
 using LongTie.Nlbs.SystemSet;
@@ -9,29 +10,19 @@ using LT.BLL;
 using LT.BLL.Plc;
 using LT.Comm;
 using LT.DAL;
-using LT.DAL.MySql;
 using LT.Model;
 using LT.Model.BllModel;
 using Manager;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace LongTie.Nlbs
@@ -42,10 +33,10 @@ namespace LongTie.Nlbs
     public partial class Main : Window
     {
 
-        public Login l = null;
-        public userinfo _userinfo = new userinfo();
+        //  public Login l = null;
+        //   public userinfo _userinfo = new userinfo();
         IWrench Wrench = DataAccess.CreateWrench();
-        public CheckFinal cf = null;
+        public CheckFinal cf { set; get; } = null;
         SerialPort rC = new SerialPort();
         SerialPort _t1 = new SerialPort();
         SerialPort _t2 = new SerialPort();
@@ -75,6 +66,8 @@ namespace LongTie.Nlbs
             aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             aTimer.Interval = 100;
             aTimer.Enabled = true;
+
+            string msg = "";
             try
             {
                 getsystemset();
@@ -90,7 +83,7 @@ namespace LongTie.Nlbs
                 }
                 catch
                 {
-                    MessageBox.Show("校验仪1链接失败");
+                    msg += "校验仪1链接失败\r\n";
                     strerror += "校验仪1链接失败";
                 }
                 try
@@ -103,7 +96,7 @@ namespace LongTie.Nlbs
                 }
                 catch
                 {
-                    MessageBox.Show("校验仪2链接失败");
+                    msg += "校验仪2链接失败\r\n";
                     strerror += "---校验仪2连接失败";
                 }
 
@@ -117,7 +110,7 @@ namespace LongTie.Nlbs
                 }
                 catch
                 {
-                    MessageBox.Show("读卡器链接失败");
+                    msg += "读卡器链接失败\r\n";
                     strerror += "---读卡器连接失败";
 
                 }
@@ -134,8 +127,13 @@ namespace LongTie.Nlbs
                 }
                 catch
                 {
-                    MessageBox.Show("编码器链接失败");
+                    msg += "编码器链接失败\r\n";
                     strerror += "---编码器连接失败";
+                }
+
+                if (msg!="")
+                {
+                    MessageBox.Show(msg);
                 }
 
                 this.porterror.Content = strerror;
@@ -157,39 +155,80 @@ namespace LongTie.Nlbs
             get { return this.taskbarNotifier; }
         }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs args)
+        List<PowerList> getpower()
         {
-            // In WPF it is a challenge to hide the window's close box in the title bar.
-            // When the user clicks this, we don't want to exit the app, but rather just
-            // put it back into hiding.  Unfortunately, this is a challenge too.
-            // The follow code works around the issue.
-            // this.taskbarNotifier.Close();
+            return SerializeXML<PowerList>.Getlist();
+        }
+        PowerList GetPowerList()
+        {
+            return getpower().Find(p => p.role == SystData.userInfo.role.roleName);
+        }
 
-            if (!this.reallyCloseWindow)
+        private bool show()
+        {
+            try
             {
-                // Don't close, just Hide.
-                args.Cancel = true;
-                // Trying to hide
-                Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, (DispatcherOperationCallback)delegate (object o)
+                PowerList pl = GetPowerList();
+                if (pl == null)
                 {
-                    this.reallyCloseWindow = true;
-                    this.taskbarNotifier.Close();
-                    Environment.Exit(0);
-                    //this.Hide();
-                    return null;
-                }, null);
+                    MessageAlert.Alert("没有任何功能权限，无法登陆！");
+                    return false;
+                }
+                list(menu);
+                foreach (string s in pl.rolepower)
+                {
+                    foreach (MenuItem m in mll)
+                    {
+                        if (m.Items.Count > 0)
+                        {
+                            m.IsEnabled = true;
+                        }
+                        if (s == m.Header.ToString())
+                        {
+                            m.IsEnabled = true;
+                        }
+                    }
+                }
+                return true;
             }
-            else
+            catch
             {
-                // Actually closing window.
-
-                //this.NotifyIcon.Visibility = Visibility.Collapsed;
-
-                // Close the taskbar notifier too.
-                if (this.taskbarNotifier != null)
-                    this.taskbarNotifier.Close();
+                return false;
             }
         }
+        //protected override void OnClosing(System.ComponentModel.CancelEventArgs args)
+        //{
+        //    // In WPF it is a challenge to hide the window's close box in the title bar.
+        //    // When the user clicks this, we don't want to exit the app, but rather just
+        //    // put it back into hiding.  Unfortunately, this is a challenge too.
+        //    // The follow code works around the issue.
+        //    // this.taskbarNotifier.Close();
+
+        //    if (!this.reallyCloseWindow)
+        //    {
+        //        // Don't close, just Hide.
+        //        args.Cancel = true;
+        //        // Trying to hide
+        //        Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, (DispatcherOperationCallback)delegate (object o)
+        //        {
+        //            this.reallyCloseWindow = true;
+        //            this.taskbarNotifier.Close();
+        //            Environment.Exit(0);
+        //            //this.Hide();
+        //            return null;
+        //        }, null);
+        //    }
+        //    else
+        //    {
+        //        // Actually closing window.
+
+        //        //this.NotifyIcon.Visibility = Visibility.Collapsed;
+
+        //        // Close the taskbar notifier too.
+        //        if (this.taskbarNotifier != null)
+        //            this.taskbarNotifier.Close();
+        //    }
+        //}
 
 
         private void NotifyIcon_DoubleClick(object sender, MouseButtonEventArgs e)
@@ -214,14 +253,14 @@ namespace LongTie.Nlbs
         //    this.Activate();
         //}
 
-        private void NotifyIconExit_Click(object sender, RoutedEventArgs e)
-        {
-            // Close this window.
-            this.reallyCloseWindow = true;
-            this.taskbarNotifier.Close();
-            Environment.Exit(0);
+        //private void NotifyIconExit_Click(object sender, RoutedEventArgs e)
+        //{
+        //    // Close this window.
+        //    this.reallyCloseWindow = true;
+        //    this.taskbarNotifier.Close();
+        //    Environment.Exit(0);
 
-        }
+        //}
         private void about_Click(object sender, RoutedEventArgs e)
         {
             //this.taskbarNotifier.NotifyContent.Clear();
@@ -362,28 +401,32 @@ namespace LongTie.Nlbs
 
         private void login_Click(object sender, RoutedEventArgs e)
         {
-            if (_userinfo == null || _userinfo.role == null || _userinfo.user == null)
-            {
-                Login l = new Login(this);
-                this.main.Children.Clear();
-                this.main.Children.Add(l);
-                return;
-            }
-            UserloginState uls = new UserloginState(_userinfo);
+            //Login login = new Login();
+            //Application.Current.MainWindow = login;
+            //this.Close();
+            //login.Show();
+            //if (_userinfo == null || _userinfo.role == null || _userinfo.user == null)
+            //{
+            //    Login l = new Login(this);
+            //    this.main.Children.Clear();
+            //    this.main.Children.Add(l);
+            //    return;
+            //}
+            UserloginState uls = new UserloginState();
             this.main.Children.Clear();
             this.main.Children.Add(uls);
 
         }
         private void updatepwd_Click(object sender, RoutedEventArgs e)
         {
-            if (_userinfo == null || _userinfo.role == null || _userinfo.user == null)
-            {
-                MessageAlert.Warning("请先登录！");
-                Login lg = new Login(this);
-                this.main.Children.Clear();
-                this.main.Children.Add(lg);
-                return;
-            }
+            //if (_userinfo == null || _userinfo.role == null || _userinfo.user == null)
+            //{
+            //    MessageAlert.Warning("请先登录！");
+            //    Login lg = new Login(this);
+            //    this.main.Children.Clear();
+            //    this.main.Children.Add(lg);
+            //    return;
+            //}
 
             ModifyPwd mp = new ModifyPwd(this);
             this.main.Children.Clear();
@@ -392,24 +435,30 @@ namespace LongTie.Nlbs
 
         private void systemreset_Click(object sender, RoutedEventArgs e)
         {
-            show();
-            this.user.Content = "当前登录用户: ";
-            Login l = new Login(this);
-            this.main.Children.Clear();
-            this.main.Children.Add(l);
+
+            Login login = new Login();
+            Application.Current.MainWindow = login;
+            this.Close();
+            login.Show();
+
+            //show();
+            //this.user.Content = "当前登录用户: ";
+            //Login l = new Login(this);
+            //this.main.Children.Clear();
+            //this.main.Children.Add(l);
         }
         List<MenuItem> mll = new List<MenuItem>();
-        void show()
-        {
-            list(this.menu);
+        //void show()
+        //{
+        //    list(this.menu);
 
-            foreach (MenuItem m in mll)
-            {
-                m.IsEnabled = false;
+        //    foreach (MenuItem m in mll)
+        //    {
+        //        m.IsEnabled = false;
 
-            }
+        //    }
 
-        }
+        //}
         void list(Menu m)
         {
             List<MenuItem> ml = new List<MenuItem>();
@@ -471,7 +520,7 @@ namespace LongTie.Nlbs
 
         private void addwrench_Click(object sender, RoutedEventArgs e)
         {
-            editerWrench ew = new editerWrench(_userinfo);
+            editerWrench ew = new editerWrench();
             this.main.Children.Clear();
             this.main.Children.Add(ew);
 
@@ -574,16 +623,24 @@ namespace LongTie.Nlbs
             // this.WindowState = System.Windows.WindowState.Normal;
             //  this.WindowStyle = System.Windows.WindowStyle.None;
             //this.ResizeMode = System.Windows.ResizeMode.NoResize;
-
-            this.ResizeMode = System.Windows.ResizeMode.NoResize;
+             
             this.Left = 0.0;
             this.Top = 0.0;
             this.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
             this.Height = System.Windows.SystemParameters.PrimaryScreenHeight;
-            l = new Login(this);
-            this.main.Children.Clear();
-            this.main.Children.Add(l);
-            ew = new editerWrench(_userinfo);
+            show();
+            if (this.cf == null)
+            {
+                this.main.Children.Add(cf = new CheckFinal(ruc, rct1, rct2));
+                cf.SetSerialPort = EncoderPlcPort;
+            }
+            else
+                this.main.Children.Add(cf);
+            this.user.Content = "当前登录用户:" + SystData.userInfo.user.username;
+            //    l = new Login(this);
+            //this.main.Children.Clear();
+            //this.main.Children.Add(l);
+            ew = new editerWrench();
             List<systemcheckset> ls = new List<systemcheckset>();
             try
             {
@@ -666,17 +723,29 @@ namespace LongTie.Nlbs
 
         private void Mainwindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageAlert.Alter("是否退出系统！"))
+            if (reallyCloseWindow)
+            {
+                if (MessageAlert.Alter("是否退出系统！"))
+                {
+                    TurnLight(false);
+                    this.taskbarNotifier.Close();
+                    rct1.ClosePort();
+                    rct2.ClosePort();
+                    if (rC.IsOpen)
+                        rC.Close();
+                    Environment.Exit(0);
+                }
+            }
+            else
             {
                 TurnLight(false);
-                this.reallyCloseWindow = true;
                 this.taskbarNotifier.Close();
                 rct1.ClosePort();
                 rct2.ClosePort();
                 if (rC.IsOpen)
                     rC.Close();
-                Environment.Exit(0);
             }
+
         }
 
         void TurnLight(bool status = true)
@@ -696,14 +765,14 @@ namespace LongTie.Nlbs
 
         private void borrow_Click(object sender, RoutedEventArgs e)
         {
-            WrenchBorrow wb = new WrenchBorrow(ruc, _userinfo);
+            WrenchBorrow wb = new WrenchBorrow(ruc);
             this.main.Children.Clear();
             this.main.Children.Add(wb);
         }
 
         private void return_Click(object sender, RoutedEventArgs e)
         {
-            WrenchReturn wr = new WrenchReturn(ruc, _userinfo);
+            WrenchReturn wr = new WrenchReturn(ruc);
             this.main.Children.Clear();
             this.main.Children.Add(wr);
         }

@@ -1,4 +1,5 @@
-﻿using LongTie.Nlbs.User;
+﻿using LongTie.Nlbs.Common;
+using LongTie.Nlbs.User;
 using LongTie.Nlbs.Wrench;
 using LT.BLL;
 using LT.BLL.Borrow;
@@ -38,17 +39,15 @@ namespace LongTie.Nlbs.Borrow
         ReadUserCard ruc = null;
    //     System.Timers.Timer aTimer = null;
         FilterData filterdata = new FilterData();
-        GetUser getuser = new GetUser();
-        userinfo _userinfo = new userinfo();
+        GetUser getuser = new GetUser(); 
         userinfo borrowuser = null;
         string backcard = "";
         List<BorrowWrench> borrowwrenchlist = new List<BorrowWrench>();
         private delegate void TimerDispatcherDelegate();
-        public WrenchBorrow(ReadUserCard r, userinfo u)
+        public WrenchBorrow(ReadUserCard r)
         {
             InitializeComponent();
-            ruc = r;
-            _userinfo = u;
+            ruc = r; 
             //aTimer = new System.Timers.Timer(1000);
             //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             //aTimer.Interval = 10;
@@ -104,7 +103,7 @@ namespace LongTie.Nlbs.Borrow
             if (cb_user.SelectedIndex == 2)
             {
                 WrenchBorrowHistory wbh = new WrenchBorrowHistory();
-                List<BorrowHistory> bhl = wbh.GetByUser(Borrow .SelectByUser ( _userinfo.user.guid));
+                List<BorrowHistory> bhl = wbh.GetByUser(Borrow .SelectByUser (SystData.userInfo.user.guid));
                 UserBorrow ub = new UserBorrow(bhl);
                 ub.ShowDialog();
             }
@@ -200,8 +199,8 @@ namespace LongTie.Nlbs.Borrow
                borrowdate =DateTime .Now .ToString ("yyyy-MM-dd HH:mm:ss"),
                userguid =borrowuser.user .guid ,
                username =borrowuser .user .username ,
-               operatorguid =_userinfo .user .guid ,
-               options =_userinfo .user .username ,
+               operatorguid = SystData.userInfo.user .guid ,
+               options = SystData.userInfo.user .username ,
                wrenchid =w.id.ToString ()
             
               

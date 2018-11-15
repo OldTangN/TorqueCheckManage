@@ -36,8 +36,7 @@ namespace LongTie.Nlbs.User
         IUser _User = DataAccess .CreateUser();
         IUserRole _UserRole = DataAccess.CreateUserRole();
         IDepartment _Department = DataAccess.CreateDepartment();
-        IUserToRole UserToRole = DataAccess.CreateUserToRole();
-        MainWindow _wm = new MainWindow();
+        IUserToRole UserToRole = DataAccess.CreateUserToRole(); 
 
         FilterData filterdata = new FilterData();
         ReadUserCard ruc = null;  

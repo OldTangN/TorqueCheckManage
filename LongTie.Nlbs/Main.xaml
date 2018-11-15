@@ -11,18 +11,20 @@
         Loaded="Mainwindow_Loaded"
         Closing="Mainwindow_Closing" 
      WindowStartupLocation="CenterScreen"
-         AllowsTransparency="False"
+         AllowsTransparency="False" ResizeMode="NoResize" 
         WindowStyle="None"  
         >
     <!--Style="{DynamicResource NoResize_window}"-->
+    <Window.Background>
+        <ImageBrush ImageSource="Images/bg_table2.png" Viewport="0,0,1,1"/>
+    </Window.Background>
 
-
-    <Window.Resources >
+    <!--<Window.Resources >
         <Style  TargetType="Separator">
             <Setter Property="Background" Value="LightBlue" />
                   
         </Style>
-    </Window.Resources>
+    </Window.Resources>-->
 
     <Grid >
         <Grid.RowDefinitions >

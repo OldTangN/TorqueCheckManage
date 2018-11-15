@@ -1,4 +1,5 @@
-﻿using LT.Comm;
+﻿using LongTie.Nlbs.Common;
+using LT.Comm;
 using LT.DAL;
 using LT.DAL.MySql;
 using System;
@@ -20,9 +21,9 @@ namespace LongTie.Nlbs.User
     /// <summary>
     /// Interaction logic for ModifyPwd.xaml
     /// </summary>
-    public partial class ModifyPwd 
+    public partial class ModifyPwd
     {
-        Main _m=null;
+        Main _m = null;
         IUser User = DataAccess.CreateUser();
         public ModifyPwd(Main m)
         {
@@ -31,15 +32,16 @@ namespace LongTie.Nlbs.User
         }
         private void BtLogin_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(this.pb_name.Password)||string.IsNullOrEmpty (this .pb_password.Password )||string .IsNullOrEmpty (this.pb_qpwd.Password ))
+            if (string.IsNullOrEmpty(this.pb_name.Password) || string.IsNullOrEmpty(this.pb_password.Password) || string.IsNullOrEmpty(this.pb_qpwd.Password))
             { MessageAlert.Warning("请输入必要信息！ * 为必填信息"); return; }
 
-            if (!_m.l._userinfo . user.password.Equals(MD5Encrypt .GetMD5 ( this.pb_name.Password)))
+            if (!SystData.userInfo.user.password.Equals(MD5Encrypt.GetMD5(this.pb_name.Password)))
             {
                 MessageAlert.Warning("输入密码和登录密码不匹配！");
                 return;
             }
-            if (!this.pb_password.Password .Equals(this.pb_qpwd.Password)) {
+            if (!this.pb_password.Password.Equals(this.pb_qpwd.Password))
+            {
                 MessageAlert.Warning("新密码和确认密码不一致！");
                 return;
             }
@@ -47,8 +49,8 @@ namespace LongTie.Nlbs.User
             {
                 if (_m != null)
                 {
-                    _m.l._userinfo .user.password =MD5Encrypt .GetMD5 (this.pb_qpwd.Password);
-                    if (User.Update(_m.l._userinfo.user))
+                    SystData.userInfo.user.password = MD5Encrypt.GetMD5(this.pb_qpwd.Password);
+                    if (User.Update(SystData.userInfo.user))
                     {
                         MessageAlert.Alert("密码更新成功！");
                     }
@@ -58,7 +60,7 @@ namespace LongTie.Nlbs.User
                     }
                 }
             }
-            catch(Exception ex) { MessageAlert .Alert (ex.ToString ());}
+            catch (Exception ex) { MessageAlert.Alert(ex.ToString()); }
         }
     }
 }

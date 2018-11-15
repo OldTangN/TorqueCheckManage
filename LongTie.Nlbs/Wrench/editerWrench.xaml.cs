@@ -1,4 +1,5 @@
-﻿using LT.BLL;
+﻿using LongTie.Nlbs.Common;
+using LT.BLL;
 using LT.BLL.Wrench;
 using LT.Comm;
 using LT.DAL;
@@ -42,14 +43,16 @@ namespace LongTie.Nlbs.Wrench
         IBorrow Borrow = new MySqlBorrow();
         ICheckTarget CheckTarget = DataAccess.CreateCheckTarget();
         ICheckTargetRecord CheckTargetRecord = DataAccess.CreateCheckTargetRecord();
-        bool isadd = true ; 
-        userinfo _userinfo=null;
+        bool isadd = true ;
+         
 
-     public  editerWrench(userinfo u)
+        //  userinfo _userinfo=null;
+
+        public  editerWrench()
         {
             InitializeComponent();
           
-            _userinfo = u;
+         //   _userinfo = u;
         }
 
      private void getwrenchlist(List<ToolModel> toolmodellist)
@@ -486,9 +489,9 @@ namespace LongTie.Nlbs.Wrench
         bool SqlietDelWrench(wrench w)
         {
             StringBuilder ws = new StringBuilder("");
-            if (_userinfo != null && _userinfo.user != null)
+            if (SystData .userInfo != null && SystData.userInfo.user != null)
             {
-                ws.Append("操作人：" + _userinfo.user.username + "\n");
+                ws.Append("操作人：" + SystData.userInfo.user.username + "\n");
             }
             ws.Append("wrench:"
                 + " 工具编号 " + w.wrenchCode
@@ -535,9 +538,9 @@ namespace LongTie.Nlbs.Wrench
                 StringBuilder borrowlist = new StringBuilder("");
                 StringBuilder checklist = new StringBuilder("");
                 StringBuilder ws = new StringBuilder("");
-                if (_userinfo != null && _userinfo.user != null)
+                if (SystData.userInfo != null && SystData.userInfo.user != null)
                 {
-                    ws.Append("操作人："+_userinfo.user .username +"\n");
+                    ws.Append("操作人："+ SystData.userInfo.user .username +"\n");
                 }
                 ws.Append("wrench:"
                     + " 工具编号 " + w.wrenchCode

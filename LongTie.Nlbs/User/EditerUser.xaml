@@ -10,23 +10,23 @@
     <Grid.Resources >
         <local:Converter x:Key="converter"></local:Converter>
         <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
-            <Setter Property="HorizontalContentAlignment" Value="Center"    ></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
         </Style>
 
         <Style x:Key="dgCell" TargetType="TextBlock">
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter  Property="VerticalAlignment" Value="Center"  ></Setter>
             <Setter Property="HorizontalAlignment" Value="Center" />
-        </Style>   
+        </Style>
         <Style TargetType="ComboBox" >
             <Setter Property="VerticalContentAlignment"  Value="Center" ></Setter>
 
         </Style>
         <Style TargetType="Label"  >
             <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="HorizontalContentAlignment" Value="Left" ></Setter> 
+            <Setter Property="HorizontalContentAlignment" Value="Left" ></Setter>
             <Setter Property="VerticalContentAlignment"  Value="Center" ></Setter>
-            
+
         </Style>
     </Grid.Resources>
     <Grid.RowDefinitions >
@@ -83,12 +83,12 @@
                 <Button Content="提 交" Background="#1E90FF" Height="30" HorizontalAlignment="Left" Margin="10,521,0,0" Name="button_submit" VerticalAlignment="Top" Width="94" Click="button_submit_Click" />
                 <RadioButton Content="是" Visibility="Hidden"  Height="23" HorizontalAlignment="Left" Margin="90,318,0,0" Name="radio_is_staff" VerticalAlignment="Top" IsChecked="True" GroupName="radiogroup1" />
                 <RadioButton Content="否" Visibility="Hidden"  Height="23" HorizontalAlignment="Left" Margin="149,318,0,0" Name="radio_not_stuff" VerticalAlignment="Top" GroupName="radiogroup1" />
-              
+
                 <Label Content="员工编号"      HorizontalAlignment="Left" Margin="10,131,0,0" x:Name="label2_Copy" VerticalAlignment="Top" Width="Auto" RenderTransformOrigin="0.483,1.174" />
 
-             
+
                 <Button Name="bt_reset" Background="#1E90FF" Content="取 消" Height="30" HorizontalAlignment="Left" Margin="146,521,0,0" VerticalAlignment="Top" Width="94" Click="bt_reset_Click"/>
-              
+
                 <Label Content="*" HorizontalAlignment="Left" Margin="228,37,0,0" VerticalAlignment="Top"/>
                 <Label Content="*" HorizontalAlignment="Left" Margin="229,84,0,0" VerticalAlignment="Top"/>
                 <Label Content="*" HorizontalAlignment="Left" Margin="228,137,0,0" VerticalAlignment="Top"/>
@@ -98,55 +98,56 @@
                 <Label Content="*" HorizontalAlignment="Left" Margin="228,335,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.667,2.52"/>
                 <Label Content="注：*为必填信息" HorizontalAlignment="Left" Margin="81,565,0,0" VerticalAlignment="Top"/>
                 <Label Content="入职时间" HorizontalAlignment="Left" Margin="6,440,0,0"   VerticalAlignment="Top"/>
-               
+
             </Grid>
         </StackPanel>
     </Border>
 
     <Border Grid.Row="1" Grid.Column="1" BorderBrush="Silver"   BorderThickness="1,0,1,1" Margin="10,0,10,10">
-       
-            <DataGrid Grid.Row="1" CanUserAddRows="False"   RowHeaderWidth="0" AutoGenerateColumns="False"    Name="dataGrid1" Margin="10" AlternationCount="2" AlternatingRowBackground="#f0fff0" >
-                <DataGrid.Background>
+
+        <DataGrid Grid.Row="1" CanUserAddRows="False"   RowHeaderWidth="0" AutoGenerateColumns="False"  SelectionMode="Single"   Name="dataGrid1" AlternationCount="2" >
+            <DataGrid.Background>
                     <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
-                </DataGrid.Background>
-                <!--<DataGrid.ColumnHeaderStyle >
+          </DataGrid.Background>
+            <!--<DataGrid.ColumnHeaderStyle >
                     <Style TargetType="DataGridColumnHeader" >
                         <Setter Property="HorizontalContentAlignment" Value="Center" ></Setter>
                         <Setter Property="Height" Value="25"></Setter>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>-->
-                <DataGrid.Columns>
-                    <DataGridTextColumn  IsReadOnly="True" Header="员工编号"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=empID}" Width="70"  />
-                    <DataGridTextColumn   IsReadOnly="True" Header="姓 名"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  Binding="{Binding Path=username}"   Width="70"   />
+            <DataGrid.Columns>
+                <DataGridTextColumn  IsReadOnly="True" Header="员工编号"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=empID}" Width="70*"  />
+                <DataGridTextColumn   IsReadOnly="True" Header="姓 名"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  Binding="{Binding Path=username}"   Width="70*"   />
 
-                    <DataGridTextColumn   IsReadOnly="True" Header="员工卡号"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=cardID}"   Width="90"   />
-                    <DataGridTextColumn  IsReadOnly="True" Header="部 门"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  Binding="{Binding Path=departName}"  Width="70"   />
-                    <DataGridTextColumn Visibility="Hidden"  IsReadOnly="True" Header="职 位"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=dutyname}"  Width="70"   />
-                    <DataGridTextColumn  IsReadOnly="True" Header="角 色"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"    Binding="{Binding Path=roleName}"  Width="80"   />
-                    <DataGridTextColumn  IsReadOnly="True" Header="联系方式"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=phoneNumber}"  Width="90"   />
-                <DataGridTextColumn  IsReadOnly="True" Header="入职时间"  HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=joinDate, StringFormat='yyyy-MM-dd'  }" Width="80"   />
-                    <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"  Width="145"  HeaderStyle="{StaticResource dgheader}">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Grid HorizontalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition ></ColumnDefinition>
-                                        <ColumnDefinition ></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <Button Grid.Column="0"  Tag="{Binding Path=id}"  Click="editButtonClick" Content="编 辑" Background="#f0e68c"  BorderBrush="{x:Null}" Width="60" >
+                <DataGridTextColumn   IsReadOnly="True" Header="员工卡号"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=cardID}"   Width="90*"   />
+                <DataGridTextColumn  IsReadOnly="True" Header="部 门"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  Binding="{Binding Path=departName}"  Width="70*"   />
+                <DataGridTextColumn Visibility="Hidden"  IsReadOnly="True" Header="职 位"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=dutyname}"  Width="70*"   />
+                <DataGridTextColumn  IsReadOnly="True" Header="角 色"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"    Binding="{Binding Path=roleName}"  Width="80*"   />
+                <DataGridTextColumn  IsReadOnly="True" Header="员工职位"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"    Binding="{Binding Path=roleName}"  Width="80*"   />
+                <DataGridTextColumn  IsReadOnly="True" Header="联系方式"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"   Binding="{Binding Path=phoneNumber}"  Width="90*"   />
+                <DataGridTextColumn  IsReadOnly="True" Header="入职时间"  HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=joinDate, StringFormat='yyyy-MM-dd'  }" Width="80*"   />
+                <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"  Width="145*"  HeaderStyle="{StaticResource dgheader}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                    <ColumnDefinition ></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Grid.Column="0"  Tag="{Binding Path=id}"  Click="editButtonClick" Content="编 辑" Background="#f0e68c"  BorderBrush="{x:Null}" Width="60" >
 
-                                    </Button>
-                                    <Button Grid.Column="1"  Tag="{Binding Path=.}"  Click="delbuttonclick" Content="删 除" Background="#f0e68c" BorderBrush="{x:Null}" Width="60" >
+                                </Button>
+                                <Button Grid.Column="1"  Tag="{Binding Path=.}"  Click="delbuttonclick" Content="删 除" Background="#f0e68c" BorderBrush="{x:Null}" Width="60" >
 
 
-                                    </Button>
-                                </Grid>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-    
+                                </Button>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Border>
 
 </Grid>

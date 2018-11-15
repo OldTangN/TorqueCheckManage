@@ -162,6 +162,7 @@
     <Compile Include="Common\ConverterImage.cs" />
     <Compile Include="Common\GridHelp.cs" />
     <Compile Include="Common\GridHelper.cs" />
+    <Compile Include="Common\SystData.cs" />
     <Compile Include="Control\CheckControl\ReadPort.cs" />
     <Compile Include="Control\EncoderControl\EncoderConvert.cs" />
     <Compile Include="Help\About.xaml.cs">
@@ -350,20 +351,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="MyDefine\MyTabitem.xaml">
       <SubType>Designer</SubType>
@@ -556,9 +549,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Login_top.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\gap.png" />
   </ItemGroup>
   <ItemGroup>
@@ -729,9 +719,6 @@
     <Resource Include="Images\cancel_submit.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Logo.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -745,6 +732,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\lgb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Login_top.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets')" />

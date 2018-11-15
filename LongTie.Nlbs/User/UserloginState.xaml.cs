@@ -1,4 +1,5 @@
-﻿using LT.Model;
+﻿using LongTie.Nlbs.Common;
+using LT.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,20 +21,20 @@ namespace LongTie.Nlbs.User
     /// </summary>
     public partial class UserloginState 
     {
-        public UserloginState(userinfo userinfos)
+        public UserloginState()
         {
             InitializeComponent();
-            show(userinfos);
+            show();
         }
 
-        public void show(userinfo ui) 
+        public void show() 
         {
-            if (ui == null || ui.role == null || ui.user == null)
+            if (SystData.userInfo== null || SystData.userInfo.role == null || SystData.userInfo.user == null)
             { return; }
             lb_sataus.Content = "当前登录状态：已登陆";
-            lb_username.Content = ui.user.username;
-            lb_userdepartment.Content = ui.department.departmentName;
-            lb_userrole.Content = ui.role.roleName;
+            lb_username.Content = SystData.userInfo.user.username;
+            lb_userdepartment.Content = SystData.userInfo.department.departmentName;
+            lb_userrole.Content = SystData.userInfo.role.roleName;
         }
     }
 }
