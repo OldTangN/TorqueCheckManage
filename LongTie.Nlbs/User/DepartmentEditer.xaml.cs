@@ -23,14 +23,14 @@ namespace LongTie.Nlbs.User
     /// <summary>
     /// Interaction logic for DepartmentEditer.xaml
     /// </summary>
-    public partial class DepartmentEditer 
+    public partial class DepartmentEditer
     {
         LoadTree lt = null;
-        IDepartment Department = DataAccess .CreateDepartment ();
+        IDepartment Department = DataAccess.CreateDepartment();
         public DepartmentEditer()
-        {             
+        {
             InitializeComponent();
-          
+
         }
 
         private List<DepartmentModel> GetDepartmentModel()
@@ -40,32 +40,32 @@ namespace LongTie.Nlbs.User
             if (departmentlist != null && departmentlist.Count > 0)
             {
                 foreach (department d in departmentlist)
-                {  
-                    department pd =new department ();
+                {
+                    department pd = new department();
                     pd.departmentName = "";
-                    if(d.parentDepartment !="")
-                     pd = Department.SelectByGuid (d.parentDepartment);
+                    if (d.parentDepartment != "")
+                        pd = Department.SelectByGuid(d.parentDepartment);
 
                     departmentmodellist.Add(new DepartmentModel()
                     {
-                        delDepartment =false ,
-                        parentname =pd==null?"":pd.departmentName ,
-                        id =d.id,
-                        guid =d.guid ,
-                        departmentName =d.departmentName ,
-                        comment =d.comment 
+                        delDepartment = false,
+                        parentname = pd == null ? "" : pd.departmentName,
+                        id = d.id,
+                        guid = d.guid,
+                        departmentName = d.departmentName,
+                        comment = d.comment
                     });
                 }
-             
+
             }
-            return departmentmodellist ;
+            return departmentmodellist;
         }
 
 
         private void tvProperties_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             //MessageBox.Show("选择该变");
-           
+
         }
 
         private void add_Click(object sender, RoutedEventArgs e)
@@ -82,14 +82,14 @@ namespace LongTie.Nlbs.User
                     return;
                 }
             }
-         
 
-            winDepartment wd = new winDepartment(c.id ,c.id ,true);
-            wd.ShowDialog ();
+
+            winDepartment wd = new winDepartment(c.id, c.id, true);
+            wd.ShowDialog();
             this.tvProperties.ItemsSource = null;
             lt.TreeLoad();
             this.dataGrid1.ItemsSource = GetDepartmentModel();
-        
+
         }
 
         private void editer_Click(object sender, RoutedEventArgs e)
@@ -100,7 +100,7 @@ namespace LongTie.Nlbs.User
                 MessageAlert.Alert("请先选择要操作的部门");
                 return;
             }
-            winDepartment wd = new winDepartment(c.parentId, c.id, false );
+            winDepartment wd = new winDepartment(c.parentId, c.id, false);
             wd.ShowDialog();
             this.tvProperties.ItemsSource = null;
             lt.TreeLoad();
@@ -114,7 +114,7 @@ namespace LongTie.Nlbs.User
             lt.TreeLoad();
         }
 
- 
+
 
         private void del_Click(object sender, RoutedEventArgs e)
         {
@@ -124,10 +124,10 @@ namespace LongTie.Nlbs.User
                 MessageAlert.Alert("请先选择要操作的部门");
                 return;
             }
-               
+
             department d = new department();
-          
-            if (c.Children.Count >0)
+
+            if (c.Children.Count > 0)
             {
                 MessageAlert.Alert("该部门存在子部门\n不能删除！");
                 return;

@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\ChangeWindowSize.cs" />
-    <Compile Include="Config.cs" />
     <Compile Include="EncryptUtil.cs" />
     <Compile Include="FileOperate.cs" />
     <Compile Include="Hardware.cs" />

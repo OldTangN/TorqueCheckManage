@@ -142,17 +142,17 @@
                     <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
                 </DataGrid.Background>
                 <DataGrid.Columns>
-                    <DataGridTextColumn  IsReadOnly="True" Header="序 号"   Binding="{Binding id}"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  Width="50"  />
-                    <DataGridTextColumn  IsReadOnly="True" Header="扳手编号"    Binding="{Binding wrenchCode}" Width="100"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTextColumn  IsReadOnly="True" Header="扳手条码号"    Binding="{Binding wrenchBarCode}" Width="100"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTextColumn  IsReadOnly="True" Header="量程下限(N.m)"   Binding="{Binding rangeMin}"  Width="100"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTextColumn  IsReadOnly="True" Header="量程上限(N.m)"    Binding="{Binding rangeMax}"  Width="100"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTextColumn  IsReadOnly="True" Header="单 位"  Visibility="Hidden"  Binding="{Binding unit}"  Width="80"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  />
-                    <DataGridTextColumn  IsReadOnly="True" Header="目标值(N.m)"   Binding="{Binding targetvalue}"  Width="80"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  />
-                    <DataGridTextColumn IsReadOnly="True" Header="生产厂家" Binding="{Binding factory}" Width=" 100"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTextColumn  IsReadOnly="True" Header="设备状态"   Binding="{Binding statusName}"  Width="70"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTextColumn IsReadOnly="True" Header="备 注" Binding="{Binding comment}" Width=" 80" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                    <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"    HeaderStyle="{StaticResource dgheader}"   Width="160" >
+                    <DataGridTextColumn  IsReadOnly="True" Header="序 号"   Binding="{Binding id}"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  Width="50*"  />
+                    <DataGridTextColumn  IsReadOnly="True" Header="扳手编号"    Binding="{Binding wrenchCode}" Width="100*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTextColumn  IsReadOnly="True" Header="扳手条码号"    Binding="{Binding wrenchBarCode}" Width="100*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTextColumn  IsReadOnly="True" Header="量程下限(N.m)"   Binding="{Binding rangeMin}"  Width="100*"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTextColumn  IsReadOnly="True" Header="量程上限(N.m)"    Binding="{Binding rangeMax}"  Width="100*"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTextColumn  IsReadOnly="True" Header="单 位"  Visibility="Hidden"  Binding="{Binding unit}"  Width="80*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  />
+                    <DataGridTextColumn  IsReadOnly="True" Header="目标值(N.m)"   Binding="{Binding targetvalue}"  Width="80*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  />
+                    <DataGridTextColumn IsReadOnly="True" Header="生产厂家" Binding="{Binding factory}" Width=" 100*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTextColumn  IsReadOnly="True" Header="设备状态"   Binding="{Binding statusName}"  Width="70*"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTextColumn IsReadOnly="True" Header="备 注" Binding="{Binding comment}" Width=" 80*" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                    <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"    HeaderStyle="{StaticResource dgheader}"   Width="160*" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid    HorizontalAlignment="Center">

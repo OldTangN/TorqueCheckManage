@@ -75,9 +75,9 @@
             <DataGrid.Columns>
 
                 <DataGridTextColumn Binding="{Binding parentSpecies}" IsReadOnly="True"   Header="父编号" Width="150" Visibility="Hidden"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                <DataGridTextColumn Binding="{Binding speciesName}" IsReadOnly="True"  Header="种类名称" Width="150"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                <DataGridTextColumn Binding="{Binding speciesCode}"  IsReadOnly="True"  Header="种类编号" Width="150"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                <DataGridTextColumn Binding="{Binding comment}" IsReadOnly="True" Visibility="Hidden"   Header="说 明" Width="150" />
+                <DataGridTextColumn Binding="{Binding speciesName}" IsReadOnly="True"  Header="种类名称" Width="150*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn Binding="{Binding speciesCode}"  IsReadOnly="True"  Header="种类编号" Width="150*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn Binding="{Binding comment}" IsReadOnly="True" Visibility="Hidden"   Header="说 明" Width="150*" />
                 <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"    HeaderStyle="{StaticResource dgheader}"   Width="260"  >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

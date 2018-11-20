@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
           xmlns:covert="clr-namespace:LongTie.Nlbs.Common"  
-        Height="700" Width="1024" Loaded="Window_Loaded" >    
+        Height="700" Loaded="Window_Loaded" >    
     <Grid.Resources>
         <covert:ConverterImage x:Key="convert"></covert:ConverterImage>
         <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
@@ -10,7 +10,7 @@
             <Setter Property="Background" Value="#FF0895F7"  ></Setter>
             <Setter Property="BorderBrush" Value="Silver" ></Setter>
             <Setter Property="BorderThickness" Value="1" ></Setter>
-            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
         </Style>
         <Style x:Key="dgCell" TargetType="TextBlock">
             <Setter Property="TextAlignment" Value="Center"/>
@@ -66,7 +66,7 @@
                                             <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/people.png"/>
                                         </Label.Background>
                                     </Label>-->
-                                    <Image Height="32" Width="32" Source="/LongTie.Nlbs;component/Images/user.png" />
+                                    <Image Height="25" Width="25" Source="/Images/user.png" />
                                            
                                     <Label HorizontalContentAlignment="Left"  VerticalContentAlignment="Center" Margin="10,0,0,0"   FontSize="15">校验员</Label>
                                     <Border BorderBrush="Black"  BorderThickness="0,0,0,1"  VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -119,7 +119,7 @@
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
                             <StackPanel Orientation="Horizontal" Height="30"  Margin="5,10" >
                                 <StackPanel Orientation="Horizontal"  >
-                                       <Image Height="32" Width="32" Source="/LongTie.Nlbs;component/Images/user.png" />
+                                       <Image Height="25" Width="25" Source="/Images/user.png" />
                                       
                                     <!--<Label Height="37" Width="40">
                                         <Label.Background>
@@ -172,13 +172,12 @@
                             <TextBox Name="tb_wrenchbarcode" FontSize="15" Height="30" Width="140" VerticalContentAlignment="Center"   GotFocus="tb_wrenchbarcode_GotFocus" KeyDown="tb_wrenchbarcode_KeyDown"></TextBox>
                            
                             <Button Width="0" Height="32" Name="bt_wrenchbarcode" Margin="10,0" Click="bt_wrenchbarcode_Click" Background="{x:Null}">
-                                <Image Source="/LongTie.Nlbs;component/Images/search.png"></Image>
+                                <Image Source="/Images/search.png"></Image>
                             </Button>
                         </StackPanel>
-                        <RadioButton Width="60"  Height="50" Margin="0,10,5,5" Cursor="Hand" VerticalAlignment="Top"  Style="{DynamicResource RDOButton}" SnapsToDevicePixels="True"  Click="bt_wrenchbarcode_Click">
+                        <RadioButton Width="50"  Height="50" Margin="0,5,5,5" Cursor="Hand" VerticalAlignment="Top"  Style="{DynamicResource RDOButton}" SnapsToDevicePixels="True"  Click="bt_wrenchbarcode_Click">
                             <StackPanel HorizontalAlignment="Center">
-                                <Image Width="24" Height="24" Margin="0,5" Source="/LongTie.Nlbs;component/Images/search_check.png">
-
+                                <Image Width="24" Height="24" Margin="0,5" Source="/Images/search_check.png">
                                 </Image>
                                 <TextBlock HorizontalAlignment="Center" ><Run Text="查找"/></TextBlock>
                             </StackPanel>
@@ -193,9 +192,9 @@
                      
 
                         </StackPanel>
-                        <RadioButton Width="60"  Height="50" Cursor="Hand" Name="editer_check" Margin="0,5,5,5" VerticalAlignment="Top"  Style="{DynamicResource RDOButton}" SnapsToDevicePixels="True" Click="editer_check_Click" KeyDown="editer_check_KeyDown"  >
+                        <RadioButton Width="50"  Height="50" Cursor="Hand" Name="editer_check" Margin="0,5,5,5" VerticalAlignment="Top"  Style="{DynamicResource RDOButton}" SnapsToDevicePixels="True" Click="editer_check_Click" KeyDown="editer_check_KeyDown"  >
                             <StackPanel HorizontalAlignment="Center">
-                                <Image Width="24" Height="24" Margin="0,5" Source="/LongTie.Nlbs;component/Images/editer_check.png">
+                                <Image Width="24" Height="24" Margin="0,5" Source="/Images/editer_check.png">
 
                                 </Image>
                                 <TextBlock HorizontalAlignment="Center" ><Run Text="编辑"/></TextBlock>
@@ -253,7 +252,7 @@
             </Grid.ColumnDefinitions>
             <StackPanel  Orientation="Horizontal" Margin="-1,0,1,0" >
                 <StackPanel Orientation="Horizontal"  VerticalAlignment="Center" Margin="10,0,20,0">
-                    <Image Height="32" Width="32" Source="/LongTie.Nlbs;component/Images/networking.png"></Image>
+                    <Image Height="25" Width="25" Source="/Images/networking.png"></Image>
                     <Label FontSize="15" Content="校验仪名称" HorizontalContentAlignment="Left"  Margin="10,0,0,0"></Label>
                     <Border BorderBrush="Black" BorderThickness="0,0,0,1"  VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Name="tb_testername" FontSize="15"  Width="115" TextAlignment="Center" />
@@ -319,27 +318,27 @@
     <Border Grid.Row="4" BorderBrush="Silver"  BorderThickness="1,0">
         <Grid >
             <Grid.RowDefinitions >
-                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition ></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions >
+            <!--<Grid.ColumnDefinitions >
                 <ColumnDefinition Width="3*" ></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <DataGrid Name="dgheader" RowHeaderWidth="0" FontSize="15" AutoGenerateColumns="False" CanUserAddRows="True"  AlternationCount="2" AlternatingRowBackground="#f0fff0" >
+            </Grid.ColumnDefinitions>-->
+            <DataGrid Name="dgheader" RowHeaderWidth="0" FontSize="15" AutoGenerateColumns="False" CanUserAddRows="False"  AlternationCount="2" AlternatingRowBackground="#f0fff0" >
                 <DataGrid.Background>
-                    <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
+                    <ImageBrush ImageSource="/Images/bg_table2.png"/>
                 </DataGrid.Background>
                 <DataGrid.Columns >
-                    <DataGridTextColumn  HeaderStyle="{StaticResource dgheader}" IsReadOnly="True" Header="序 号"  Width="90"  ElementStyle="{StaticResource dgCell}">
+                    <DataGridTextColumn  HeaderStyle="{StaticResource dgheader}" IsReadOnly="True" Header="序 号"  Width="90*"  ElementStyle="{StaticResource dgCell}">
                     </DataGridTextColumn>
-                    <DataGridTextColumn IsReadOnly="True"  Header="设定值(N.m)"  Width="170" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}">
+                    <DataGridTextColumn IsReadOnly="True"  Header="设定值(N.m)"  Width="170*" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}">
 
                     </DataGridTextColumn>
-                    <DataGridTextColumn IsReadOnly="True" Header="合格范围(N.m)" Width="200" HeaderStyle="{StaticResource dgheader}"  ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn IsReadOnly="True" Header="校验值(N.m)" Width="190" HeaderStyle="{StaticResource dgheader}"   ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                    <DataGridTextColumn IsReadOnly="True" Header="误 差" Width="170" HeaderStyle="{StaticResource dgheader}"   ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="合格范围(N.m)" Width="200*" HeaderStyle="{StaticResource dgheader}"  ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="校验值(N.m)" Width="190*" HeaderStyle="{StaticResource dgheader}"   ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                    <DataGridTextColumn IsReadOnly="True" Header="误 差" Width="170*" HeaderStyle="{StaticResource dgheader}"   ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
                     <!--<DataGridTextColumn IsReadOnly="True" Header="结 果" Width="190*" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=result}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>-->
-                    <DataGridTextColumn Header="结 果" Width="200" HeaderStyle="{StaticResource dgheader}" > </DataGridTextColumn>
+                    <DataGridTextColumn Header="结 果" Width="200*" HeaderStyle="{StaticResource dgheader}" > </DataGridTextColumn>
                     </DataGrid.Columns >
             </DataGrid>
 
@@ -349,16 +348,16 @@
                         <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
                     </DataGrid.Background>
                     <DataGrid.Columns >
-                        <DataGridTextColumn   HeaderStyle="{StaticResource dgheader}" IsReadOnly="True" Header="序 号"  Width="90"  Binding="{Binding Path=id}" ElementStyle="{StaticResource dgCell}">
+                        <DataGridTextColumn   HeaderStyle="{StaticResource dgheader}" IsReadOnly="True" Header="序 号"  Width="90*"  Binding="{Binding Path=id}" ElementStyle="{StaticResource dgCell}">
                         </DataGridTextColumn>
-                        <DataGridTextColumn IsReadOnly="True"  Header="设定值(N.m)"  Width="170" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=setdata}" ElementStyle="{StaticResource dgCell}">
+                        <DataGridTextColumn IsReadOnly="True"  Header="设定值(N.m)"  Width="170*" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=setdata}" ElementStyle="{StaticResource dgCell}">
                            
                         </DataGridTextColumn>
-                        <DataGridTextColumn IsReadOnly="True" Header="合格范围(N.m)" Width="200" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=normalrang}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                        <DataGridTextColumn IsReadOnly="True" Header="校验值(N.m)" Width="190" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=checkdata}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                        <DataGridTextColumn IsReadOnly="True" Header="误 差" Width="170" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=error}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="合格范围(N.m)" Width="200*" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=normalrang}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="校验值(N.m)" Width="190*" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=checkdata}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn IsReadOnly="True" Header="误 差" Width="170*" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=error}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
                         <!--<DataGridTextColumn IsReadOnly="True" Header="结 果" Width="190*" HeaderStyle="{StaticResource dgheader}"  Binding="{Binding Path=result}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>-->
-                        <DataGridTemplateColumn Header="结 果" Width="183" HeaderStyle="{StaticResource dgheader}" >
+                        <DataGridTemplateColumn Header="结 果" Width="183*" HeaderStyle="{StaticResource dgheader}" >
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Image Source="{Binding Path=result,Converter={StaticResource convert },Mode=OneWay}" Height="20" Width="20"/>
@@ -386,7 +385,7 @@
                     <StackPanel VerticalAlignment="Center"  >
                         <StackPanel Orientation="Horizontal" >
                             <!--<Label Foreground="Red" >当前状态:</Label>-->
-                            <Image Source="/LongTie.Nlbs;component/Images/status.png" Height="30"></Image>
+                            <Image Source="/Images/status.png" Height="25"></Image>
                             <Label Name="lb_status" Foreground="Red"  HorizontalContentAlignment="Left" VerticalContentAlignment="Center" ></Label>
                         </StackPanel>                    
                      

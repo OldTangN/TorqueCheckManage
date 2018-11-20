@@ -112,15 +112,15 @@
     </Border>
 
     <Border Grid.Column="1" Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="0,0,20,20">
-        <DataGrid Grid.Row="0" CanUserAddRows="False" RowHeaderWidth="0" AutoGenerateColumns="False"  Margin="-1,-1,1,1" Name="dataGrid1" AlternationCount="2" AlternatingRowBackground="#f0fff0">
+        <DataGrid Grid.Row="0" CanUserAddRows="False" RowHeaderWidth="0" AutoGenerateColumns="False"  Name="dataGrid1"  SelectionMode="Single"   AlternationCount="2">
             <DataGrid.Background>
                 <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
             </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding id}"  Header="序 号" Width="100" Visibility="Hidden" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding parentname}"  Header="上级名称" Width="230" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding departmentName}"  Header="部门名称" Width="230" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
-                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding comment}"  Header="说 明" Width="240" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding id}"  Header="序 号" Width="100*" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding parentname}"  Header="上级名称" Width="230*" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding departmentName}"  Header="部门名称" Width="230*" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding comment}"  Header="说 明" Width="240*" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
                 <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"  Width="*" Visibility="Hidden"  HeaderStyle="{StaticResource dgheader}">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate>

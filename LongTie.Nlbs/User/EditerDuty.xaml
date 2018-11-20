@@ -68,11 +68,11 @@
                     <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
                 </DataGrid.Background>
                 <DataGrid.Columns >
-                        <DataGridTextColumn Header="编 号" IsReadOnly="True"  Width="150" Binding="{Binding Path=id}" Visibility="Hidden" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="部门名称" IsReadOnly="True"  Width="150" Binding="{Binding Path=departmentName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="职位名称" IsReadOnly="True"  Width="150" Binding="{Binding Path=dutiesName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="备注" IsReadOnly="True"  Width="350" Binding="{Binding Path=comment}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="操 作" Width="350" HeaderStyle="{StaticResource dghead}">
+                        <DataGridTextColumn Header="编 号" IsReadOnly="True"  Width="150*" Binding="{Binding Path=id}" Visibility="Hidden" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="部门名称" IsReadOnly="True"  Width="150*" Binding="{Binding Path=departmentName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="职位名称" IsReadOnly="True"  Width="150*" Binding="{Binding Path=dutiesName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="备注" IsReadOnly="True"  Width="350*" Binding="{Binding Path=comment}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="操 作" Width="350*" HeaderStyle="{StaticResource dghead}">
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate >
                                 <Grid  HorizontalAlignment="Center"  >

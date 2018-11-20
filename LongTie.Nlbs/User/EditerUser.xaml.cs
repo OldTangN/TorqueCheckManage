@@ -1,5 +1,6 @@
 ﻿using LT.BLL;
 using LT.BLL.Check;
+using LT.BLL.ICCard;
 using LT.BLL.User;
 using LT.Comm;
 using LT.DAL;
@@ -30,60 +31,58 @@ namespace LongTie.Nlbs.User
     /// </summary>
     public partial class EditerUser
     {
-      
+
         users _user = new users();
-       public  bool _disposed;
-       IDepartment Department = DataAccess.CreateDepartment();
-       IUserRole Uerrole = DataAccess.CreateUserRole();
+        public bool _disposed;
+        IDepartment Department = DataAccess.CreateDepartment();
+        IUserRole Uerrole = DataAccess.CreateUserRole();
         IUser User = DataAccess.CreateUser();
-        IUserToRole UserToRole=DataAccess.CreateUserToRole();
+        IUserToRole UserToRole = DataAccess.CreateUserToRole();
         IUserDuty UserDuty = DataAccess.CreateUserDuty();
-       
+
         UserEditer userediter = new UserEditer();
         FilterData filterdata = new FilterData();
-        ReadUserCard ruc = null;
+        ICardHelper ruc = null;
         bool isadd = true;
         string backcard = "";
-       // System.Timers.Timer aTimer = null;
+        // System.Timers.Timer aTimer = null;
         private delegate void TimerDispatcherDelegate();
-        public EditerUser(ReadUserCard r)
+        public EditerUser(ICardHelper r)
         {
             InitializeComponent();
             userediter.BindDepartment(this.cbox_department);
             userediter.BindRole(this.cbox_role);
-            userediter.BindDuty(this .cb_duty);
+            userediter.BindDuty(this.cb_duty);
             isadd = true;
-          
+
             ruc = r;
-            ruc.HandDataBack += new ReadUserCard.DeleteDataBack(BackCardID);
-            //aTimer = new System.Timers.Timer(1000);
-            //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            //aTimer.Interval = 10;
-            //aTimer.Enabled = true;
+            ruc.HandDataBack += BackCardID;
         }
-        //void OnTimedEvent(object serder, EventArgs e)
-        //{
-        //    //this.Dispatcher.Invoke(DispatcherPriority.Normal,
-        //    //    new TimerDispatcherDelegate(UpdateCardInfo));
-        //}
-        void BackCardID(object sender, EventArgs e)
+        void BackCardID(object sender, CardEventArgs e)
         {
-            ReadUserCard ruc = (ReadUserCard)sender;
-            backcard = ruc.BackString();
-            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(UpdateCardInfo));
+            //ICardHelper ruc = (ICardHelper)sender;
+            //backcard = ruc.BackString();
+            backcard = e.data;
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(UpdateCardInfo));
         }
         void UpdateCardInfo()
         {
             try
-            {               
-              
-                    filterdata.CardId = backcard;
-                    filterdata.resetCard();
+            {
+                if (OperationConfig.GetValue("CardSort") == "USB")
+                {
+                    this.tb_cardid.Text = backcard;
+                }
+                else { 
+                filterdata.CardId = backcard;
+                filterdata.resetCard();
                 string cardid = filterdata.getcardid();
                 if (cardid == "")
-                    return;             
+                    return;
                 filterdata.resetid("");
+              
                 this.tb_cardid.Text = cardid;
+                }
             }
             catch { }
 
@@ -130,10 +129,10 @@ namespace LongTie.Nlbs.User
             tb_cardid.Text = user.cardID;
             tb_pwd.Text = user.password;
             tb_phone.Text = user.phoneNumber;
-            this.dp_jointime.Text = user.joinDate.ToString ();
+            this.dp_jointime.Text = user.joinDate.ToString();
         }
 
-        users  GetUser(users user)
+        users GetUser(users user)
         {
             user.username = tbox_UserName.Text.Trim();
             user.empID = tbox_EmpId.Text.Trim();
@@ -141,17 +140,17 @@ namespace LongTie.Nlbs.User
             user.is_staff = true;
             if (user.password != tb_pwd.Text.Trim())
             {
-                user.password =MD5Encrypt .GetMD5 (tb_pwd.Text.Trim());
+                user.password = MD5Encrypt.GetMD5(tb_pwd.Text.Trim());
             }
-           
+
             user.phoneNumber = tb_phone.Text.Trim();
-            user.joinDate =Convert.ToDateTime ( Convert .ToDateTime (this.dp_jointime .Text .Trim ()).ToString ("yyyy-MM-dd HH:mm:ss"));
+            user.joinDate = Convert.ToDateTime(Convert.ToDateTime(this.dp_jointime.Text.Trim()).ToString("yyyy-MM-dd HH:mm:ss"));
             if (cb_duty.SelectedIndex >= 0)
             {
                 user.duties = cb_duty.SelectedItem == null ? "" : (cb_duty.SelectedItem as duties).guid.ToString();
             }
             user.department = (cbox_department.SelectedItem as department).guid;
-         
+
             user.is_superuser = false;
             return user;
         }
@@ -159,9 +158,9 @@ namespace LongTie.Nlbs.User
         bool IsEmpty()
         {
             if (
-                string.IsNullOrEmpty(this.tbox_UserName.Text.Trim())||string.IsNullOrEmpty(this.tb_pwd.Text.Trim())||
-                string.IsNullOrEmpty(this.tbox_EmpId.Text.Trim()) || string.IsNullOrEmpty(this.tb_cardid .Text.Trim())||
-               (this.cb_duty.SelectedIndex <0)||(this.cbox_department .SelectedIndex <0)||(this.cbox_role .SelectedIndex <0)
+                string.IsNullOrEmpty(this.tbox_UserName.Text.Trim()) || string.IsNullOrEmpty(this.tb_pwd.Text.Trim()) ||
+                string.IsNullOrEmpty(this.tbox_EmpId.Text.Trim()) || string.IsNullOrEmpty(this.tb_cardid.Text.Trim()) ||
+               (this.cb_duty.SelectedIndex < 0) || (this.cbox_department.SelectedIndex < 0) || (this.cbox_role.SelectedIndex < 0)
                 )
             {
                 MessageAlert.Alert("*为必填信息！");
@@ -175,10 +174,10 @@ namespace LongTie.Nlbs.User
             catch
             {
                 MessageAlert.Alert("请填写入职时间！");
-                return true ;
+                return true;
             }
 
-                return false;
+            return false;
         }
 
         /// <summary>
@@ -186,17 +185,17 @@ namespace LongTie.Nlbs.User
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        users  IsExit(users user)
-        {           
-            return  User.Select(user.cardID);
-          
+        users IsExit(users user)
+        {
+            return User.Select(user.cardID);
+
         }
         LT.Model.UserToRoleModel.usertorole IsUserToRoleExit(users user)
         {
-            LT.Model.UserToRoleModel.usertorole utr= null;
-            List <LT.Model.UserToRoleModel.usertorole> utrlist=UserToRole.selectbyuserid(user.guid);
+            LT.Model.UserToRoleModel.usertorole utr = null;
+            List<LT.Model.UserToRoleModel.usertorole> utrlist = UserToRole.selectbyuserid(user.guid);
             if (utrlist.Count > 0)
-             return utrlist.First();
+                return utrlist.First();
             return utr;
         }
 
@@ -206,15 +205,15 @@ namespace LongTie.Nlbs.User
         /// <param name="user"></param>
         /// <param name="count">添加是count=0,修改时count=1</param>
         /// <returns></returns>
-        bool IsRepeat(users user,int count=0)
+        bool IsRepeat(users user, int count = 0)
         {
             List<users> ul = User.SelectByName(this.tbox_UserName.Text.Trim());
-            if (ul!=null&&ul.Count > count)
+            if (ul != null && ul.Count > count)
             {
                 MessageBox.Show("该名字已存在！\n请重新输入");
                 return true;
             }
-            if (User.SelectByCode(user.empID)!=null&&User.SelectByCode(user.empID).Count > count)
+            if (User.SelectByCode(user.empID) != null && User.SelectByCode(user.empID).Count > count)
             {
                 MessageBox.Show("该员工编号已经存在！\n请重新输入编号");
                 return true;
@@ -229,17 +228,17 @@ namespace LongTie.Nlbs.User
         /// <returns></returns>
         bool IsUpdataRepeat(users user)
         {
-            List<users> ul = User.SelectByName(this.tbox_UserName .Text .Trim ());
+            List<users> ul = User.SelectByName(this.tbox_UserName.Text.Trim());
             if (ul != null)
-            { 
-            foreach (users u in ul)
             {
-                if (u != null && u.guid != user.guid)
+                foreach (users u in ul)
                 {
-                    MessageBox.Show("该名字已存在！\n请重新输入");
-                    return true;
+                    if (u != null && u.guid != user.guid)
+                    {
+                        MessageBox.Show("该名字已存在！\n请重新输入");
+                        return true;
+                    }
                 }
-            }
             }
             ul = User.SelectByCode(user.empID);
             if (ul != null)
@@ -254,7 +253,7 @@ namespace LongTie.Nlbs.User
                 }
             }
 
-            ul = User.SelectByContion(new Dictionary<string, string>{{"cardID",user.cardID}});
+            ul = User.SelectByContion(new Dictionary<string, string> { { "cardID", user.cardID } });
             if (ul != null)
             {
                 foreach (users u in ul)
@@ -269,7 +268,7 @@ namespace LongTie.Nlbs.User
             return false;
         }
 
-        string   SaveUser(users user)
+        string SaveUser(users user)
         {
             return User.addreturnid(user);
         }
@@ -295,12 +294,12 @@ namespace LongTie.Nlbs.User
             isadd = true;
             this.tb_cardid.Clear();
             this.tb_phone.Clear();
-            this.tb_pwd.Text ="123456";
+            this.tb_pwd.Text = "123456";
             this.tbox_EmpId.Clear();
             this.tbox_UserName.Clear();
             this.cb_duty.SelectedIndex = -1;
             this.cbox_department.SelectedIndex = -1;
-            this.cbox_role.SelectedIndex =-1;
+            this.cbox_role.SelectedIndex = -1;
             this.dp_jointime.Text = DateTime.Now.ToShortDateString();
         }
 
@@ -345,7 +344,7 @@ namespace LongTie.Nlbs.User
                         u.guid = Guid.NewGuid().ToString();
                         if (IsRepeat(u, 0))
                             return;
-                        string id = SaveUser(u);                       
+                        string id = SaveUser(u);
                         if (id != "-1")
                         {
                             SaveUserToRole(new LT.Model.UserToRoleModel.usertorole() { role = r.id.ToString(), user = id });
@@ -356,7 +355,7 @@ namespace LongTie.Nlbs.User
                 else
                 {
                     users u = new users();
-                        u=_user;
+                    u = _user;
                     u = GetUser(u);
                     role r = this.cbox_role.SelectedItem as role;
                     if (IsUpdataRepeat(u))
@@ -369,25 +368,25 @@ namespace LongTie.Nlbs.User
                 SetEmpty();
                 userediter.BindUserModel(this.dataGrid1);
             }
-            catch 
-            { 
-                MessageAlert.Alert("添加失败！出现异常请联系管理员"); 
+            catch
+            {
+                MessageAlert.Alert("添加失败！出现异常请联系管理员");
             }
 
         }
 
 
-  
 
-      
+
+
         private void editButtonClick(object sender, RoutedEventArgs e)
         {
             int i_index = dataGrid1.SelectedIndex;
             if (i_index >= 0)
             {
-               _user = dataGrid1.SelectedItem as users;
-               ShowUser(_user);
-               isadd = false;
+                _user = dataGrid1.SelectedItem as users;
+                ShowUser(_user);
+                isadd = false;
             }
         }
 
@@ -460,7 +459,7 @@ namespace LongTie.Nlbs.User
         //        }
         //        _user.department = (cbox_department.SelectedItem as department).id.ToString ();
         //     _user.guid = Guid.NewGuid().ToString();      
-                    
+
         //     string id= User.addreturnid (_user );
         //      if (id != "-1")
         //      if (!UserToRole.add(new LT.Model.UserToRoleModel.usertorole() { role = (cbox_role.SelectedItem as role).id.ToString(), user = id }))
@@ -471,7 +470,7 @@ namespace LongTie.Nlbs.User
         //  return true;
         //    }
         //    catch { return false; }
-         
+
         //}
         //private bool updata() 
         //{                        
@@ -488,12 +487,12 @@ namespace LongTie.Nlbs.User
         //      }
         //  }
         //  return false;
-      
+
 
         //}
         //private void button_submit_Click(object sender, RoutedEventArgs e)
         //{
-           
+
         //    if (cbox_role.SelectedItem == null || cbox_department.SelectedItem == null)
         //    { MessageBox.Show("请选择角色信息或部门信息"); return; }
         //     getuser();
@@ -520,7 +519,7 @@ namespace LongTie.Nlbs.User
         //                return;
         //            }
         //        }
-                              
+
         //    }
         //    else {
         //        if (updata())
@@ -537,7 +536,7 @@ namespace LongTie.Nlbs.User
         //            isadd = true;
         //            _user = new users();
         //            showuer();
-                 
+
         //        }
         //    }
         //    MessageBox.Show("操作失败！");
@@ -547,7 +546,7 @@ namespace LongTie.Nlbs.User
         //private bool isexit(users user) {
         //    if (user == null)
         //        return false;
-            
+
         //        if (User.SelectByName(user.username).Count > 0)                 
         //        {
         //            MessageBox.Show("该名字已经存在,不能重复保存！\n请重新输入名字");
@@ -586,13 +585,13 @@ namespace LongTie.Nlbs.User
             {
                 if (!MessageAlert.Alter("是否删除该人员信息"))
                     return;
-                if (UserToRole.delete(ut.FirstOrDefault ()))
+                if (UserToRole.delete(ut.FirstOrDefault()))
                 {
                     userediter.BindUserModel(dataGrid1);
                     MessageAlert.Alert("删除成功！");
                 }
             }
-         
+
         }
 
         private void cbox_department_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -602,7 +601,7 @@ namespace LongTie.Nlbs.User
                 department d = this.cbox_department.SelectedItem as department;
                 if (d != null)
                 {
-                    userediter.BindDuty(this.cb_duty,d.guid);
+                    userediter.BindDuty(this.cb_duty, d.guid);
                 }
             }
         }
@@ -610,14 +609,14 @@ namespace LongTie.Nlbs.User
         private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             userediter.BindUserModel(this.dataGrid1);
-           // dataGrid1.ItemsSource = null;
-           // GetUser gu = new GetUser();
-           // List<UserModel> um = new List<UserModel>();
-           // um = gu.GetUserModel();
-           //// dg.ItemsSource = um;
-           // dataGrid1.DataContext = um;   
+            // dataGrid1.ItemsSource = null;
+            // GetUser gu = new GetUser();
+            // List<UserModel> um = new List<UserModel>();
+            // um = gu.GetUserModel();
+            //// dg.ItemsSource = um;
+            // dataGrid1.DataContext = um;   
         }
 
-        
+
     }
 }

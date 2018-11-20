@@ -21,17 +21,17 @@ namespace LongTie.Nlbs
     public partial class Login : Window
     {
 
-        GetRole getrole = new GetRole();
+        // GetRole getrole = new GetRole();
         //  Main _m = null;
-        IWrench Wrench = DataAccess.CreateWrench();
-        List<MenuItem> mll = new List<MenuItem>();
+        //   IWrench Wrench = DataAccess.CreateWrench();
+        //  List<MenuItem> mll = new List<MenuItem>();
         public Login()
         {
             InitializeComponent();
             //  _m = m; 
         }
         public UserLogin userlogin = null;
-        public bool success = false; 
+        public bool success = false;
         private void Grid_Load(object sender, RoutedEventArgs e)
         {
 
@@ -97,7 +97,7 @@ namespace LongTie.Nlbs
                 //    }
                 //}
                 //catch { }
-               // return;
+                // return;
             }
             else
             {
@@ -107,42 +107,42 @@ namespace LongTie.Nlbs
             }
         }
 
-        private List<WrenchNotice> GetWrenchList(int days)
-        {
-            List<WrenchNotice> overdata = new List<WrenchNotice>();
-            List<wrench> wrenchs = Wrench.select();
-            foreach (wrench w in wrenchs)
-            {
-                if (w.cycletime > 0)
-                {
-                    DateTime st = Convert.ToDateTime(w.lastrepair).AddDays(Convert.ToDouble(w.cycletime));
-                    DateTime ed = DateTime.Now;
-                    if (st < ed)
-                    {
-                        WrenchNotice wn = new WrenchNotice();
-                        //w.cycletime =Convert.ToDecimal ( w.cycletime.ToString("f1"));
-                        //w.lastrepair = w.lastrepair.Replace('T',' ');
-                        overdata.Add(new WrenchNotice() { wrenchbarcode = w.wrenchBarCode, cycletime = w.cycletime.ToString("f1"), intime = Convert.ToDateTime(w.lastrepair).AddDays(Convert.ToInt32(w.cycletime)).ToString(), lastrepairtime = w.lastrepair.ToString("yyyy-MM-dd") });
+        //private List<WrenchNotice> GetWrenchList(int days)
+        //{
+        //    List<WrenchNotice> overdata = new List<WrenchNotice>();
+        //    List<wrench> wrenchs = Wrench.select();
+        //    foreach (wrench w in wrenchs)
+        //    {
+        //        if (w.cycletime > 0)
+        //        {
+        //            DateTime st = Convert.ToDateTime(w.lastrepair).AddDays(Convert.ToDouble(w.cycletime));
+        //            DateTime ed = DateTime.Now;
+        //            if (st < ed)
+        //            {
+        //                WrenchNotice wn = new WrenchNotice();
+        //                //w.cycletime =Convert.ToDecimal ( w.cycletime.ToString("f1"));
+        //                //w.lastrepair = w.lastrepair.Replace('T',' ');
+        //                overdata.Add(new WrenchNotice() { wrenchbarcode = w.wrenchBarCode, cycletime = w.cycletime.ToString("f1"), intime = Convert.ToDateTime(w.lastrepair).AddDays(Convert.ToInt32(w.cycletime)).ToString(), lastrepairtime = w.lastrepair.ToString("yyyy-MM-dd") });
 
-                    }
-                    else
-                    {
-                        int day = new TimeSpan(ed.Ticks - st.Ticks).Days;
-                        if (day <= days)
-                        {
-                            WrenchNotice wn = new WrenchNotice();
-                            //w.cycletime =Convert.ToDecimal ( w.cycletime.ToString("f1"));
-                            //w.lastrepair = w.lastrepair.Replace('T',' ');
-                            overdata.Add(new WrenchNotice() { wrenchbarcode = w.wrenchBarCode, cycletime = w.cycletime.ToString("f1"), intime = Convert.ToDateTime(w.lastrepair).AddDays(Convert.ToInt32(w.cycletime)).ToString(), lastrepairtime = w.lastrepair.ToString("yyyy-MM-dd") });
+        //            }
+        //            else
+        //            {
+        //                int day = new TimeSpan(ed.Ticks - st.Ticks).Days;
+        //                if (day <= days)
+        //                {
+        //                    WrenchNotice wn = new WrenchNotice();
+        //                    //w.cycletime =Convert.ToDecimal ( w.cycletime.ToString("f1"));
+        //                    //w.lastrepair = w.lastrepair.Replace('T',' ');
+        //                    overdata.Add(new WrenchNotice() { wrenchbarcode = w.wrenchBarCode, cycletime = w.cycletime.ToString("f1"), intime = Convert.ToDateTime(w.lastrepair).AddDays(Convert.ToInt32(w.cycletime)).ToString(), lastrepairtime = w.lastrepair.ToString("yyyy-MM-dd") });
 
-                        }
-                    }
+        //                }
+        //            }
 
-                }
-            }
-            return overdata;
+        //        }
+        //    }
+        //    return overdata;
 
-        }
+        //}
         //void showall()
         //{
         //    list(_m.menu);
@@ -156,38 +156,38 @@ namespace LongTie.Nlbs
         //}
 
 
-        private void list(Menu m)
-        {
-            List<MenuItem> ml = new List<MenuItem>();
-            foreach (var mi in m.Items)
-            {
+        //private void list(Menu m)
+        //{
+        //    List<MenuItem> ml = new List<MenuItem>();
+        //    foreach (var mi in m.Items)
+        //    {
 
-                ml = (getlist((MenuItem)mi));
-            }
-            ml = mll;
-        }
+        //        ml = (getlist((MenuItem)mi));
+        //    }
+        //    ml = mll;
+        //}
 
-        List<MenuItem> getlist(MenuItem ml)
-        {
+        //List<MenuItem> getlist(MenuItem ml)
+        //{
 
-            if (ml.Items.Count > 0)
-                mll.Add(ml);
-            foreach (var mi in ml.Items)
-            {
-                MenuItem m = mi as MenuItem;
-                if (m == null)
-                    continue;
-                if (m.Items.Count > 0)
-                {
+        //    if (ml.Items.Count > 0)
+        //        mll.Add(ml);
+        //    foreach (var mi in ml.Items)
+        //    {
+        //        MenuItem m = mi as MenuItem;
+        //        if (m == null)
+        //            continue;
+        //        if (m.Items.Count > 0)
+        //        {
 
-                    getlist(m);
-                }
-                else
-                { mll.Add(m); }
-            }
+        //            getlist(m);
+        //        }
+        //        else
+        //        { mll.Add(m); }
+        //    }
 
-            return mll;
-        }
+        //    return mll;
+        //}
         private void tb_name_GotFocus(object sender, RoutedEventArgs e)
         {
             this.tb_name.Clear();

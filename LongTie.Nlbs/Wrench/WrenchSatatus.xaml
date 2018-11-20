@@ -71,9 +71,9 @@
             </DataGrid.Background>
             <DataGrid.Columns >
                 <DataGridTextColumn Header="编 号" IsReadOnly="True"  Width="170" Binding="{Binding Path=id}" Visibility="Hidden" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                <DataGridTextColumn Header="状态名称" IsReadOnly="True"  Width="180" Binding="{Binding Path=statusName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                <DataGridTextColumn Header="状态编码" IsReadOnly="True"  Width=" 180" Binding="{Binding Path=statusDM}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="操 作" Width="*" HeaderStyle="{StaticResource dgheader}">
+                <DataGridTextColumn Header="状态名称" IsReadOnly="True"  Width="180*" Binding="{Binding Path=statusName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTextColumn Header="状态编码" IsReadOnly="True"  Width=" 180*" Binding="{Binding Path=statusDM}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="操 作" Width="180*" HeaderStyle="{StaticResource dgheader}">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate >
                             <Grid HorizontalAlignment="Center"  >

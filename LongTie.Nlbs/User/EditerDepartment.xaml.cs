@@ -1,5 +1,4 @@
-﻿using com.longtie.config;
-using LT.Comm;
+﻿using LT.Comm;
 using LT.DAL;
 using LT.DAL.MySql;
 using LT.DAL.Service;

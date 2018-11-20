@@ -71,12 +71,15 @@
     <Compile Include="Check\FilterData.cs" />
     <Compile Include="Check\HandleData.cs" />
     <Compile Include="ExcelHelp.cs" />
+    <Compile Include="ICCard\CardEventArgs.cs" />
+    <Compile Include="ICCard\ICardHelper.cs" />
+    <Compile Include="ICCard\UsbICCard.cs" />
     <Compile Include="MyChart\ChartData.cs" />
     <Compile Include="MyChart\ColumnSeries.cs" />
     <Compile Include="Plc\EncoderPlc.cs" />
     <Compile Include="Plc\HexUtil.cs" />
     <Compile Include="ReadCheckTester.cs" />
-    <Compile Include="ReadUserCard.cs" />
+    <Compile Include="ICCard\ComICCard.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="SetPage.cs" />
     <Compile Include="Trees\DepartmentTreeDate.cs" />
@@ -129,7 +132,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="dcrf32.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

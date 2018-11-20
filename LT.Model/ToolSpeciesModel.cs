@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LT.Model
 {
-    public class wrenchspecies {
+    public class wrenchspecies
+    {
         public int id { get; set; }
         public string speciesName { get; set; }
         public string speciesCode { get; set; }
@@ -14,7 +15,5 @@ namespace LT.Model
         public string comment { get; set; }
         public string guid { get; set; }
     }
-  public   class ToolSpeciesModel:wrenchspecies
-    {
-    }
+   
 }

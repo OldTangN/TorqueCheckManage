@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace LT.Model
 {
-    class SystemChecksetModel
+
+    public class systemcheckset
     {
-    }
-    public class systemcheckset {
         public int id { get; set; }
         public int? count { get; set; }//次数
         public int? arry { get; set; }//组数

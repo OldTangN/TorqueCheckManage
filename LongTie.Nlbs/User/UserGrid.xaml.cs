@@ -1,5 +1,6 @@
 ﻿using LT.BLL;
 using LT.BLL.Check;
+using LT.BLL.ICCard;
 using LT.BLL.User;
 using LT.Comm;
 using LT.DAL;
@@ -29,42 +30,37 @@ namespace LongTie.Nlbs.User
     /// <summary>
     /// Interaction logic for UserGrid.xaml
     /// </summary>
-    public partial class UserGrid : Grid 
+    public partial class UserGrid : Grid
     {
 
-      //  List<UserModel > _usermodellist = new List<UserModel >();
-        IUser _User = DataAccess .CreateUser();
+        IUser _User = DataAccess.CreateUser();
         IUserRole _UserRole = DataAccess.CreateUserRole();
         IDepartment _Department = DataAccess.CreateDepartment();
-        IUserToRole UserToRole = DataAccess.CreateUserToRole(); 
+        IUserToRole UserToRole = DataAccess.CreateUserToRole();
 
         FilterData filterdata = new FilterData();
-        ReadUserCard ruc = null;  
-      //  System.Timers.Timer aTimer = null;
+        ICardHelper ruc = null;
         string backcard = "";
         private delegate void TimerDispatcherDelegate();
 
-        public UserGrid(ReadUserCard r)
+        public UserGrid(ICardHelper r)
         {
             InitializeComponent();
-          //  BindingUserModel(getuerlist(_User.Select()));
-           // _wm = mw;
-            //GetUser gu = new GetUser();
-            //BindingUserModel(gu.GetUserModel());
 
             ruc = r;
 
-            ruc.HandDataBack += new ReadUserCard.DeleteDataBack(BackCardID);
+            ruc.HandDataBack += BackCardID;
             //aTimer = new System.Timers.Timer(1000);
             //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             //aTimer.Interval = 10;
             //aTimer.Enabled = true;
         }
-        void BackCardID(object sender, EventArgs e)
+        void BackCardID(object sender, CardEventArgs e)
         {
-            ReadUserCard ruc = (ReadUserCard)sender;
-            backcard = ruc.BackString();
-            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(UpdateCardInfo));
+            //ReadUserCard ruc = (ReadUserCard)sender;
+            //backcard = ruc.BackString();
+            backcard = e.data;
+            Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(UpdateCardInfo));
         }
 
         //void OnTimedEvent(object serder, EventArgs e)
@@ -77,23 +73,29 @@ namespace LongTie.Nlbs.User
         {
             try
             {
-               
-                    filterdata.CardId = ruc.returnreadstr();
+                if (OperationConfig.GetValue("CardSort") == "USB")
+                {
+                    this.tb_cardid.Text = backcard;
+                }
+                else
+                {
+                    filterdata.CardId = backcard;
                     filterdata.resetCard();
-                   
-                
-                string cardid = filterdata.getcardid();
-                if (cardid == "")
-                    return;
-                filterdata.resetid("");
-                this.tb_cardid.Text = cardid;
+
+
+                    string cardid = filterdata.getcardid();
+                    if (cardid == "")
+                        return;
+                    filterdata.resetid("");
+                    this.tb_cardid.Text = cardid;
+                }
             }
             catch { }
 
         }
 
         private List<UserModel> getuerlist(List<users> userlist)
-        {        
+        {
             List<UserModel> _usermodellist = new List<UserModel>();
             try
             {
@@ -115,7 +117,7 @@ namespace LongTie.Nlbs.User
                             um.phoneNumber = u.phoneNumber;
                             um.comment = u.comment;
                             um.guid = u.guid;
-                           // um.joinDate = u.joinDate.ToString ().Replace('T', ' ')+"1";
+                            // um.joinDate = u.joinDate.ToString ().Replace('T', ' ')+"1";
                             um.joinDate = u.joinDate;
                             List<LT.Model.UserToRoleModel.usertorole> ul = new List<UserToRoleModel.usertorole>();
                             role r = new role();
@@ -138,13 +140,13 @@ namespace LongTie.Nlbs.User
                 {
                     MessageAlert.Alert("所查信息不存在！");
                 }
-               return _usermodellist;
-           }
+                return _usermodellist;
+            }
             catch (Exception ex) { return _usermodellist; }
         }
         private void BindingUserModel(List<UserModel> _usermodellist)
         {
-           // getuerlist();
+            // getuerlist();
             dataGrid1.ItemsSource = _usermodellist;
         }
         #region
@@ -152,7 +154,7 @@ namespace LongTie.Nlbs.User
         //private void button3_Click(object sender, RoutedEventArgs e)
         //{
         //    EditerUser eu = new EditerUser();
-          
+
         //    //eu.Show();
         //}
 
@@ -174,10 +176,10 @@ namespace LongTie.Nlbs.User
         //    int i_index = dataGrid1.SelectedIndex;
         //    if (i_index >= 0)
         //    {
-               
+
         //       EditerUser edit = new EditerUser(dataGrid1.SelectedItem as users );
         //       // edit.ShowDialog();
-            
+
         //        dataGrid1.SelectedIndex = i_index;
         //    }
         //}
@@ -192,7 +194,7 @@ namespace LongTie.Nlbs.User
         //    {
         //        int i_delete_index = dataGrid1.SelectedIndex;
         //        UserModel tmp = dataGrid1.SelectedItem as UserModel;
-               
+
         //        if (MessageBox.Show("确认删除该用户信息？", "删除提示", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
         //        {
         //            return;
@@ -207,7 +209,7 @@ namespace LongTie.Nlbs.User
         //            {
         //                MessageBox.Show("删除用户信息失败", "提示信息");
         //            }
-                
+
         //        if (i_delete_index > 0)
         //        {
         //            BindingUserModel(getuerlist(_User.Select()));
@@ -229,8 +231,8 @@ namespace LongTie.Nlbs.User
                 if (contion.Count <= 0)
                 {
                     GetUser gu = new GetUser();
-                    BindingUserModel(gu.GetUserModel ());
-                    return; 
+                    BindingUserModel(gu.GetUserModel());
+                    return;
                 }
                 BindingUserModel(getuerlist(_User.SelectByContion(contion)));
 
@@ -242,7 +244,7 @@ namespace LongTie.Nlbs.User
         {
             if (e.Key == Key.Enter)
             {
-                this.bt_search_Click (sender ,e);
+                this.bt_search_Click(sender, e);
             }
         }
 
@@ -250,40 +252,40 @@ namespace LongTie.Nlbs.User
         {
             if (e.Key == Key.Enter)
             {
-                this.bt_search_Click (sender ,e);
+                this.bt_search_Click(sender, e);
             }
-        }  
-           private void tb_empid_KeyDown(object sender, KeyEventArgs e)
+        }
+        private void tb_empid_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                this.bt_search_Click (sender ,e);
+                this.bt_search_Click(sender, e);
             }
         }
 
-           private void bt_out_Click(object sender, RoutedEventArgs e)
-           {
-               List<UserModel> tl = (List<UserModel>)this.dataGrid1.ItemsSource;
-               if (tl == null || tl.Count <= 0)
-                   return;              
-               SaveFileDialog saveFileDialog = new SaveFileDialog();
-               UserOutExcel uoe = new UserOutExcel();
-               ExcelHelp _excelHelper = new ExcelHelp();
-               saveFileDialog.Filter = "Excel (*.XLS)|*.xls";
-               if ((bool)(saveFileDialog.ShowDialog()))
-               {
-                   try
-                   {
-                       _excelHelper.SaveToExcel(saveFileDialog.FileName, uoe.ToTable(tl));
-                   }
-                   catch (Exception ex)
-                   {
-                       MessageBox.Show("导出失败：" + ex.Message);
-                       return;
-                   }
-                   MessageBox.Show("导出成功");
-               }
-           }    
+        private void bt_out_Click(object sender, RoutedEventArgs e)
+        {
+            List<UserModel> tl = (List<UserModel>)this.dataGrid1.ItemsSource;
+            if (tl == null || tl.Count <= 0)
+                return;
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            UserOutExcel uoe = new UserOutExcel();
+            ExcelHelp _excelHelper = new ExcelHelp();
+            saveFileDialog.Filter = "Excel (*.XLS)|*.xls";
+            if ((bool)(saveFileDialog.ShowDialog()))
+            {
+                try
+                {
+                    _excelHelper.SaveToExcel(saveFileDialog.FileName, uoe.ToTable(tl));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("导出失败：" + ex.Message);
+                    return;
+                }
+                MessageBox.Show("导出成功");
+            }
+        }
 
     }
 }

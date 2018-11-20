@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LT.Model
 {
-    public class wrench {
+    public class wrench
+    {
         public int id { get; set; }
         public string wrenchCode { get; set; }
         public string wrenchBarCode { get; set; }
@@ -24,28 +25,30 @@ namespace LT.Model
         public string status { get; set; }
         public string comment { get; set; }
         public DateTime lastrepair { get; set; }
-        public decimal cycletime { get; set; }
+        public decimal cycletime { get; set; } = 0;
         public bool isallowcheck { get; set; }//1允许2不允许
         public string guid { get; set; }
     }
-  public   class ToolModel:wrench 
+    public class ToolModel : wrench
     {
 
-     // public wrench wrenchdata { get; set; }
-      public string speciesName { get; set; }
-      public string statusName { get; set; }
-      public string statusDM { get; set; }
+        // public wrench wrenchdata { get; set; }
+        public string speciesName { get; set; }
+        public string statusName { get; set; }
+        public string statusDM { get; set; }
     }
-  public class Toolinfo {
-      public wrench wrench { get; set; }
-      public string speciesName { get; set; }
-      public string statusName { get; set; }
+    public class Toolinfo
+    {
+        public wrench wrench { get; set; }
+        public string speciesName { get; set; }
+        public string statusName { get; set; }
 
-  }
-  public class wrenchinfo {
-      public wrench wrench { get; set; }
-      public wrenchspecies species {get;set;}
-      public wrenchstatus status { get; set; }
+    }
+    public class wrenchinfo
+    {
+        public wrench wrench { get; set; }
+        public wrenchspecies species { get; set; }
+        public wrenchstatus status { get; set; }
 
-  }
+    }
 }

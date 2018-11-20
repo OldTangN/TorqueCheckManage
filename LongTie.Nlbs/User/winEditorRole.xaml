@@ -52,7 +52,7 @@
 
     </Border>
     <Border Grid.Row="2" BorderBrush="Silver" BorderThickness=" 1" Margin="20,0,20,20">
-        <Grid>
+        <Grid >
             <Label Content="角色名称" Height="28" HorizontalAlignment="Left" Margin="27,104,0,0" Name="label2" VerticalAlignment="Top" />
             <TextBox  HorizontalAlignment="Left" Margin="95,102,0,0" Name="tbox_roleName" VerticalAlignment="Top" Width="120" />
             <Button Content="提 交" Background="#1E90FF" Height="30" HorizontalAlignment="Left" Margin="27,314,0,0" Name="button1" VerticalAlignment="Top" Width="82" Click="button1_Click" />
@@ -71,15 +71,15 @@
 
     </Border>
     <Border Grid.Column="1" Grid.Row="2" BorderBrush="Silver" BorderThickness="1" Margin="0,0,20,20">
-        <DataGrid Grid.Row="0" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0"  Margin="0" Name="dataGrid1"  AlternationCount="2" AlternatingRowBackground="#f0fff0">
+        <DataGrid Grid.Row="0" CanUserAddRows="False" AutoGenerateColumns="False" RowHeaderWidth="0"  Margin="0" Name="dataGrid1"  AlternationCount="2"    SelectionMode="Single" AlternatingRowBackground="#f0fff0">
             <DataGrid.Background>
                 <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
             </DataGrid.Background>
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}" IsReadOnly="True"  Header="序 号" Width="100" Visibility="Hidden"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  />
-                <DataGridTextColumn Binding="{Binding roleName}" IsReadOnly="True"   Header="角色名称" Width="170"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
-                <DataGridTextColumn Binding="{Binding roleDM}" IsReadOnly="True"   Header="角色编号" Width="170"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
-                <DataGridTextColumn Binding="{Binding comment}" IsReadOnly="True"  Header="说 明" Width="150"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn Binding="{Binding id}" IsReadOnly="True"  Header="序 号" Width="100*" Visibility="Hidden"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"  />
+                <DataGridTextColumn Binding="{Binding roleName}" IsReadOnly="True"   Header="角色名称" Width="170*"   HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn Binding="{Binding roleDM}" IsReadOnly="True"   Header="角色编号" Width="170*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn Binding="{Binding comment}" IsReadOnly="True"  Header="说 明" Width="150*"  HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
                 <DataGridTemplateColumn  IsReadOnly="True" Header="操作"   HeaderStyle="{StaticResource dgheader}"    Width="208" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

@@ -15,7 +15,7 @@ using System.Data.OleDb;
 
 namespace LT.BLL
 {
-  public   class ExcelHelp
+    public class ExcelHelp
     {
         private Excel.Application _excelApp = null;
         private Excel.Workbooks _books = null;
@@ -33,7 +33,7 @@ namespace LT.BLL
         /// <param name="pPath"></param>
         /// <returns></returns>
         public System.Data.DataTable LoadExcel(string pPath)
-        {          
+        {
             string connString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
                             "Extended Properties=Excel 8.0;" +
                             "data source=" + pPath;
@@ -41,7 +41,7 @@ namespace LT.BLL
             string sheetName = this.GetExcelSheetName(pPath);
             string sql = "select * from [" + sheetName.Replace('.', '#') + "$]";
             myConn.Open();
-            OleDbDataAdapter myCommand = new OleDbDataAdapter(sql, myConn);   
+            OleDbDataAdapter myCommand = new OleDbDataAdapter(sql, myConn);
             DataSet ds = new DataSet();
             try
             {
@@ -58,7 +58,7 @@ namespace LT.BLL
             {
                 myCommand.Dispose();
                 myCommand = null;
-            
+
                 if (myConn.State == ConnectionState.Open)
                 {
                     myConn.Close();
@@ -123,11 +123,11 @@ namespace LT.BLL
                 {
                     if (dataTable.Rows.Count != 0)
                     {
-                      //  Mouse.SetCursor(Cursors.Wait);
+                        //  Mouse.SetCursor(Cursors.Wait);
                         CreateExcelRef();
                         FillSheet(dataTable);
                         SaveExcel(excelName);
-                       // Mouse.SetCursor(Cursors.Arrow);
+                        // Mouse.SetCursor(Cursors.Arrow);
                     }
                 }
             }
@@ -135,7 +135,7 @@ namespace LT.BLL
             {
                 MessageBox.Show("Error while generating Excel report");
 
-               
+
             }
             finally
             {
@@ -151,7 +151,7 @@ namespace LT.BLL
         /// 保存到Excel
         /// </summary>
         /// <param name="excelName"></param>
-        public void SaveToExcel(string excelName, System.Data.DataTable dataTable,string title)
+        public void SaveToExcel(string excelName, System.Data.DataTable dataTable, string title)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace LT.BLL
                     {
                         //  Mouse.SetCursor(Cursors.Wait);
                         CreateExcelRef();
-                        FillSheet(dataTable,title);
+                        FillSheet(dataTable, title);
                         SaveExcel(excelName);
                         // Mouse.SetCursor(Cursors.Arrow);
                     }
@@ -187,9 +187,9 @@ namespace LT.BLL
         /// 将内存中Excel保存到本地路径
         /// </summary>
         /// <param name="excelName"></param>
-        private  void SaveExcel(string excelName)
+        private void SaveExcel(string excelName)
         {
-            _excelApp.Visible = false ;
+            _excelApp.Visible = false;
             //保存为Office2003和Office2007都兼容的格式
             _book.SaveAs(excelName, Microsoft.Office.Interop.Excel.XlFileFormat.xlExcel8, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
             _excelApp.Quit();
@@ -202,7 +202,7 @@ namespace LT.BLL
         /// <param name="dataTable"></param>
         private void FillSheet(System.Data.DataTable dataTable)
         {
-            object[] header = CreateHeader(dataTable,"A1");
+            object[] header = CreateHeader(dataTable, "A1");
             WriteData(header, dataTable);
         }
 
@@ -210,18 +210,18 @@ namespace LT.BLL
         /// 将数据填充到内存Excel的工作表
         /// </summary>
         /// <param name="dataTable"></param>
-        private void FillSheet(System.Data.DataTable dataTable,string title)
+        private void FillSheet(System.Data.DataTable dataTable, string title)
         {
-            object[] header = CreateHeader(dataTable,"A2");
-            WriteData(header, dataTable,title );
+            object[] header = CreateHeader(dataTable, "A2");
+            WriteData(header, dataTable, title);
         }
 
-      /// <summary>
-      /// 写数据
-      /// </summary>
-      /// <param name="header"></param>
-      /// <param name="dataTable"></param>
-        private void WriteData(object[] header, DataTable dataTable,string title)
+        /// <summary>
+        /// 写数据
+        /// </summary>
+        /// <param name="header"></param>
+        /// <param name="dataTable"></param>
+        private void WriteData(object[] header, DataTable dataTable, string title)
         {
             object[,] objData = new object[dataTable.Rows.Count, header.Length];
 
@@ -236,7 +236,7 @@ namespace LT.BLL
             }
             AddExcelRows("A3", dataTable.Rows.Count, header.Length, objData);
             AutoFitColumns("A2", dataTable.Rows.Count + 1, header.Length);
-            Title("A1", 1, header.Length,title);
+            Title("A1", 1, header.Length, title);
         }
         private void WriteData(object[] header, DataTable dataTable)
         {
@@ -252,19 +252,19 @@ namespace LT.BLL
                 }
             }
             AddExcelRows("A2", dataTable.Rows.Count, header.Length, objData);
-            AutoFitColumns("A1", dataTable.Rows.Count + 1, header.Length);         
+            AutoFitColumns("A1", dataTable.Rows.Count + 1, header.Length);
         }
         private void AutoFitColumns(string startRange, int rowCount, int colCount)
         {
             _range = _sheet.get_Range(startRange, _optionalValue);
-            _range = _range.get_Resize(rowCount, colCount);          
+            _range = _range.get_Resize(rowCount, colCount);
             _range.ColumnWidth = 12;
             _range.Columns.AutoFit();
         }
 
 
-        private void Title(string startRange, int rowCount, int colCount, string  values)
-        {          
+        private void Title(string startRange, int rowCount, int colCount, string values)
+        {
             _range = _sheet.get_Range(startRange, _optionalValue);
             _range = _range.get_Resize(rowCount, colCount);
             _range.Merge(Missing.Value);
@@ -276,12 +276,12 @@ namespace LT.BLL
             _font.Size = 15;
             _range.Borders.LineStyle = 1;
         }
-      /// <summary>
-      /// 创建表头
-      /// </summary>
-      /// <param name="dataTable"></param>
-      /// <returns></returns>
-        private object[] CreateHeader(DataTable dataTable,string startRage)
+        /// <summary>
+        /// 创建表头
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
+        private object[] CreateHeader(DataTable dataTable, string startRage)
         {
 
             List<object> objHeaders = new List<object>();
@@ -306,17 +306,17 @@ namespace LT.BLL
             _font.Bold = true;
             _font.Size = 10;
             _range = _sheet.get_Range(startRange, Type.Missing);
-           _range.RowHeight = 25;          
-            _range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;          
-           _range.WrapText = true;         
+            _range.RowHeight = 25;
+            _range.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+            _range.WrapText = true;
         }
-   
+
         /// <summary>
         /// 将数据填充到Excel工作表的单元格中
         /// </summary>
         /// <param name="startRange"></param>
         /// <param name="rowCount"></param>
-      /// <param name="colCount"></param>
+        /// <param name="colCount"></param>
         /// <param name="values"></param>
         private void AddExcelRows(string startRange, int rowCount, int colCount, object values)
         {
@@ -327,7 +327,7 @@ namespace LT.BLL
             _range.Borders.LineStyle = 1;
             _range.WrapText = true;
             _range.RowHeight = 13.5;
-           
+
         }
         /// <summary>
         /// 创建一个Excel程序实例

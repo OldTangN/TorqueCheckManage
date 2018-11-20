@@ -24,7 +24,5 @@ namespace LT.Model
         public string guid { get; set; }
         public string departmentName { get; set; }
     }
-    class UserDutyModel
-    {
-    }
+   
 }

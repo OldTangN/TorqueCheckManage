@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace LT.Model
 {
-    class ErrorRangsetModel
-    {
-    }
+
     public class errorrangset
     {
         public int id { get; set; }

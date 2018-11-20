@@ -47,7 +47,7 @@ namespace LT.DAL.Sqlite
                     return true;
                 return false;
             }
-            catch
+            catch(Exception ex)
             {
                 return false;
 
@@ -208,7 +208,7 @@ namespace LT.DAL.Sqlite
            }
                 return null;
             }
-            catch
+            catch(Exception ex)
             {
                 return null;
             }
@@ -287,7 +287,7 @@ namespace LT.DAL.Sqlite
         }
         public List<Model.wrench> selectPage(int page, int pageNo)
         {
-            string condition = string.Format(" id <=(SELECT id FROM wrench ORDER BY id desc LIMIT {0}, {1}) ORDER BY id desc LIMIT {2}", (pageNo - 1) * page, 1, page);
+            string condition = string.Format(" id <=(SELECT id FROM wrench ORDER BY id desc LIMIT {0} OFFSET {1}) ORDER BY id desc LIMIT {2}", (pageNo - 1) * page, 1, page);
             string sql = "select * from  wrench where " + condition;
             try
             {              

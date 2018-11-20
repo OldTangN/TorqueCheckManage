@@ -8,6 +8,7 @@ using LongTie.Nlbs.User;
 using LongTie.Nlbs.Wrench;
 using LT.BLL;
 using LT.BLL.Plc;
+using LT.BLL.ICCard;
 using LT.Comm;
 using LT.DAL;
 using LT.Model;
@@ -37,11 +38,11 @@ namespace LongTie.Nlbs
         //   public userinfo _userinfo = new userinfo();
         IWrench Wrench = DataAccess.CreateWrench();
         public CheckFinal cf { set; get; } = null;
-        SerialPort rC = new SerialPort();
+       // SerialPort rC = new SerialPort();
         SerialPort _t1 = new SerialPort();
         SerialPort _t2 = new SerialPort();
         public SerialPort EncoderPlcPort = new SerialPort();
-        public ReadUserCard ruc = null;
+        public ICardHelper ruc = null;
         public ReadCheckTester rct1 = null;
         public ReadCheckTester rct2 = null;
         TorqueTestModel _tester1 = new TorqueTestModel();
@@ -102,9 +103,18 @@ namespace LongTie.Nlbs
 
                 try
                 {
-                    rC.PortName = OperationConfig.GetValue("cardcom");
-                    rC.BaudRate = 115200;
-                    ruc = new ReadUserCard(rC);
+                    string PortName = OperationConfig.GetValue("cardcom");
+                    //rC.PortName = OperationConfig.GetValue("cardcom");
+                    //rC.BaudRate = 115200;
+                    if (OperationConfig.GetValue("CardSort") == "USB")
+                    {
+                        ruc = new UsbICCard(PortName);
+                    }
+                    else
+                    {
+                        ruc = new ComICCard(PortName);
+                    }
+                    
                     thead3 = new Thread(ruc.Read);
                     thead3.Start();
                 }
@@ -131,7 +141,7 @@ namespace LongTie.Nlbs
                     strerror += "---编码器连接失败";
                 }
 
-                if (msg!="")
+                if (msg != "")
                 {
                     MessageBox.Show(msg);
                 }
@@ -289,7 +299,7 @@ namespace LongTie.Nlbs
 
             //  Notice(time);
         }
-        void Notice(string time)
+        private void Notice(string time)
         {
             List<systemcheckset> ls = new List<systemcheckset>();
             try
@@ -623,7 +633,7 @@ namespace LongTie.Nlbs
             // this.WindowState = System.Windows.WindowState.Normal;
             //  this.WindowStyle = System.Windows.WindowStyle.None;
             //this.ResizeMode = System.Windows.ResizeMode.NoResize;
-             
+
             this.Left = 0.0;
             this.Top = 0.0;
             this.Width = System.Windows.SystemParameters.PrimaryScreenWidth;
@@ -731,8 +741,8 @@ namespace LongTie.Nlbs
                     this.taskbarNotifier.Close();
                     rct1.ClosePort();
                     rct2.ClosePort();
-                    if (rC.IsOpen)
-                        rC.Close();
+                    if (ruc.IsOpen())
+                        ruc.Close();
                     Environment.Exit(0);
                 }
             }
@@ -742,8 +752,8 @@ namespace LongTie.Nlbs
                 this.taskbarNotifier.Close();
                 rct1.ClosePort();
                 rct2.ClosePort();
-                if (rC.IsOpen)
-                    rC.Close();
+                if (ruc.IsOpen())
+                    ruc.Close();
             }
 
         }

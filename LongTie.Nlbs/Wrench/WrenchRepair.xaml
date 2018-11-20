@@ -113,7 +113,7 @@
 
                 <DataGrid Name="dt_showdata" RowHeaderWidth="0" AutoGenerateColumns="False"  CanUserAddRows="False" AlternationCount="2" AlternatingRowBackground="#f0fff0">
                     <DataGrid.Background>
-                        <ImageBrush ImageSource="/LongTie.Nlbs;component/Images/bg_table2.png"/>
+                        <ImageBrush ImageSource="/Images/bg_table2.png"/>
                     </DataGrid.Background>
                     <DataGrid.Columns >
                         <!--<DataGridCheckBoxColumn  Width="60">
@@ -130,12 +130,12 @@
                         </DataGridTemplateColumn>-->
 
                         <DataGridCheckBoxColumn Header="选 择" Binding="{Binding Path=isCheck}" HeaderStyle="{StaticResource dgheader}" ></DataGridCheckBoxColumn>
-                        <DataGridTextColumn Header="扳手编号" IsReadOnly="True"  Width="85" Binding="{Binding Path=wrenchCode}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="扳手条码号" IsReadOnly="True"  Width=" 110" Binding="{Binding Path=wrenchBarCode}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="扳手所属种类" IsReadOnly="True"  Width="105" Binding="{Binding Path=wrenchParentName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="扳手最近维护时间" IsReadOnly="True"  Width="110" Binding="{Binding Path=lastRepair, StringFormat='yyyy-MM-dd'}" HeaderStyle="{StaticResource dgheader}" ></DataGridTextColumn>
-                        <DataGridTextColumn Header="扳手维护周期(天)" IsReadOnly="True"  Width="100" Binding="{Binding Path=days}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="到期是否允许校验" IsReadOnly="True"  Width="117" Binding="{Binding Path=isNeedCheck,Converter={StaticResource converter},Mode=OneWay}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="扳手编号" IsReadOnly="True"  Width="85*" Binding="{Binding Path=wrenchCode}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="扳手条码号" IsReadOnly="True"  Width=" 110*" Binding="{Binding Path=wrenchBarCode}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="扳手所属种类" IsReadOnly="True"  Width="105*" Binding="{Binding Path=wrenchParentName}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="扳手最近维护时间" IsReadOnly="True"  Width="110*" Binding="{Binding Path=lastRepair, StringFormat='yyyy-MM-dd'}" HeaderStyle="{StaticResource dgheader}" ></DataGridTextColumn>
+                        <DataGridTextColumn Header="扳手维护周期(天)" IsReadOnly="True"  Width="100*" Binding="{Binding Path=days}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="到期是否允许校验" IsReadOnly="True"  Width="117*" Binding="{Binding Path=isNeedCheck,Converter={StaticResource converter},Mode=OneWay}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"></DataGridTextColumn>
                     </DataGrid.Columns>
 
                 </DataGrid>

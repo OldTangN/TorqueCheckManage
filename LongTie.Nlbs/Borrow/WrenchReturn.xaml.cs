@@ -4,6 +4,7 @@ using LongTie.Nlbs.Wrench;
 using LT.BLL;
 using LT.BLL.Borrow;
 using LT.BLL.Check;
+using LT.BLL.ICCard;
 using LT.BLL.Wrench;
 using LT.Comm;
 using LT.DAL;
@@ -32,52 +33,63 @@ namespace LongTie.Nlbs.Borrow
     /// <summary>
     /// WrenchReturn.xaml 的交互逻辑
     /// </summary>
-    public partial class WrenchReturn 
+    public partial class WrenchReturn
     {
 
         IWrench Wrench = DataAccess.CreateWrench();
         IUser User = DataAccess.CreateUser();
         IBorrow Borrow = new MySqlBorrow();
-        ReadUserCard ruc = null;
-       // System.Timers.Timer aTimer = null;
+        ICardHelper ruc = null;
+        // System.Timers.Timer aTimer = null;
         FilterData filterdata = new FilterData();
         GetUser getuser = new GetUser();
-        
+
         userinfo borrowuser = null;
         string backcard = "";
         List<BorrowWrench> borrowwrenchlist = new List<BorrowWrench>();
         List<ReturnWrench> _returnwrench = new List<ReturnWrench>();
         private delegate void TimerDispatcherDelegate();
-        public WrenchReturn(ReadUserCard r)
+        public WrenchReturn(ICardHelper r)
         {
             InitializeComponent();
             ruc = r;
-      
+
             //aTimer = new System.Timers.Timer(1000);
             //aTimer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             //aTimer.Interval = 10;
             //aTimer.Enabled = true;
-            ruc.HandDataBack += new ReadUserCard.DeleteDataBack(BackCardID);
+            ruc.HandDataBack += BackCardID;
         }
-        void BackCardID(object sender, EventArgs e)
+        void BackCardID(object sender, CardEventArgs e)
         {
-            ReadUserCard ruc = (ReadUserCard)sender;
-            backcard = ruc.BackString();
+            //   ReadUserCard ruc = (ReadUserCard)sender;
+            //  backcard = ruc.BackString();
+
+            backcard = e.data;
             Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(UpdateCardInfo));
         }
-   
+
         void UpdateCardInfo()
         {
             try
             {
-                filterdata.CardId = backcard;
-                filterdata.resetCard();
-                string cardid = filterdata.getcardid();
-                if (cardid == "")
-                    return;
-                filterdata.resetid("");
-                this.cardid.Text = cardid; 
 
+                string cardid;
+                if (OperationConfig.GetValue("CardSort") == "USB")
+                {
+                    this.cardid.Text = backcard;
+                    cardid = backcard;
+                }
+                else
+                {
+                    filterdata.CardId = backcard;
+                    filterdata.resetCard();
+                    cardid = filterdata.getcardid();
+                    if (cardid == "")
+                        return;
+                    filterdata.resetid("");
+                    this.cardid.Text = cardid;
+                }
                 borrowuser = getuser.getuserinfo(getuser.getusers(cardid));
                 if (borrowuser != null && borrowuser.user != null)
                 {
@@ -90,7 +102,7 @@ namespace LongTie.Nlbs.Borrow
                 else
                 {
                     this.username.Text = "";
-                    this.telphone.Text ="";
+                    this.telphone.Text = "";
                 }
             }
             catch { }
@@ -159,7 +171,7 @@ namespace LongTie.Nlbs.Borrow
                 return;
             }
             borrowuser = getuser.getuserinfo(getuser.getusers(this.cardid.Text.Trim()));
-            if (borrowuser != null &&borrowuser.user != null)
+            if (borrowuser != null && borrowuser.user != null)
             {
                 this.username.Text = borrowuser.user.username;
                 this.telphone.Text = borrowuser.user.phoneNumber;
@@ -177,11 +189,11 @@ namespace LongTie.Nlbs.Borrow
                 MessageAlert.Alert("请填写扳手编号");
                 return;
             }
-          if(GetWrench(this.wrenchbarcode.Text.Trim()))
-            DelReurnDg(this.wrenchbarcode.Text.Trim());
+            if (GetWrench(this.wrenchbarcode.Text.Trim()))
+                DelReurnDg(this.wrenchbarcode.Text.Trim());
         }
         void DelReurnDg(string wrenchbarcode)
-        {           
+        {
             if (_returnwrench == null || _returnwrench.Count <= 0)
                 return;
             _returnwrench.RemoveAt(_returnwrench.FindIndex(p => p.wrenchbarcode == wrenchbarcode));
@@ -193,12 +205,12 @@ namespace LongTie.Nlbs.Borrow
             if (borrowuser == null)
             {
                 MessageAlert.Alert("没有借用人信息");
-                return false ;
+                return false;
             }
             if (borrowwrenchlist.FindIndex(p => p.wrenchbarcode == wrenchbarcode) >= 0)
             {
                 MessageAlert.Alert("不能重复添加！");
-                return false ;
+                return false;
             }
 
             try
@@ -230,7 +242,7 @@ namespace LongTie.Nlbs.Borrow
                 return false;
             }
             catch { return false; }
-     
+
         }
 
         void DgBind(List<BorrowWrench> bl)
@@ -243,9 +255,9 @@ namespace LongTie.Nlbs.Borrow
         void ShowWrench(wrench e)
         {
             if (e == null)
-                return;      
-                this.wrenchcode.Text = e.wrenchCode;        
-                this.cb_wrench.IsEnabled = true;
+                return;
+            this.wrenchcode.Text = e.wrenchCode;
+            this.cb_wrench.IsEnabled = true;
         }
         private void bt_del_Click(object sender, RoutedEventArgs e)
         {
@@ -262,7 +274,7 @@ namespace LongTie.Nlbs.Borrow
         ReturnWrench GetReturnWrench(BorrowWrench br)
         {
             ReturnWrench rw = new ReturnWrench();
-            List<borrow> bl = Borrow.SelectByWrench(br.wrenchguid ,br.userguid,false );
+            List<borrow> bl = Borrow.SelectByWrench(br.wrenchguid, br.userguid, false);
             if (bl != null && bl.Count > 0)
             {
 
@@ -287,7 +299,7 @@ namespace LongTie.Nlbs.Borrow
                 return rw;
             }
             return null;
-    
+
         }
         private void wrenchbarcode_KeyUp(object sender, KeyEventArgs e)
         {
@@ -303,7 +315,7 @@ namespace LongTie.Nlbs.Borrow
             if (borrowwrenchlist == null || borrowwrenchlist.Count <= 0)
             {
                 MessageAlert.Alert("没有数据");
-                return ;
+                return;
             }
 
             if (Update())
@@ -364,7 +376,7 @@ namespace LongTie.Nlbs.Borrow
             DgBind(borrowwrenchlist);
             borrowuser = null;
             this.username.Text = "";
-            this.telphone.Text = "";            
+            this.telphone.Text = "";
             this.wrenchcode.Text = "";
             this.wrenchbarcode.Clear();
             this.cardid.Clear();
@@ -378,22 +390,22 @@ namespace LongTie.Nlbs.Borrow
         /// <returns></returns>
         bool Update()
         {
-       
+
             try
             {
                 foreach (BorrowWrench b in borrowwrenchlist)
                 {
                     //默认归还第一条
-                   List <borrow> bl = Borrow.SelectByWrench(b.wrenchguid ,false);
-                   if (bl != null && bl.Count > 0)
-                   {
-                       borrow bw = bl.FirstOrDefault();
-                       bw.is_return = true;
-                       bw.returnDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                       bw.returnOperator = SystData.userInfo.user.guid;
-                       bw.returnUser = borrowuser.user.guid;
-                       Borrow.Update(bw);
-                   }
+                    List<borrow> bl = Borrow.SelectByWrench(b.wrenchguid, false);
+                    if (bl != null && bl.Count > 0)
+                    {
+                        borrow bw = bl.FirstOrDefault();
+                        bw.is_return = true;
+                        bw.returnDate = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        bw.returnOperator = SystData.userInfo.user.guid;
+                        bw.returnUser = borrowuser.user.guid;
+                        Borrow.Update(bw);
+                    }
                 }
             }
             catch { return false; }
@@ -408,7 +420,7 @@ namespace LongTie.Nlbs.Borrow
                     return;
                 foreach (ReturnWrench rw in _returnwrench)
                 {
-                    GetWrench(rw.wrenchbarcode);                       
+                    GetWrench(rw.wrenchbarcode);
                 }
                 _returnwrench.Clear();
                 BorrowdgBind(_returnwrench);
@@ -425,6 +437,6 @@ namespace LongTie.Nlbs.Borrow
         {
             this.wrenchcode.Text = "";
         }
-        
+
     }
 }

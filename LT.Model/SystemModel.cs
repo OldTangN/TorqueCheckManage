@@ -15,7 +15,5 @@ namespace LT.Model
         public string guid { get; set; }
 
     }
-   public  class SystemModel:system 
-    {
-    }
+
 }

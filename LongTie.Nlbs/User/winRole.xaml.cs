@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using com.longtie.config;
 using LT.Model;
 using LT.DAL.Service;
 using LT.DAL;

@@ -1,5 +1,4 @@
-﻿using LongTie.Nlbs.MyDefine;
-using LongTie.Nlbs.Print;
+﻿using LongTie.Nlbs.Print;
 using LongTie.Nlbs.ViewModel;
 using LT.BLL;
 using LT.BLL.Check;

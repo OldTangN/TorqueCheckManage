@@ -80,13 +80,13 @@
 
                 <Label Content="员工角色"     HorizontalAlignment="Left" Margin="10,284,0,0" Name="label4" VerticalAlignment="Top" Width="Auto" RenderTransformOrigin="0.474,1.043" />
                 <Label Content="是否在岗"   Visibility="Hidden"   Height="23" HorizontalAlignment="Left" Margin="10,312,0,0" Name="label5" VerticalAlignment="Top" Width="Auto" RenderTransformOrigin="0.983,2.652" />
-                <Button Content="提 交" Background="#1E90FF" Height="30" HorizontalAlignment="Left" Margin="10,521,0,0" Name="button_submit" VerticalAlignment="Top" Width="94" Click="button_submit_Click" />
+         
                 <RadioButton Content="是" Visibility="Hidden"  Height="23" HorizontalAlignment="Left" Margin="90,318,0,0" Name="radio_is_staff" VerticalAlignment="Top" IsChecked="True" GroupName="radiogroup1" />
                 <RadioButton Content="否" Visibility="Hidden"  Height="23" HorizontalAlignment="Left" Margin="149,318,0,0" Name="radio_not_stuff" VerticalAlignment="Top" GroupName="radiogroup1" />
 
                 <Label Content="员工编号"      HorizontalAlignment="Left" Margin="10,131,0,0" x:Name="label2_Copy" VerticalAlignment="Top" Width="Auto" RenderTransformOrigin="0.483,1.174" />
 
-
+                <Button Content="提 交" Background="#1E90FF" Height="30" HorizontalAlignment="Left" Margin="10,521,0,0" Name="button_submit" VerticalAlignment="Top" Width="94" Click="button_submit_Click" />
                 <Button Name="bt_reset" Background="#1E90FF" Content="取 消" Height="30" HorizontalAlignment="Left" Margin="146,521,0,0" VerticalAlignment="Top" Width="94" Click="bt_reset_Click"/>
 
                 <Label Content="*" HorizontalAlignment="Left" Margin="228,37,0,0" VerticalAlignment="Top"/>

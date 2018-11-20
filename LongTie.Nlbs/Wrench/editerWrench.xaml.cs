@@ -180,8 +180,8 @@ namespace LongTie.Nlbs.Wrench
                 w.species = (cb_species.SelectedItem as wrenchspecies).id.ToString();
                 w.status = (cb_status.SelectedItem as wrenchstatus).id.ToString();
                 w.unit = "N.m";
-                w.createDate = Convert.ToDateTime ( Convert.ToDateTime(this.dp_time.Text.Trim()).ToString ("yyyy-MM-dd HH:mm:ss"));
-                w.lastrepair =Convert.ToDateTime (  Convert.ToDateTime(this.dp_time_Copy.Text.Trim()).ToString("yyyy-MM-dd HH:mm:ss"));
+                w.createDate = Convert.ToDateTime ( Convert.ToDateTime(this.dp_time.Text.Trim()).ToString ("s"));
+                w.lastrepair =Convert.ToDateTime (  Convert.ToDateTime(this.dp_time_Copy.Text.Trim()).ToString("s"));
                 return w;
             }
             catch {

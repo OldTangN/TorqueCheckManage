@@ -73,10 +73,10 @@
 
                 <DataGrid.Columns >
                     <DataGridTextColumn Header="guid"  Visibility="Hidden"  Width="170" Binding="{Binding Path=guid}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="扳手种类"   Width="170" IsReadOnly="True"  Binding="{Binding Path=speciesname}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="范围值(N.m)" Width="170" IsReadOnly="True"  Binding="{Binding Path=rangvalue}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="误差范围(%)" Width="170" IsReadOnly="True"  Binding="{Binding Path=errorrang}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
-                    <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"  Width="*" HeaderStyle="{StaticResource dgheader}">
+                    <DataGridTextColumn Header="扳手种类"   Width="170*" IsReadOnly="True"  Binding="{Binding Path=speciesname}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="范围值(N.m)" Width="170*" IsReadOnly="True"  Binding="{Binding Path=rangvalue}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="误差范围(%)" Width="170*" IsReadOnly="True"  Binding="{Binding Path=errorrang}" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" ></DataGridTextColumn>
+                    <DataGridTemplateColumn  IsReadOnly="True" Header="操 作"   Width="170*"  HeaderStyle="{StaticResource dgheader}">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center">

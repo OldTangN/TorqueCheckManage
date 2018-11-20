@@ -5,7 +5,7 @@
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                xmlns:local="clr-namespace:LongTie.Nlbs.Common"
               xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:MyDefine="clr-namespace:LongTie.Nlbs.MyDefine"  x:Class="LongTie.Nlbs.Check.SearchChechResult" 
+             x:Class="LongTie.Nlbs.Check.SearchChechResult" 
              mc:Ignorable="d"
              d:DesignHeight="700" d:DesignWidth="1024">
     <Grid.Resources >

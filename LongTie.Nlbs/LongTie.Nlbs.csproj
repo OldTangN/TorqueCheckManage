@@ -55,7 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>delogo.ico</ApplicationIcon>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>1A0870D019080D927C29618340F6CAEAFC3084E1</ManifestCertificateThumbprint>
@@ -133,22 +133,13 @@
     <Compile Include="Borrow\WrenchReturn.xaml.cs">
       <DependentUpon>WrenchReturn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CheckWrench.xaml.cs">
-      <DependentUpon>CheckWrench.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Check\CheckdataDetail.xaml.cs">
       <DependentUpon>CheckdataDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Check\CheckDate.xaml.cs">
-      <DependentUpon>CheckDate.xaml</DependentUpon>
     </Compile>
     <Compile Include="Check\CheckFinal.xaml.cs">
       <DependentUpon>CheckFinal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Check\Class1.cs" />
-    <Compile Include="Check\GridCheckdata.xaml.cs">
-      <DependentUpon>GridCheckdata.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Check\SearchChechResult.xaml.cs">
       <DependentUpon>SearchChechResult.xaml</DependentUpon>
     </Compile>
@@ -160,8 +151,6 @@
     </Compile>
     <Compile Include="Common\Converter.cs" />
     <Compile Include="Common\ConverterImage.cs" />
-    <Compile Include="Common\GridHelp.cs" />
-    <Compile Include="Common\GridHelper.cs" />
     <Compile Include="Common\SystData.cs" />
     <Compile Include="Control\CheckControl\ReadPort.cs" />
     <Compile Include="Control\EncoderControl\EncoderConvert.cs" />
@@ -185,12 +174,6 @@
     </Compile>
     <Compile Include="Model\MyTabitemModel.cs" />
     <Compile Include="Model\winEditorRoleModel.cs" />
-    <Compile Include="MyDefine\MyTabitem.xaml.cs">
-      <DependentUpon>MyTabitem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MyDefine\PageGrid.xaml.cs">
-      <DependentUpon>PageGrid.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Notify\WinTaskbarNotifier.xaml.cs">
       <DependentUpon>WinTaskbarNotifier.xaml</DependentUpon>
     </Compile>
@@ -281,37 +264,25 @@
     </Compile>
     <Page Include="Borrow\ReportWin.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Borrow\UserBorrow.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Borrow\WrenchBorrow.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Borrow\WrenchReturn.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CheckWrench.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="Check\CheckdataDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Check\CheckDate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Check\CheckFinal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Check\GridCheckdata.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -358,14 +329,6 @@
     <Compile Include="Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Page Include="MyDefine\MyTabitem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MyDefine\PageGrid.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Notify\WinTaskbarNotifier.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -539,7 +502,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="LongTie.Nlbs_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -735,6 +697,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Login_top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="MyDefine\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets')" />
