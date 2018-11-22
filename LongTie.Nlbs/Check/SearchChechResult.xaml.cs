@@ -308,7 +308,6 @@ namespace LongTie.Nlbs.Check
                 MessageAlert.Alert("请选择要打印的行！");
                 return;
             }
-            int confcount = 0;
             int cid = 1;
             systemcheckset sysset=null;
            List<systemcheckset> scsl = SerializeXML<systemcheckset>.Getlist();

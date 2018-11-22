@@ -4,25 +4,14 @@ using LT.BLL.ICCard;
 using LT.BLL.User;
 using LT.Comm;
 using LT.DAL;
-using LT.DAL.MySql;
 using LT.Model;
-using Manager;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace LongTie.Nlbs.User
@@ -142,7 +131,9 @@ namespace LongTie.Nlbs.User
                 }
                 return _usermodellist;
             }
-            catch (Exception ex) { return _usermodellist; }
+            catch (Exception ex) {
+                return _usermodellist;
+            }
         }
         private void BindingUserModel(List<UserModel> _usermodellist)
         {

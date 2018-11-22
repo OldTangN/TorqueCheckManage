@@ -64,7 +64,10 @@ namespace LT.BLL.ICCard
                 {
                     _keepreading = true;
                 }
-
+                else
+                {
+                    throw new Exception("读卡器连接失败！");
+                }
             }
             catch (Exception ex)
             {

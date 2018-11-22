@@ -34,9 +34,7 @@ namespace LongTie.Nlbs.Check
     /// </summary>
     public partial class CheckFinal
     {
-
-        //ShowUser _jshowuser = new ShowUser();
-        //ShowUser _zshowuser = new ShowUser();
+         
         userinfo _juser { set; get; } = null;
         userinfo _zuer = null;
         Light _light = null;
@@ -49,9 +47,7 @@ namespace LongTie.Nlbs.Check
         IUserRole UserRole = DataAccess.CreateUserRole();
         IWrenchSpecies WrenchSpecies = DataAccess.CreateWrenchSpecies();
         GetUser getuser = new GetUser();
-        systemcheckset _systemcheckset = new systemcheckset();
-        //TorqueTestModel _tester1 = new TorqueTestModel();
-        //TorqueTestModel _tester2 = new TorqueTestModel();
+        systemcheckset _systemcheckset = new systemcheckset(); 
         List<TorqueTestModel> ttml = new List<TorqueTestModel>();
 
         SerialPort _serialEncoder = null;
@@ -77,8 +73,12 @@ namespace LongTie.Nlbs.Check
             ruc = r;
             ruc.HandDataBack -= BackCardID;
             ruc.HandDataBack += BackCardID;
-            rct1.HandDataBack += new ReadCheckTester.DeleteDataBack(Hand1show);
-            rct2.HandDataBack += new ReadCheckTester.DeleteDataBack(Hand2show);
+
+            rct1.HandDataBack -= Hand1show;
+            rct1.HandDataBack += Hand1show;
+
+            rct2.HandDataBack -= Hand2show;
+            rct2.HandDataBack += Hand2show;
         }
 
         #region 重构获取校验仪
@@ -158,14 +158,14 @@ namespace LongTie.Nlbs.Check
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Hand1show(Object sender, EventArgs e)
+        private void Hand1show(Object sender, CardEventArgs e)
         {
             if (_checking && !_checkover && !_onearryover)
             {
                 ReadCheckTester t = (ReadCheckTester)sender;
                 if (_testertype)
                 {
-                    backdata = t.ReturnReadData();
+                    backdata = t.ReturnReadData(e.data);
                     Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(testerTypemin));
                 }
             }
@@ -212,7 +212,10 @@ namespace LongTie.Nlbs.Check
                 CheckBinddata();
                 checkControl();
             }
-            catch (Exception e) { }
+            catch (Exception e)
+            {
+
+            }
         }
 
         bool Bdirector = true;
@@ -293,7 +296,7 @@ namespace LongTie.Nlbs.Check
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void Hand2show(Object sender, EventArgs e)
+        void Hand2show(Object sender, CardEventArgs e)
         {
             DateTime dtnow = DateTime.Now;
 
@@ -316,8 +319,8 @@ namespace LongTie.Nlbs.Check
                     {
 
                         time = dtnow;
-                        backdata = t.ReturnReadData();
-                        Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.ApplicationIdle, new Action(testerType));
+                        backdata = t.ReturnReadData(e.data);
+                        Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(testerType));
 
                     }
                 }
@@ -379,8 +382,12 @@ namespace LongTie.Nlbs.Check
                 //EncoderPlc.BigGreenLight(false);
                 //EncoderPlc.BigRedLight(true);
             }
-            catch (Exception e) { }
+            catch (Exception e)
+            {
+
+            }
         }
+
 
         void CheckBinddata()
         {
@@ -719,8 +726,8 @@ namespace LongTie.Nlbs.Check
                     Getuserinfo(cardid);
                     filterdata.resetid("");
                 }
-            
-       
+
+
                 this.tb_wrenchbarcode.Focus();
                 showjuser(_juser);
                 showzuser(_zuer);

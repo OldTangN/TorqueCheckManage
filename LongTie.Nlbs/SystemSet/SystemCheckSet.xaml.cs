@@ -28,9 +28,7 @@ namespace LongTie.Nlbs.SystemSet
     /// </summary>
     public partial class SystemCheckSet 
     {
-        EncoderPlc EncoderPlc = null;
         SerialPort _serialport = null;
-        System.Timers.Timer aTimer = null;
         private delegate void TimerDispatcherDelegate();
         public SerialPort SetSerialPort { set { _serialport = value; } }
         EncoderConvert EncoderConvert = new EncoderConvert();

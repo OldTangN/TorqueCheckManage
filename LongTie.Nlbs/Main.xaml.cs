@@ -48,7 +48,7 @@ namespace LongTie.Nlbs
         TorqueTestModel _tester1 = new TorqueTestModel();
         TorqueTestModel _tester2 = new TorqueTestModel();
         List<TorqueTestModel> ttml = new List<TorqueTestModel>();
-        public Thread thead3;
+
         public Thread thead1;
         public Thread thead2;
         System.Timers.Timer aTimer = null;
@@ -57,8 +57,9 @@ namespace LongTie.Nlbs
         string strerror = "";
 
         editerWrench ew = null;
-        public Main()
+        public Main(ICardHelper _ruc)
         {
+            this.ruc = _ruc;
             this.taskbarNotifier = new WinTaskbarNotifier();
             InitializeComponent();
             //  this.taskbarNotifier.Show();
@@ -79,8 +80,8 @@ namespace LongTie.Nlbs
                     rct1 = new ReadCheckTester(_t1);
                     thead1 = new Thread(rct1.Read);
                     thead1.Start();
-                    if (!_t1.IsOpen)
-                        _t1.Open();
+                    //if (!_t1.IsOpen)
+                    //    _t1.Open();
                 }
                 catch
                 {
@@ -92,8 +93,8 @@ namespace LongTie.Nlbs
                     rct2 = new ReadCheckTester(_t2);
                     thead2 = new Thread(rct2.Read);
                     thead2.Start();
-                    if (!_t2.IsOpen)
-                        _t2.Open();
+                    //if (!_t2.IsOpen)
+                    //    _t2.Open();
                 }
                 catch
                 {
@@ -101,29 +102,7 @@ namespace LongTie.Nlbs
                     strerror += "---校验仪2连接失败";
                 }
 
-                try
-                {
-                    string PortName = OperationConfig.GetValue("cardcom");
-                    //rC.PortName = OperationConfig.GetValue("cardcom");
-                    //rC.BaudRate = 115200;
-                    if (OperationConfig.GetValue("CardSort") == "USB")
-                    {
-                        ruc = new UsbICCard(PortName);
-                    }
-                    else
-                    {
-                        ruc = new ComICCard(PortName);
-                    }
-                    
-                    thead3 = new Thread(ruc.Read);
-                    thead3.Start();
-                }
-                catch
-                {
-                    msg += "读卡器链接失败\r\n";
-                    strerror += "---读卡器连接失败";
-
-                }
+              
 
                 EncoderPlcPort.PortName = OperationConfig.GetValue("encodercom");
                 EncoderPlcPort.BaudRate = 9600;
@@ -690,27 +669,27 @@ namespace LongTie.Nlbs
             this.main.Children.Add(we);
         }
 
-        private void barcodeprint_Click(object sender, RoutedEventArgs e)
-        {
-            Process p = new Process();
-            try
-            {
-                p.StartInfo.FileName = OperationConfig.GetValue("printpath");
+        //private void barcodeprint_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Process p = new Process();
+        //    try
+        //    {
+        //        p.StartInfo.FileName = OperationConfig.GetValue("printpath");
 
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;//该属性在WinForm中有效                
+        //        p.StartInfo.WindowStyle = ProcessWindowStyle.Maximized;//该属性在WinForm中有效                
 
-                p.StartInfo.UseShellExecute = true;
+        //        p.StartInfo.UseShellExecute = true;
 
-                p.StartInfo.CreateNoWindow = true;
+        //        p.StartInfo.CreateNoWindow = true;
 
-                p.Start();
-            }
-            catch
-            {
-                LogUtil.WriteLog(typeof(Process), "条码打印启动失败！");
-            }
+        //        p.Start();
+        //    }
+        //    catch
+        //    {
+        //        LogUtil.WriteLog(typeof(Process), "条码打印启动失败！");
+        //    }
 
-        }
+        //}
 
 
         private void instruction_Click(object sender, RoutedEventArgs e)

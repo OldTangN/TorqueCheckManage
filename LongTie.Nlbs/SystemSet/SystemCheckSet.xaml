@@ -54,7 +54,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
-                    <Label Content="校验组数" />
+                    <Label Content="不合格次数" />
                     <TextBox Name="tb_jarry" Text="3"/>
 
                 </StackPanel>

@@ -109,9 +109,9 @@
                     <MenuItem Name="searchwrenchdata"  Height="20"  IsEnabled="False" Header="到期维护扳手" Click="searchwrenchdata_Click" ></MenuItem>
 
                 </MenuItem>
-                <MenuItem Header="条码设计" IsEnabled="False">
+                <!--<MenuItem Header="条码设计" IsEnabled="False">
                     <MenuItem Name="barcodeprint" Header="条码打印" Height="20" IsEnabled="False" Click="barcodeprint_Click"></MenuItem>  
-                </MenuItem>
+                </MenuItem>-->
                 <MenuItem Name="help" Header="帮 助" IsEnabled="False">
                     <MenuItem Name="instruction" Header="软件使用说明" Height="20" IsEnabled="False" Click="instruction_Click"></MenuItem>
                     <Separator/>

@@ -76,6 +76,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BarcodeLib, Version=1.3.0.0, Culture=neutral, PublicKeyToken=5f09bda868cc39e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\BarcodeLib.1.3.0.0\lib\net20\BarcodeLib.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -139,7 +142,6 @@
     <Compile Include="Check\CheckFinal.xaml.cs">
       <DependentUpon>CheckFinal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Check\Class1.cs" />
     <Compile Include="Check\SearchChechResult.xaml.cs">
       <DependentUpon>SearchChechResult.xaml</DependentUpon>
     </Compile>
@@ -152,7 +154,6 @@
     <Compile Include="Common\Converter.cs" />
     <Compile Include="Common\ConverterImage.cs" />
     <Compile Include="Common\SystData.cs" />
-    <Compile Include="Control\CheckControl\ReadPort.cs" />
     <Compile Include="Control\EncoderControl\EncoderConvert.cs" />
     <Compile Include="Help\About.xaml.cs">
       <DependentUpon>About.xaml</DependentUpon>
@@ -234,7 +235,6 @@
     <Compile Include="User\winRole.xaml.cs">
       <DependentUpon>winRole.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\SearchCheckViewModel.cs" />
     <Compile Include="Wrench\CheckCountChart.xaml.cs">
       <DependentUpon>CheckCountChart.xaml</DependentUpon>
     </Compile>
@@ -338,14 +338,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Print\PrintSingleCheckdata.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Report\BorrowReport.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Report\CheckDataReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -514,19 +506,7 @@
     <Resource Include="Images\gap.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\login_full_bac.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\user.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\欢迎界面.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\help.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\mainlogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\bg_check.jpg" />
@@ -575,12 +555,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeReason.Reports.Charts.Visifire\CodeReason.Reports.Charts.Visifire.csproj">
-      <Project>{104e3c95-4f6c-4a1c-80b9-60b6bd784c51}</Project>
-      <Name>CodeReason.Reports.Charts.Visifire</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CodeReason.Reports\CodeReason.Reports.csproj">
-      <Project>{87a8d936-ae11-40aa-8927-a414c2225991}</Project>
+      <Project>{87A8D936-AE11-40AA-8927-A414C2225991}</Project>
       <Name>CodeReason.Reports</Name>
     </ProjectReference>
     <ProjectReference Include="..\LT.BLL\LT.BLL.csproj">
@@ -702,7 +678,9 @@
     <Resource Include="Logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Control\CheckControl\" />
     <Folder Include="MyDefine\" />
+    <Folder Include="Report\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net40\System.Data.SQLite.Core.targets')" />

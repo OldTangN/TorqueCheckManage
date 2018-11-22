@@ -28,7 +28,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="60"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="540" />          
+            <RowDefinition Height="540" />
         </Grid.RowDefinitions>
         <Border BorderBrush="Silver" BorderThickness="1,1,1,0" Margin="20,0,20,0">
             <Label Content="扳手信息查询" FontSize="20" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" ></Label>
@@ -36,7 +36,7 @@
         <Border Grid.Row="1" BorderBrush="Silver" BorderThickness="1" Margin="20,0,20,0">
             <StackPanel Name="top" Orientation="Horizontal" >
                 <StackPanel  Orientation="Horizontal" >
-                    <Label Width="100" Height="30"    Content="扳手编号"></Label>
+                    <Label Width="80" Height="30"    Content="扳手编号"></Label>
                     <TextBox Name="tb_wrenchcode" VerticalContentAlignment="Center"  Height="30" Width="150" KeyDown="tb_wrenchcode_KeyDown"></TextBox>
                 </StackPanel>
                 <StackPanel  Orientation="Horizontal" Margin="10,5">
@@ -47,19 +47,22 @@
                     <Label Height="30" Content="扳手状态"></Label>
                     <ComboBox Name="cb_status" ></ComboBox>
                 </StackPanel>
-                <Button Name="bt_search" Height="30" Width="100"  BorderBrush="{x:Null}" Background="#1E90FF"  Margin="30,5" Click="bt_search_Click">搜 索</Button>
+                <Button Name="bt_search" Height="30" Width="100"  BorderBrush="{x:Null}" Background="#1E90FF"  Margin="10,5" Click="bt_search_Click">搜 索</Button>
+                <Button x:Name="bt_print" Height="30" Width="100"  BorderBrush="{x:Null}" Background="#1E90FF"  Margin="10,34" Click="Bt_print_Click" Content="条码打印"/>
             </StackPanel>
         </Border>
         <Border Grid.Row="2" Margin="20,0,20,20" BorderBrush="Silver" BorderThickness="1">
             <Grid  Background="{x:Null}">
-                  
-                    <Grid.RowDefinitions >
-                        <RowDefinition Height="20"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Name="infoout" Content="导 出" Background="{x:Null}" BorderBrush="{x:Null}" Width="60" Height="20" HorizontalAlignment="Right" Click="infoout_Click"></Button>
-                    <DataGrid Grid.Row="1" Grid.Column="0" AlternationCount="2" AlternatingRowBackground="#f0fff0"  CanUserAddRows="False"  AutoGenerateColumns="False"   Margin="0"   Name="dataGrid1"  RowHeaderWidth="0"   SelectedCellsChanged="dataGrid1_SelectedCellsChanged" Background="{x:Null}" Grid.ColumnSpan="2">
-                        <DataGrid.Columns>
+
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="20"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Name="infoout" Content="导 出" Background="{x:Null}" BorderBrush="{x:Null}" Width="60" Height="20" HorizontalAlignment="Right" Click="infoout_Click"></Button>
+                <DataGrid Grid.Row="1" Grid.Column="0" AlternationCount="2" AlternatingRowBackground="#f0fff0"  CanUserAddRows="False"  AutoGenerateColumns="False"   Margin="0"   Name="dataGrid1" 
+SelectedIndex="-1"
+                          RowHeaderWidth="0" Background="{x:Null}" Grid.ColumnSpan="2">
+                    <DataGrid.Columns>
                         <DataGridTextColumn  IsReadOnly="True" Header="序 号"  Binding="{Binding id}"    Width="45" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
                         <DataGridTextColumn  IsReadOnly="True" Header="扳手编号"    Binding="{Binding wrenchCode}" Width="110" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
                         <DataGridTextColumn  IsReadOnly="True" Header="扳手条码号"    Binding="{Binding wrenchBarCode}" Width="110" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
@@ -74,13 +77,13 @@
                         <DataGridTextColumn  IsReadOnly="True" Header="有效时长(天)"    Binding="{Binding cycletime}" Width="100" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
                         <DataGridTextColumn IsReadOnly="True" Header="生产厂家" Binding="{Binding factory}" Width=" 105" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
                         <DataGridTextColumn IsReadOnly="True" Header=" 备 注" Binding="{Binding comment}" Width=" 80"  HeaderStyle="{StaticResource dgheader}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-        
-          
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+
         </Border>
-        
+
         <!--<Grid Grid.Row="2" >
             <Button Content="添加扳手" Height="30" HorizontalAlignment="Left" Margin="41,35,0,0" Name="btn_add" VerticalAlignment="Top" Width="120" Click="btn_add_Click" />
             <Button Content="编辑扳手信息" Height="30" HorizontalAlignment="Left" Margin="228,37,0,0" Name="btn_edit" VerticalAlignment="Top" Width="125" Click="Btn_Edit_Click" />

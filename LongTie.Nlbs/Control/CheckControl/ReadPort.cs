@@ -10,8 +10,7 @@ namespace LongTie.Nlbs.Control.CheckControl
     public class ReadPort
     {
         SerialPort _serialport = new SerialPort();
-        private bool _keepreading;
-        StringBuilder _stringdatd = new StringBuilder();
+        private bool _keepreading = false;
         private bool _isread = false;
         string _outstring = "";
         public ReadPort(SerialPort serialport)
