@@ -1,0 +1,30 @@
+﻿<Window x:Class="QDDL.Nlbs.Notify.WinWrenchRepair"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="扳手到期维护提示" Height="500" Width="600" Topmost="True" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="dgheader" TargetType="DataGridColumnHeader" >
+            <Setter Property="HorizontalContentAlignment" Value="Center"   ></Setter>
+        </Style>
+
+        <Style x:Key="dgCell" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter  Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <DataGrid Grid.Row="0" ItemsSource="{Binding Path=Wrench}"
+                          CanUserAddRows="False" RowHeaderWidth="0" AutoGenerateColumns="False"  Margin="0" Name="dataGrid1" AlternationCount="2" AlternatingRowBackground="#f0fff0">
+            <DataGrid.Background>
+                <ImageBrush ImageSource="/Images/bg_table2.png"/>
+            </DataGrid.Background>
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding wrenchbarcode}"  Header="扳手编号" Width="150" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}" />
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding lastrepairtime ,StringFormat='yyyy-MM-dd'}" Header="最近维护时间" Width="160" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding intime}"  Header="到期时间" Width="120" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+                <DataGridTextColumn IsReadOnly="True"  Binding="{Binding cycletime}"  Header="有效时长(天)" Width="80" HeaderStyle="{StaticResource dgheader}" ElementStyle="{StaticResource dgCell}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

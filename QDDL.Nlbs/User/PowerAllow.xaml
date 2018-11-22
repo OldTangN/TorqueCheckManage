@@ -1,0 +1,71 @@
+﻿<Grid x:Class="QDDL.Nlbs.User.PowerAllow"
+ xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:QDDL.Nlbs.Common"
+             d:DesignHeight="700" d:DesignWidth="1024">
+    <Grid.RowDefinitions >
+        <RowDefinition Height="30"></RowDefinition>
+        <RowDefinition Height="30"></RowDefinition>
+        <RowDefinition Height="640"></RowDefinition>
+    </Grid.RowDefinitions>
+    
+    <Grid.ColumnDefinitions >
+        <ColumnDefinition ></ColumnDefinition>
+        <ColumnDefinition ></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+    <Border Grid.Row="1" BorderBrush="Silver"  BorderThickness="1" Margin="20,0,100,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="当前所有功能" ></Label>
+        </StackPanel>
+    </Border>
+
+    <Border Grid.Row="1"  BorderBrush="Silver"  BorderThickness="1,1,1,0" Grid.Column="1" Margin="0,0,20,0">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"  >
+            <Label Content=" 所获取功能"></Label>
+        </StackPanel>
+    </Border>
+    <Border Grid.Row="2" BorderBrush="Silver"  BorderThickness="1,0,0,1" Margin="20,0,0,20">
+        <Grid >
+            <Grid.ColumnDefinitions >
+                <ColumnDefinition ></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Silver" BorderThickness="1,0,1,1">
+            <GroupBox Header="系统所有功能" Margin="0,30,0,0">
+                    <ListView    Name="lb_function"  >
+                 
+                    </ListView>
+            </GroupBox>
+            </Border>
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Button Name="bt_add" Background="#1E90FF" Height="30" Width="80" Content=">>"  Margin="0,10" Click="bt_add_Click"></Button>
+                <Button Name="bt_del" Background="#1E90FF" Height="30" Width="80" Content="选中删除" Click="bt_del_Click"></Button>
+            </StackPanel>
+        </Grid>
+    
+    </Border>
+    <Border Grid.Row="2" Grid.Column="1" BorderBrush="Silver" BorderThickness="1" Margin="0,0,20,20">
+        <Grid >
+            <Grid.RowDefinitions >
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+     
+                <StackPanel Orientation="Horizontal" >
+                    <Label Content="当前要分配的角色" Height="30" Width="120" HorizontalContentAlignment="Right" VerticalContentAlignment="Center" ></Label>
+                    <ComboBox Name="cb_role" Height="30" Width="120" VerticalContentAlignment="Center"  SelectionChanged="cb_role_SelectionChanged"></ComboBox>
+                <Button Width="120" Background="#1E90FF" Height="30" Content="保 存" Margin="20,0" Click="Button_Click"></Button>
+                </StackPanel>
+            <GroupBox Grid.Row=" 1" Header="当前角色获取的功能">
+                <ListView Name="lv_havefunctio">
+
+                </ListView>
+            </GroupBox>
+
+        </Grid>
+       
+    </Border>
+</Grid>

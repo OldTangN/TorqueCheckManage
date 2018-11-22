@@ -1,0 +1,112 @@
+﻿<Window x:Class="QDDL.Nlbs.Wrench.WrenchShow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="扳手信息"
+        Icon="/QDDL.Nlbs;component/Manager.ico"
+        Height="350" Width="500" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize"  >
+    <Window.Resources >
+        <Style TargetType="Label" >          
+            <Setter Property="Width" Value="90"></Setter>
+            <Setter Property="HorizontalContentAlignment" Value="Right" ></Setter>
+            <Setter Property="VerticalContentAlignment" Value="Center" ></Setter>            
+        </Style>
+        <Style TargetType="TextBlock">        
+            <Setter Property="Width" Value="120"/>  
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Bottom" />
+        </Style>
+        <Style TargetType="Button" >
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Background" Value="#1E90FF"></Setter>
+            <Setter Property="Margin" Value="0,10"></Setter>
+        </Style>
+        
+    </Window.Resources>
+    <Window.Background>
+        <ImageBrush ImageSource="/QDDL.Nlbs;component/Images/bg_table2.png"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions >
+            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+        </Grid.RowDefinitions> 
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" >
+            <Label Content="扳手备注"></Label>
+            <TextBox Name="common" Width="370" Margin="5" IsReadOnly="True" ></TextBox>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="0" Margin="10,20">
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="扳手条码"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="wrenchbarcode"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="扳手编号"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="wrenchcode"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="生产厂家"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="factory"></TextBlock>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="扳手状态"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="status"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="最近维护时间"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="lasttime"></TextBlock>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,20">
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="所属种类"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="species"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5" >
+                <Label Content="设定值(N.m)"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="setvalue"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="扳手量程(N.m)"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="rang"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="入库时间"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="time"></TextBlock>
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
+                <Label Content="维护周期(天)"></Label>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Name="cycletime"></TextBlock>
+                </Border>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="1">
+            <Button Content="关 闭" Name="bt_close" Click="bt_close_Click"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
