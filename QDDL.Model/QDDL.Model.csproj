@@ -53,7 +53,7 @@
     <Compile Include="BllModel\PropertyNodeItem.cs" />
     <Compile Include="BllModel\ReturnWrench.cs" />
     <Compile Include="BllModel\ShowCheckresult.cs" />
-    <Compile Include="BllModel\TorqueTestModel.cs" />
+    <Compile Include="TorqueTestModel.cs" />
     <Compile Include="BllModel\WrenchCheckOut.cs" />
     <Compile Include="BllModel\WrenchNotice.cs" />
     <Compile Include="BorrowModel.cs" />

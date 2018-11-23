@@ -28,11 +28,11 @@ namespace QDDL.Nlbs.Wrench
     /// <summary>
     /// Interaction logic for editerWrench.xaml
     /// </summary>
-    public partial class editerWrench 
+    public partial class editerWrench
     {
-      //  public static editerWrench editerwrench=null;
+        //  public static editerWrench editerwrench=null;
 
-        wrench _wrench=new wrench ();
+        wrench _wrench = new wrench();
         IWrench Wrench = DataAccess.CreateWrench();
         IWrenchSpecies WrenchSpecies = DataAccess.CreateWrenchSpecies();
         IWrenchStatus WrenchStatus = DataAccess.CreateWrenchStatus();
@@ -43,106 +43,111 @@ namespace QDDL.Nlbs.Wrench
         IBorrow Borrow = new MySqlBorrow();
         ICheckTarget CheckTarget = DataAccess.CreateCheckTarget();
         ICheckTargetRecord CheckTargetRecord = DataAccess.CreateCheckTargetRecord();
-        bool isadd = true ;
-         
+        bool isadd = true;
+
 
         //  userinfo _userinfo=null;
 
-        public  editerWrench()
+        public editerWrench()
         {
             InitializeComponent();
-          
-         //   _userinfo = u;
+
+            //   _userinfo = u;
         }
 
-     private void getwrenchlist(List<ToolModel> toolmodellist)
-     {
-         dataGrid1.ItemsSource = null;
-         dataGrid1.ItemsSource = toolmodellist;
-     }
-     private List<ToolModel> Gettoolmodel(List<wrench> wrenchlist)
-     {
-         List<ToolModel> toolmodellist = new List<ToolModel>();
-         try
-         {
-             if (wrenchlist != null)
-             {
-                 int tempid = 1;
-                 foreach (wrench w in wrenchlist)
-                 {
-                     wrenchspecies ws = WrenchSpecies.selectByGuid(w.species);
-                     wrenchstatus wss = WrenchStatus.selectByguid(w.status);
-                     toolmodellist.Add(new ToolModel()
-                     {                         
-                         comment = w.comment,
-                         createDate = w.createDate,
-                         factory = w.factory,
-                         guid = w.guid,
-                         id =tempid++,
-                         IP = w.IP,
-                         port = w.port,
-                         rangeMax =Convert .ToDecimal ( w.rangeMax.ToString ("f1")),
-                         rangeMin =Convert .ToDecimal ( w.rangeMin.ToString ("f1")),
-                         targetvalue =Convert .ToDecimal ( w.targetvalue.ToString ("f1")),
-                         targetvalue1 = Convert.ToDecimal(w.targetvalue1.ToString("f1")),
-                         targetvalue2 = Convert.ToDecimal(w.targetvalue2.ToString("f1")),
-                         unit = w.unit,
-                         species = w.species,
-                         speciesName =ws!=null? ws.speciesName:"",
-                         status = w.status,
-                         statusDM =wss!=null? wss.statusDM:"",
-                         statusName =wss!=null? wss.statusName:"",
-                         wrenchBarCode = w.wrenchBarCode,
-                         wrenchCode = w.wrenchCode,
-                         lastrepair=w.lastrepair
-                     });
-                 }
-             }
-         }
-         catch 
-         { }
-         return toolmodellist;
+        private void getwrenchlist(List<ToolModel> toolmodellist)
+        {
+            dataGrid1.ItemsSource = null;
+            dataGrid1.ItemsSource = toolmodellist;
+        }
+        private List<ToolModel> Gettoolmodel(List<wrench> wrenchlist)
+        {
+            List<ToolModel> toolmodellist = new List<ToolModel>();
+            try
+            {
+                if (wrenchlist != null)
+                {
+                    int tempid = 1;
+                    foreach (wrench w in wrenchlist)
+                    {
+                        wrenchspecies ws = WrenchSpecies.selectByGuid(w.species);
+                        wrenchstatus wss = WrenchStatus.selectByguid(w.status);
+                        toolmodellist.Add(new ToolModel()
+                        {
+                            comment = w.comment,
+                            createDate = w.createDate,
+                            factory = w.factory,
+                            guid = w.guid,
+                            id = tempid++,
+                            IP = w.IP,
+                            port = w.port,
+                            rangeMax = Convert.ToDecimal(w.rangeMax.ToString("f1")),
+                            rangeMin = Convert.ToDecimal(w.rangeMin.ToString("f1")),
+                            targetvalue = Convert.ToDecimal(w.targetvalue.ToString("f1")),
+                            targetvalue1 = Convert.ToDecimal(w.targetvalue1.ToString("f1")),
+                            targetvalue2 = Convert.ToDecimal(w.targetvalue2.ToString("f1")),
+                            offPset = w.offPset,
+                            unit = w.unit,
+                            species = w.species,
+                            speciesName = ws != null ? ws.speciesName : "",
+                            status = w.status,
+                            statusDM = wss != null ? wss.statusDM : "",
+                            statusName = wss != null ? wss.statusName : "",
+                            wrenchBarCode = w.wrenchBarCode,
+                            wrenchCode = w.wrenchCode,
+                            lastrepair = w.lastrepair
+                        });
+                    }
+                }
+            }
+            catch
+            { }
+            return toolmodellist;
 
-     }
+        }
 
         void getspecies()
         {
-            try {
-                this.cb_species.ItemsSource  = WrenchSpecies.select();
+            try
+            {
+                this.cb_species.ItemsSource = WrenchSpecies.select();
                 this.cb_species.DisplayMemberPath = "speciesName";
                 this.cb_species.SelectedValuePath = "id";
             }
             catch { }
         }
-        void getstatus() 
+        void getstatus()
         {
-            try {
+            try
+            {
                 List<wrenchstatus> ws = new List<wrenchstatus>();
                 ws = WrenchStatus.selectAll();
                 this.cb_status.ItemsSource = ws;
                 this.cb_status.DisplayMemberPath = "statusName";
                 this.cb_status.SelectedValuePath = "id";
-                this.cb_status.SelectedIndex = ws.FindIndex (p=>p.statusDM =="001");
+                this.cb_status.SelectedIndex = ws.FindIndex(p => p.statusDM == "001");
 
             }
             catch { }
         }
         void showwrench(wrench w)
         {
-            try {
+            try
+            {
                 if (w == null)
                     return;
                 this.tb_wrenchcode.Text = w.wrenchCode;
                 this.tb_wrenchbarcode.Text = w.wrenchBarCode;
                 this.tb_targetvalue.Text = w.targetvalue.ToString();
-                this.tb_targetvalue1.Text = w.targetvalue1<=0?"":w.targetvalue1 .ToString();
-                this.tb_targetvalue2.Text = w.targetvalue2<= 0? "" : w.targetvalue2.ToString();
+                this.tb_targetvalue1.Text = w.targetvalue1 <= 0 ? "" : w.targetvalue1.ToString();
+                this.tb_targetvalue2.Text = w.targetvalue2 <= 0 ? "" : w.targetvalue2.ToString();
                 this.tb_unite.Text = w.unit;
                 this.tb_min.Text = w.rangeMin.ToString();
                 this.tb_max.Text = w.rangeMax.ToString();
                 this.tb_factory.Text = w.factory == null ? "" : w.factory;
                 this.tb_com.Text = w.comment == null ? "" : w.comment;
-                this.dp_time.Text = w.createDate.ToString ("yyyy-MM-dd HH:mm:ss");
+                this.tb_Pset.Text = w.offPset == null ? "" : w.offPset;
+                this.dp_time.Text = w.createDate.ToString("yyyy-MM-dd HH:mm:ss");
                 this.dp_time_Copy.Text = w.lastrepair.ToString("yyyy-MM-dd");
                 foreach (var d in cb_species.Items)
                 {
@@ -152,19 +157,19 @@ namespace QDDL.Nlbs.Wrench
                         break;
                     }
                 }
-                foreach (var s in cb_status .Items )
+                foreach (var s in cb_status.Items)
                 {
                     if (s != null && (((wrenchstatus)s).guid == w.status))
                     {
-                        cb_status.SelectedItem = s; break; 
+                        cb_status.SelectedItem = s; break;
                     }
                 }
 
             }
             catch { }
-        
+
         }
-        wrench  getwrench(wrench w)
+        wrench getwrench(wrench w)
         {
             try
             {
@@ -174,24 +179,26 @@ namespace QDDL.Nlbs.Wrench
                 w.rangeMax = Convert.ToDecimal(this.tb_max.Text.Trim());
                 w.rangeMin = Convert.ToDecimal(this.tb_min.Text.Trim());
                 w.comment = this.tb_com.Text.Trim();
-                w.targetvalue =Convert.ToDecimal(this.tb_targetvalue.Text.Trim());
+                w.offPset = this.tb_Pset.Text.Trim();
+                w.targetvalue = Convert.ToDecimal(this.tb_targetvalue.Text.Trim());
                 w.targetvalue1 = string.IsNullOrEmpty(this.tb_targetvalue1.Text.Trim()) ? 0 : Convert.ToDecimal(this.tb_targetvalue1.Text.Trim());
                 w.targetvalue2 = string.IsNullOrEmpty(this.tb_targetvalue2.Text.Trim()) ? 0 : Convert.ToDecimal(this.tb_targetvalue2.Text.Trim());
                 w.species = (cb_species.SelectedItem as wrenchspecies).id.ToString();
                 w.status = (cb_status.SelectedItem as wrenchstatus).id.ToString();
                 w.unit = "N.m";
-                w.createDate = Convert.ToDateTime ( Convert.ToDateTime(this.dp_time.Text.Trim()).ToString ("s"));
-                w.lastrepair =Convert.ToDateTime (  Convert.ToDateTime(this.dp_time_Copy.Text.Trim()).ToString("s"));
+                w.createDate = Convert.ToDateTime(Convert.ToDateTime(this.dp_time.Text.Trim()).ToString("s"));
+                w.lastrepair = Convert.ToDateTime(Convert.ToDateTime(this.dp_time_Copy.Text.Trim()).ToString("s"));
                 return w;
             }
-            catch {
+            catch
+            {
                 MessageAlert.Alert("请输入正确的数字值！");
                 return null;
             }
         }
         bool add(wrench w)
         {
-            w.createDate = Convert .ToDateTime ( this.dp_time .Text.Trim ());
+            w.createDate = Convert.ToDateTime(this.dp_time.Text.Trim());
             w.lastrepair = Convert.ToDateTime(this.dp_time_Copy.Text.Trim());
             w.guid = Guid.NewGuid().ToString();
             w.isallowcheck = true;
@@ -200,24 +207,24 @@ namespace QDDL.Nlbs.Wrench
         }
         bool isexit(wrench w)
         {
-            if (w == null) return true ;
+            if (w == null) return true;
             if (Wrench.selectByBarcode(w.wrenchBarCode) != null)
-            { MessageBox.Show("工具条码号已经存在不能重复！"); return true ; }
-            if (Wrench.selectBycode(w.wrenchCode)!=null&&Wrench.selectBycode(w.wrenchCode).Count > 0) 
-            { MessageBox.Show("工具编号已经存在不能重复！"); return true ; }
-            return false ;
+            { MessageBox.Show("工具条码号已经存在不能重复！"); return true; }
+            if (Wrench.selectBycode(w.wrenchCode) != null && Wrench.selectBycode(w.wrenchCode).Count > 0)
+            { MessageBox.Show("工具编号已经存在不能重复！"); return true; }
+            return false;
         }
         bool IsRepeat(wrench w)
         {
             if (w == null) return false;
-            wrench tempw=Wrench.selectByBarcode(this.tb_wrenchbarcode .Text .Trim ());
-            if (tempw!=null&& w.guid !=tempw .guid)
+            wrench tempw = Wrench.selectByBarcode(this.tb_wrenchbarcode.Text.Trim());
+            if (tempw != null && w.guid != tempw.guid)
             {
-                MessageBox.Show("工具条码号已经存在不能重复！"); 
-                return true ; 
+                MessageBox.Show("工具条码号已经存在不能重复！");
+                return true;
             }
-            List <wrench > wl=Wrench.selectBycode(w.wrenchCode);
-            if (wl!= null && wl.Count > 0)
+            List<wrench> wl = Wrench.selectBycode(w.wrenchCode);
+            if (wl != null && wl.Count > 0)
             {
                 foreach (wrench wc in wl)
                 {
@@ -228,8 +235,8 @@ namespace QDDL.Nlbs.Wrench
                     }
                 }
             }
-              
-            return false ;
+
+            return false;
         }
         bool update(wrench w)
         {
@@ -243,9 +250,9 @@ namespace QDDL.Nlbs.Wrench
             {
                 w.cycletime = 0;
             }
-            w.species = (cb_species.SelectedItem as wrenchspecies).guid .ToString();
+            w.species = (cb_species.SelectedItem as wrenchspecies).guid.ToString();
             w.status = (cb_status.SelectedItem as wrenchstatus).guid.ToString();
-            return Wrench.updata(w );
+            return Wrench.updata(w);
         }
         bool IsEmpty()
         {
@@ -265,60 +272,61 @@ namespace QDDL.Nlbs.Wrench
             decimal target = 0;
             try
             {
-                 max = Convert.ToDecimal(this.tb_max.Text.Trim());
-                 min = Convert.ToDecimal(this.tb_min.Text.Trim());
-                 target = Convert.ToDecimal(this.tb_targetvalue.Text.Trim());
+                max = Convert.ToDecimal(this.tb_max.Text.Trim());
+                min = Convert.ToDecimal(this.tb_min.Text.Trim());
+                target = Convert.ToDecimal(this.tb_targetvalue.Text.Trim());
             }
-            catch {
+            catch
+            {
                 MessageAlert.Alert("请输入正确的数值");
                 return true;
             }
-         if (max <min)
+            if (max < min)
             {
                 MessageAlert.Alert("误差上限小于误差上限！");
-                return true ;
+                return true;
             }
-         if (target <min || target >max )
+            if (target < min || target > max)
+            {
+                MessageAlert.Alert("设定值不在量程范围之内！");
+                return true;
+            }
+            if (!string.IsNullOrEmpty(this.tb_targetvalue1.Text.Trim()))
+            {
+                try
                 {
-                MessageAlert .Alert ("设定值不在量程范围之内！");
-                   return true  ;
-                }
-         if (!string.IsNullOrEmpty(this.tb_targetvalue1.Text.Trim()))
-         {
-             try
-             {
-                 decimal d = Convert.ToDecimal(this.tb_targetvalue1.Text .Trim ());
-                 if (d < min || d > max)
-                 {
-                     MessageAlert.Alert("设定值1不在量程范围之内！");
-                     return true;
-                 }
-             
-             }
-             catch 
-             {
-                 MessageAlert.Alert("输入正确的设定值1！");
-                 return true;
-             }
-         }
+                    decimal d = Convert.ToDecimal(this.tb_targetvalue1.Text.Trim());
+                    if (d < min || d > max)
+                    {
+                        MessageAlert.Alert("设定值1不在量程范围之内！");
+                        return true;
+                    }
 
-         if (!string.IsNullOrEmpty(this.tb_targetvalue2.Text.Trim()))
-         {
-             try
-             {
-                 decimal d = Convert.ToDecimal(this.tb_targetvalue2.Text.Trim());
-                 if (d < min || d > max)
-                 {
-                     MessageAlert.Alert("设定值2不在量程范围之内！");
-                     return true;
-                 }
-             }
-             catch
-             {
-                 MessageAlert.Alert("输入正确的设定值2！");
-                 return true;
-             }
-         }
+                }
+                catch
+                {
+                    MessageAlert.Alert("输入正确的设定值1！");
+                    return true;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(this.tb_targetvalue2.Text.Trim()))
+            {
+                try
+                {
+                    decimal d = Convert.ToDecimal(this.tb_targetvalue2.Text.Trim());
+                    if (d < min || d > max)
+                    {
+                        MessageAlert.Alert("设定值2不在量程范围之内！");
+                        return true;
+                    }
+                }
+                catch
+                {
+                    MessageAlert.Alert("输入正确的设定值2！");
+                    return true;
+                }
+            }
             return false;
         }
         private void bt_sub_Click(object sender, RoutedEventArgs e)
@@ -344,7 +352,7 @@ namespace QDDL.Nlbs.Wrench
                     {
                         MessageAlert.Alert("添加失败！");
                     }
-                    
+
                 }
                 else
                 {
@@ -360,57 +368,57 @@ namespace QDDL.Nlbs.Wrench
                     }
                     else
                     {
-                        MessageAlert.Alert("跟新失败！");
+                        MessageAlert.Alert("更新失败！");
                     }
-                   
+
                 }
-                         
+
                 getstatus();
                 clear();
             }
-            catch 
+            catch
             {
                 MessageAlert.Alert("出现异常请与管理员联系！");
             }
- 
 
-        //try {
-        //    if (!getwrench())
-        //        return;
-        //    if (isadd)
-        //    {
-                
-        //        if (add())
-        //        {
-        //            isadd = true;
-        //            _wrench = new wrench();
-        //            showwrench();
-        //            getwrenchlist(Gettoolmodel(Wrench.select()));
-        //            MessageBox.Show("保存成功！");
-        //            return;
-        //        }
-             
-                          
-        //    }
-        //    else {
-        //        if (update ()) {
-        //            isadd = true;
-        //            _wrench = new wrench();
-        //            showwrench();
-        //            getwrenchlist(Gettoolmodel(Wrench.select()));
-        //            MessageBox.Show("更新成功！");
-        //            return;
-        //        }
-        //    }
-        //    }
-        //    catch { MessageBox.Show("操作失败！ 稍后再试！"); }
-        //    MessageBox.Show("操作失败");
-           
+
+            //try {
+            //    if (!getwrench())
+            //        return;
+            //    if (isadd)
+            //    {
+
+            //        if (add())
+            //        {
+            //            isadd = true;
+            //            _wrench = new wrench();
+            //            showwrench();
+            //            getwrenchlist(Gettoolmodel(Wrench.select()));
+            //            MessageBox.Show("保存成功！");
+            //            return;
+            //        }
+
+
+            //    }
+            //    else {
+            //        if (update ()) {
+            //            isadd = true;
+            //            _wrench = new wrench();
+            //            showwrench();
+            //            getwrenchlist(Gettoolmodel(Wrench.select()));
+            //            MessageBox.Show("更新成功！");
+            //            return;
+            //        }
+            //    }
+            //    }
+            //    catch { MessageBox.Show("操作失败！ 稍后再试！"); }
+            //    MessageBox.Show("操作失败");
+
         }
 
         private void bt_back_Click(object sender, RoutedEventArgs e)
         {
-           
+
             clear();
 
         }
@@ -424,7 +432,7 @@ namespace QDDL.Nlbs.Wrench
             this.tb_wrenchcode.Clear();
             isadd = true;
             _wrench = null;
-            this.dp_time.Text = DateTime.Now.ToShortDateString ();
+            this.dp_time.Text = DateTime.Now.ToShortDateString();
             getstatus();
         }
 
@@ -433,9 +441,9 @@ namespace QDDL.Nlbs.Wrench
             int i_index = dataGrid1.SelectedIndex;
             if (i_index >= 0)
             {
-                _wrench = dataGrid1.SelectedItem as wrench ;
-                showwrench(_wrench );
-                isadd = false; 
+                _wrench = dataGrid1.SelectedItem as wrench;
+                showwrench(_wrench);
+                isadd = false;
             }
         }
 
@@ -450,7 +458,7 @@ namespace QDDL.Nlbs.Wrench
 
         private void tb_moban_Click(object sender, RoutedEventArgs e)
         {
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
             ExcelHelp _excelHelper = new ExcelHelp();
             saveFileDialog.Filter = "Excel (*.XLS)|*.xls";
             if ((bool)(saveFileDialog.ShowDialog()))
@@ -476,12 +484,12 @@ namespace QDDL.Nlbs.Wrench
                 if (MessageAlert.Alter("是否删除该条记录"))
                 {
                     if (SqlietDelWrench(_wrench))
-                    {                       
+                    {
                         getwrenchlist(Gettoolmodel(Wrench.selectPage(pagesize, pageno)));
                         getstatus();
                         clear();
                     }
-                  
+
                 }
             }
         }
@@ -489,7 +497,7 @@ namespace QDDL.Nlbs.Wrench
         bool SqlietDelWrench(wrench w)
         {
             StringBuilder ws = new StringBuilder("");
-            if (SystData .userInfo != null && SystData.userInfo.user != null)
+            if (SystData.userInfo != null && SystData.userInfo.user != null)
             {
                 ws.Append("操作人：" + SystData.userInfo.user.username + "\n");
             }
@@ -522,7 +530,7 @@ namespace QDDL.Nlbs.Wrench
                 MessageAlert.Alert("删除失败！数据库执行错误！");
                 return false;
             }
-          
+
             LogUtil.WriteLog(typeof(string), ws.ToString());
             MessageAlert.Alert("删除成功");
             return true;
@@ -540,7 +548,7 @@ namespace QDDL.Nlbs.Wrench
                 StringBuilder ws = new StringBuilder("");
                 if (SystData.userInfo != null && SystData.userInfo.user != null)
                 {
-                    ws.Append("操作人："+ SystData.userInfo.user .username +"\n");
+                    ws.Append("操作人：" + SystData.userInfo.user.username + "\n");
                 }
                 ws.Append("wrench:"
                     + " 工具编号 " + w.wrenchCode
@@ -645,10 +653,11 @@ namespace QDDL.Nlbs.Wrench
 
         private void pagesize_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            pagesize = Convert.ToInt32((this.cb_pagesize.SelectedItem as ComboBoxItem).Content.ToString ());
+            pagesize = Convert.ToInt32((this.cb_pagesize.SelectedItem as ComboBoxItem).Content.ToString());
             totalpage = (Wrench.SelectCount() % pagesize) > 0 ? Wrench.SelectCount() / pagesize + 1 : Wrench.SelectCount() / pagesize;
             this.lb_totalpage.Content = totalpage.ToString();
-            getwrenchlist(Gettoolmodel(Wrench.selectPage(pagesize, 1)));
+            List<ToolModel> toolModels = Gettoolmodel(Wrench.selectPage(pagesize, 1));
+            getwrenchlist(toolModels);
         }
 
         private void Grid_Loaded(object sender, RoutedEventArgs e)
@@ -657,7 +666,7 @@ namespace QDDL.Nlbs.Wrench
             getstatus();
             getwrenchlist(Gettoolmodel(Wrench.selectPage(pagesize, 1)));
             totalpage = (Wrench.SelectCount() % pagesize) > 0 ? Wrench.SelectCount() / pagesize + 1 : Wrench.SelectCount() / pagesize;
-            this.lb_totalpage.Content= totalpage.ToString ();
+            this.lb_totalpage.Content = totalpage.ToString();
             this.cb_pagesize.SelectedIndex = 1;
         }
 
@@ -669,7 +678,7 @@ namespace QDDL.Nlbs.Wrench
 
         private void bt_propage_Click(object sender, RoutedEventArgs e)
         {
-            if (pageno >1)
+            if (pageno > 1)
             {
                 pageno--;
                 getwrenchlist(Gettoolmodel(Wrench.selectPage(pagesize, pageno)));
@@ -678,7 +687,7 @@ namespace QDDL.Nlbs.Wrench
             {
                 getwrenchlist(Gettoolmodel(Wrench.selectPage(pagesize, 1)));
             }
-            this.tb_pageno.Text = pageno.ToString() ;
+            this.tb_pageno.Text = pageno.ToString();
         }
 
         private void bt_nextpage_Click(object sender, RoutedEventArgs e)
@@ -706,7 +715,7 @@ namespace QDDL.Nlbs.Wrench
             Regex reg = new Regex(@"[^0-9]");
             if (!reg.IsMatch(this.tb_pageno.Text.Trim()))
             {
-                if(Convert.ToInt32(this.tb_pageno.Text.Trim ())>0&&Convert.ToInt32(this.tb_pageno.Text.Trim())<totalpage)
+                if (Convert.ToInt32(this.tb_pageno.Text.Trim()) > 0 && Convert.ToInt32(this.tb_pageno.Text.Trim()) < totalpage)
                     getwrenchlist(Gettoolmodel(Wrench.selectPage(pagesize, Convert.ToInt32(this.tb_pageno.Text.Trim()))));
             }
         }

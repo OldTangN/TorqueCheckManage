@@ -5,9 +5,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
+using System.Threading.Tasks; 
 namespace QDDL.BLL.ICCard
 {
     public class ComICCard : ICardHelper
@@ -88,136 +86,7 @@ namespace QDDL.BLL.ICCard
             catch { }
         }
 
-        #region
-       
-
-
-        public bool funReadOne1(byte b_Block, byte passAB, ref byte[] b_Pass, out string ret_data)
-        {//读一块读卡方式1
-            bool isSuc = false;//是否成功 
-            bool canRead = true;//可以接收串口数据
-            byte[] outData = new byte[12];//发送数据
-            byte[] r_data = new byte[20];//接收数据
-            string strRead = "";//接收到的数据字符串
-            byte b_Xor;
-            int i;
-            int dataCount = 0;//发送数据个数
-            int leaveCount = 0;//剩余数据个数
-            int allCount = 0;//需要接收数据个数
-            long diffTime = 0;//等待时间
-            long t_stars;
-            long t_ends;
-
-            while (port.BytesToRead > 0)
-            {
-                r_data[0] = Convert.ToByte(port.ReadByte());
-            }
-            isSuc = false;
-            outData[0] = 0xAA;
-            outData[1] = 0XFF;
-            outData[2] = 0X10;
-            outData[3] = b_Block;
-            outData[4] = passAB;
-            for (i = 0; i < 6; i++)
-            {
-                outData[5 + i] = b_Pass[i];
-
-            }
-            b_Xor = 0;
-
-            for (i = 0; i < 11; i++)
-            {
-                b_Xor = (byte)((int)b_Xor ^ (int)outData[i]);
-
-            }
-            outData[11] = b_Xor;
-            // strRead = "发送：";
-            // for (i = 0; i < 12; i++)
-            //    strRead = strRead + funBtoHex(outData[i]);
-            //SetText(strRead);
-            // strRead = "";
-            dataCount = 12;
-            if (port.IsOpen) port.Write(outData, 0, dataCount);
-            canRead = true;
-            t_stars = DateTime.Now.Ticks;
-            t_ends = t_stars;
-            while (port.BytesToRead < 4)
-            {
-                t_ends = DateTime.Now.Ticks;
-                diffTime = t_ends - t_stars;
-                if (diffTime > priCDelay)
-                {
-                    canRead = false;
-                    break;
-                }
-                Application.DoEvents();
-            }
-            if (canRead)//接收前4个字节
-            {
-                port.Read(r_data, 0, 4);
-            }
-            else
-            {
-                ret_data = "";
-                return isSuc;
-            }
-            switch (r_data[2])
-            {
-                case 0XA0:
-                    strRead = "readfail：";
-                    isSuc = false;
-                    leaveCount = 0;
-                    allCount = 4;
-                    break;
-                case 0xA1:
-                    strRead = "readpwdfail：";
-                    isSuc = false;
-                    leaveCount = 0;
-                    allCount = 4;
-                    break;
-                case 0X10:
-                    strRead = "success:";
-                    isSuc = true;
-                    leaveCount = 16;
-                    allCount = 20;
-                    break;
-
-            }
-            canRead = true;
-            t_stars = DateTime.Now.Ticks;
-            t_ends = t_stars;
-            while (port.BytesToRead < leaveCount)
-            {
-                t_ends = DateTime.Now.Ticks;
-                diffTime = t_ends - t_stars;
-                if (diffTime > priCDelay)
-                {
-                    canRead = false;
-                    break;
-                }
-                Application.DoEvents();
-            }
-
-            if (canRead & leaveCount > 0)
-            {
-                port.Read(r_data, 4, leaveCount);
-            }
-            else
-            {
-                for (i = 0; i < 4; i++)
-                {
-                    strRead = strRead + funBtoHex(r_data[i]);
-                }
-                ret_data = strRead;
-                return isSuc;
-            }
-            for (i = 0; i < allCount; i++)
-            {
-                strRead = strRead + funBtoHex(r_data[i]);
-            }
-            ret_data = strRead;
-            return isSuc;
-        }
+        #region 
         private string funBtoHex(byte num)
         {
             string strhex;

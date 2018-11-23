@@ -1,4 +1,4 @@
-﻿using QDDL.Nlbs.Borrow;
+﻿
 using QDDL.Nlbs.Check;
 using QDDL.Nlbs.Common;
 using QDDL.Nlbs.Help;
@@ -38,7 +38,7 @@ namespace QDDL.Nlbs
         //   public userinfo _userinfo = new userinfo();
         IWrench Wrench = DataAccess.CreateWrench();
         public CheckFinal cf { set; get; } = null;
-       // SerialPort rC = new SerialPort();
+        // SerialPort rC = new SerialPort();
         SerialPort _t1 = new SerialPort();
         SerialPort _t2 = new SerialPort();
         public SerialPort EncoderPlcPort = new SerialPort();
@@ -102,7 +102,7 @@ namespace QDDL.Nlbs
                     strerror += "---校验仪2连接失败";
                 }
 
-              
+
 
                 EncoderPlcPort.PortName = OperationConfig.GetValue("encodercom");
                 EncoderPlcPort.BaudRate = 9600;
@@ -268,8 +268,7 @@ namespace QDDL.Nlbs
         }
         void OnTimedEvent(object serder, EventArgs e)
         {
-            this.Dispatcher.Invoke(DispatcherPriority.Normal,
-                new TimerDispatcherDelegate(UpdateUI));
+            // this.Dispatcher.Invoke(DispatcherPriority.Normal,    new TimerDispatcherDelegate(UpdateUI));
         }
         void UpdateUI()
         {
@@ -752,19 +751,19 @@ namespace QDDL.Nlbs
 
         }
 
-        private void borrow_Click(object sender, RoutedEventArgs e)
-        {
-            WrenchBorrow wb = new WrenchBorrow(ruc);
-            this.main.Children.Clear();
-            this.main.Children.Add(wb);
-        }
+        //private void borrow_Click(object sender, RoutedEventArgs e)
+        //{
+        //    WrenchBorrow wb = new WrenchBorrow(ruc);
+        //    this.main.Children.Clear();
+        //    this.main.Children.Add(wb);
+        //}
 
-        private void return_Click(object sender, RoutedEventArgs e)
-        {
-            WrenchReturn wr = new WrenchReturn(ruc);
-            this.main.Children.Clear();
-            this.main.Children.Add(wr);
-        }
+        //private void return_Click(object sender, RoutedEventArgs e)
+        //{
+        //    WrenchReturn wr = new WrenchReturn(ruc);
+        //    this.main.Children.Clear();
+        //    this.main.Children.Add(wr);
+        //}
 
         private void searchwrenchdata_Click(object sender, RoutedEventArgs e)
         {

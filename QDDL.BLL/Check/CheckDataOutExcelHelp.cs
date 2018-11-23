@@ -9,8 +9,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
+using System.Text; 
 using Excel = Microsoft.Office.Interop.Excel;
 namespace QDDL.BLL.Check
 {
@@ -134,7 +133,7 @@ namespace QDDL.BLL.Check
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while generating Excel report");
+                throw new Exception("Error while generating Excel report");
 
 
             }

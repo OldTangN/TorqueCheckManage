@@ -1,5 +1,5 @@
 ﻿using QDDL.Comm;
-using QDDL.Model.BllModel;
+using QDDL.Model;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;

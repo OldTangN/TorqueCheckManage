@@ -6,8 +6,7 @@ using System.Data.Odbc;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Threading.Tasks; 
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Input;
 using System.Data.OleDb;
@@ -133,7 +132,7 @@ namespace QDDL.BLL
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while generating Excel report");
+                throw new Exception("Error while generating Excel report");
 
 
             }
@@ -169,7 +168,7 @@ namespace QDDL.BLL
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error while generating Excel report");
+                throw new Exception("Error while generating Excel report");
 
 
             }

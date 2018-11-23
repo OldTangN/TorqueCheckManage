@@ -400,8 +400,7 @@
                                     <Button FontSize="15"  Margin="30,0,30,0" Height="30" Width="100"  Name="bt_reset" Content=" 重新校验" Click="bt_reset_Click" Background="#FF0895F7"></Button>
                                     <Button FontSize="15"  Height="30" Width="100"  Name="bt_print" Content="输出报告" Click="bt_print_Click" Background="#FF0895F7"></Button>
                                 </StackPanel>
-                            </StackPanel>
-
+                            </StackPanel> 
                         </StackPanel>
                     </StackPanel>
                 </Grid>

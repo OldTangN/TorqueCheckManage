@@ -82,6 +82,9 @@
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -118,18 +121,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Borrow\ReportWin.xaml.cs">
-      <DependentUpon>ReportWin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Borrow\UserBorrow.xaml.cs">
-      <DependentUpon>UserBorrow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Borrow\WrenchBorrow.xaml.cs">
-      <DependentUpon>WrenchBorrow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Borrow\WrenchReturn.xaml.cs">
-      <DependentUpon>WrenchReturn.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Check\CheckdataDetail.xaml.cs">
       <DependentUpon>CheckdataDetail.xaml</DependentUpon>
     </Compile>
@@ -256,22 +247,6 @@
     <Compile Include="Wrench\WrenchShow.xaml.cs">
       <DependentUpon>WrenchShow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Borrow\ReportWin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Borrow\UserBorrow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Borrow\WrenchBorrow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
-    <Page Include="Borrow\WrenchReturn.xaml">
-      <SubType>Designer</SubType>
-      <Generator>XamlIntelliSenseFileGenerator</Generator>
-    </Page>
     <Page Include="Check\CheckdataDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -530,10 +505,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CodeReason.Reports\CodeReason.Reports.csproj">
-      <Project>{87A8D936-AE11-40AA-8927-A414C2225991}</Project>
-      <Name>CodeReason.Reports</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QDDL.BLL\QDDL.BLL.csproj">
       <Project>{6b9a2134-93e0-4055-88b4-1787376cf102}</Project>
       <Name>QDDL.BLL</Name>

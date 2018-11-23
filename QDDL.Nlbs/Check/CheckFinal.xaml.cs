@@ -5,27 +5,21 @@ using QDDL.BLL.ICCard;
 using QDDL.BLL.Plc;
 using QDDL.Comm;
 using QDDL.DAL;
-using QDDL.DAL.MySql;
 using QDDL.Model;
 using QDDL.Model.BllModel;
 using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using QDDL.BLL.Sockets;
+using QDDL.BLL.Sockets.Tools;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace QDDL.Nlbs.Check
 {
@@ -34,7 +28,7 @@ namespace QDDL.Nlbs.Check
     /// </summary>
     public partial class CheckFinal
     {
-         
+
         userinfo _juser { set; get; } = null;
         userinfo _zuer = null;
         Light _light = null;
@@ -47,7 +41,7 @@ namespace QDDL.Nlbs.Check
         IUserRole UserRole = DataAccess.CreateUserRole();
         IWrenchSpecies WrenchSpecies = DataAccess.CreateWrenchSpecies();
         GetUser getuser = new GetUser();
-        systemcheckset _systemcheckset = new systemcheckset(); 
+        systemcheckset _systemcheckset = new systemcheckset();
         List<TorqueTestModel> ttml = new List<TorqueTestModel>();
 
         SerialPort _serialEncoder = null;
@@ -62,6 +56,8 @@ namespace QDDL.Nlbs.Check
         //  System.Timers.Timer qTimer = null;           
         bool issave = false;
         int tempbarcodevalue = 0;
+
+        IProtocol protocol;
         private delegate void TimerDispatcherDelegate();
 
         public CheckFinal(ICardHelper r, ReadCheckTester r1, ReadCheckTester r2)
@@ -153,6 +149,7 @@ namespace QDDL.Nlbs.Check
         string backcard = "";
         DateTime time = DateTime.Now;
 
+        string RealTar = "";
         /// <summary>
         /// 采集小校验数据显示
         /// </summary>
@@ -172,6 +169,7 @@ namespace QDDL.Nlbs.Check
         }
         private void testerTypemin()
         {
+
             try
             {
                 decimal allowmin = Convert.ToDecimal(this.tb_jyw.Text.Trim());
@@ -332,6 +330,7 @@ namespace QDDL.Nlbs.Check
         /// </summary>
         void testerType()
         {
+
             try
             {
                 // 有编码器无编码器
@@ -524,6 +523,7 @@ namespace QDDL.Nlbs.Check
             {
                 this.lb_result.Content = "扳手不合格";
             }
+            protocol.SendLock();
             MessageAlert.Alert("该扳手校验完成");
             this.bt_queren.Focus();
         }
@@ -606,15 +606,41 @@ namespace QDDL.Nlbs.Check
         }
         double GetTargetValue()
         {
+            double reDouble = 0;
             try
             {
-                return Convert.ToDouble(this.list_check.Items[_checkindex]);
+                if (_toolinfo.speciesCode == "003" && RealTar != "")
+                {
+                    reDouble = Convert.ToDouble(RealTar);
+                }
+                else
+                {
+                    reDouble = Convert.ToDouble(this.list_check.Items[_checkindex]);
+                }
             }
+
             catch
             {
                 MessageAlert.Alert("请填写正确的校验值！");
-                return 0;
             }
+            return reDouble;
+        }
+
+        double GetOldTargetValue()
+        {
+            double reDouble = 0;
+            try
+            {
+
+                reDouble = Convert.ToDouble(this.list_check.Items[_checkindex]);
+
+            }
+
+            catch
+            {
+                MessageAlert.Alert("请填写正确的校验值！");
+            }
+            return reDouble;
         }
         #endregion
 
@@ -1046,6 +1072,8 @@ namespace QDDL.Nlbs.Check
 
         private void bt_wrenchbarcode_Click(object sender, RoutedEventArgs e)
         {
+            RealTar = "";
+            editer_check.IsEnabled = true;
             try
             {
 
@@ -1085,7 +1113,10 @@ namespace QDDL.Nlbs.Check
                 _toolinfo.wrench = Wrench.selectByBarcode(this.tb_wrenchbarcode.Text.Trim());
                 if (_toolinfo == null || _toolinfo.wrench == null)
                     return;
-                _toolinfo.speciesName = WrenchSpecies.selectByGuid(_toolinfo.wrench.species).speciesName;
+
+                var species = WrenchSpecies.selectByGuid(_toolinfo.wrench.species);
+                _toolinfo.speciesName = species.speciesName;
+                _toolinfo.speciesCode = species.speciesCode; //工具类别
 
                 if (_toolinfo != null && _toolinfo.wrench != null && _toolinfo.wrench.lastrepair != null)// && _toolinfo.wrench.cycletime != decimal.)
                 {
@@ -1109,6 +1140,23 @@ namespace QDDL.Nlbs.Check
                 getTargetTester(Convert.ToDecimal(list_check.Items[_checkindex]));
                 list_check.ScrollIntoView(list_check.Items[_checkindex]);
                 onecheck_Click(sender, e);
+                if (_toolinfo.speciesCode == "003")
+                {
+                    editer_check.IsEnabled = false;
+
+                    protocol = new OpenProtocol();
+                    protocol.SendHandler += Protocol_SendHandler;
+                    protocol.ReciveHandler += Protocol_ReciveHandler;
+                    protocol.RequestHandler += Protocol_RequestHandler;
+                    ToolWrench toolWrench = new ToolWrench
+                    {
+                        PsetId = 2
+                    };
+
+                    protocol.Start(_toolinfo.wrench.IP, Convert.ToInt32(_toolinfo.wrench.port));
+                    protocol.SendCommand(toolWrench);
+
+                }
                 this.editer_check.Focus();
             }
             catch
@@ -1120,7 +1168,30 @@ namespace QDDL.Nlbs.Check
             }
         }
 
-        void CheckCountBind(Toolinfo t)
+        private void Protocol_RequestHandler(object sender, ReciveEventArgs e)
+        {
+
+
+            string RequestData = Encoding.ASCII.GetString(e.data);
+
+            RealTar = JsonConvert.DeserializeObject<TestResult>(RequestData).RealTar;
+        }
+
+        private void Protocol_ReciveHandler(object sender, ReciveEventArgs e)
+        {
+
+        }
+
+        private void Protocol_SendHandler(object sender, ReciveEventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// 显示校验数据
+        /// </summary>
+        /// <param name="t"></param>
+        private void CheckCountBind(Toolinfo t)
         {
             if (t != null && t.wrench != null)
             {
@@ -1181,7 +1252,11 @@ namespace QDDL.Nlbs.Check
             this.tb_testername.Text = "";
             this.lb_result.Content = "";
         }
-        void showwrench(Toolinfo t)
+        /// <summary>
+        /// 显示工具信息
+        /// </summary>
+        /// <param name="t"></param>
+        private void showwrench(Toolinfo t)
         {
             if (t == null || t.wrench == null)
             {
@@ -1198,7 +1273,7 @@ namespace QDDL.Nlbs.Check
             List<errorrangset> tm = erl.Where(p => p.speciesID == t.wrench.species).ToList();
             foreach (errorrangset e in tm)
             {
-                decimal targetvalue = Convert.ToDecimal(GetTargetValue());
+                decimal targetvalue = Convert.ToDecimal(GetOldTargetValue());
                 if (e.rangmax > targetvalue && e.rangmin <= targetvalue)
                 {
                     this.tb_jywm.Text = e.errorrangMax.ToString();
@@ -1772,6 +1847,24 @@ namespace QDDL.Nlbs.Check
             _light.Type = "00";
             _light.Turn = false;
             LightControl.ThreadControl(_light);
+
+            if (_toolinfo.speciesCode == "003")
+            {
+                editer_check.IsEnabled = false;
+
+                protocol = new OpenProtocol();
+                protocol.SendHandler += Protocol_SendHandler;
+                protocol.ReciveHandler += Protocol_ReciveHandler;
+                protocol.RequestHandler += Protocol_RequestHandler;
+                ToolWrench toolWrench = new ToolWrench
+                {
+                    PsetId = 2
+                };
+
+                protocol.Start(_toolinfo.wrench.IP, Convert.ToInt32(_toolinfo.wrench.port));
+                protocol.SendCommand(toolWrench);
+
+            }
         }
         public void ClearOut()
         {
