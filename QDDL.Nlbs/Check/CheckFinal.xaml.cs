@@ -523,7 +523,10 @@ namespace QDDL.Nlbs.Check
             {
                 this.lb_result.Content = "扳手不合格";
             }
-            protocol.SendLock();
+            if (_toolinfo.speciesCode == "003")
+            {
+                protocol.SendLock();
+            }
             MessageAlert.Alert("该扳手校验完成");
             this.bt_queren.Focus();
         }

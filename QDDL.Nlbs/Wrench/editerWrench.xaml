@@ -42,16 +42,16 @@
         <RowDefinition Height="640"></RowDefinition>
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions >
-        <ColumnDefinition Width="300"></ColumnDefinition>
+        <ColumnDefinition Width="280"></ColumnDefinition>
         <ColumnDefinition  ></ColumnDefinition>
     </Grid.ColumnDefinitions>
-    <Border  Grid.Row="0" BorderBrush="Silver"  BorderThickness="1" Margin="20,10,10,0">
+    <Border  Grid.Row="0" BorderBrush="Silver"  BorderThickness="1" Margin="10,10,10,0">
         <Label Content="扳手信息编辑"   FontSize="20" HorizontalContentAlignment="Center" Height="40"></Label>
     </Border>
-    <Border Grid.Row="0" Grid.Column="1" BorderBrush="Silver"  BorderThickness="1" Margin="10,10,20,0">
+    <Border Grid.Row="0" Grid.Column="1" BorderBrush="Silver"  BorderThickness="1" Margin="5,10,20,0">
         <Label Content="扳手信息列表" FontSize="20" HorizontalContentAlignment="Center" Height="40"></Label>
     </Border>
-    <Border Grid.Row="1" BorderBrush="Silver"  BorderThickness="1,0,1,1" Margin="20,0,10,20">
+    <Border Grid.Row="1" BorderBrush="Silver"  BorderThickness="1,0,1,1" Margin="10,0,10,20">
         <Grid  >
             <ComboBox Name="cb_species" Height="30" Width="120" HorizontalAlignment="Left" Margin="110,10,0,0" VerticalAlignment="Top"/>
             <TextBox Name="tb_wrenchcode"  Width="120"  HorizontalAlignment="Left" Margin="109,50,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
@@ -89,8 +89,8 @@
             <TextBox Name="tb_unite" Visibility="Hidden"  Text="N.m" Height="30" Width=" 120" HorizontalAlignment="Left"  Margin="110,212,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"/>
             <Label Name="lb_targetvalue"  Height=" 30" Width=" 100" Content="目标校验值" HorizontalAlignment="Left" Margin="0,199,0,0" VerticalAlignment="Top"/>
 
-            <Button Name="bt_sub" Height="30"  Width="100" Content="提 交" HorizontalAlignment="Left" Margin="10,550,0,0" VerticalAlignment="Top" Click="bt_sub_Click" RenderTransformOrigin="0.48,1.6" />
-            <Button Name="bt_back" Height=" 30" Width=" 100" Content="取 消" HorizontalAlignment="Left" Margin="158,550,0,0" VerticalAlignment="Top" Click="bt_back_Click" RenderTransformOrigin="0.49,1.667" />
+            <Button Name="bt_sub" Height="30"  Width="100" Content="提 交" HorizontalAlignment="Left" Margin="35,550,0,0" VerticalAlignment="Top" Click="bt_sub_Click" RenderTransformOrigin="0.48,1.6" />
+            <Button Name="bt_back" Height=" 30" Width=" 100" Content="取 消" HorizontalAlignment="Left" Margin="140,550,0,0" VerticalAlignment="Top" Click="bt_back_Click" RenderTransformOrigin="0.49,1.667" />
             <Label Height=" 30" Width=" 100" Content="扳手备注" HorizontalAlignment="Left" Margin="0,461,0,0" VerticalAlignment="Top"/>
             <Label Height=" 30" Width=" 100" Content="三点PSet" HorizontalAlignment="Left" Margin="0,503,0,0" VerticalAlignment="Top"/>
 
@@ -107,8 +107,8 @@
             <Label Content="入库时间" HorizontalAlignment="Left" Margin="42,381,0,0" VerticalAlignment="Top"/>
             <DatePicker Name="dp_time"  HorizontalAlignment="Left" Margin="110,385,0,0" VerticalAlignment="Top" Width="120" SelectedDateFormat="Short" SelectedDate="{x:Static sys:DateTime.Now}"/>
 
-            <Label x:Name="lb_targetvalue_Copy1"  Height=" 30" Width=" 100" Content="辅助校验最大值" HorizontalAlignment="Left" Margin="0,274,0,0" VerticalAlignment="Top"/>
-            <Label x:Name="lb_targetvalue_Copy"   Height=" 30" Width=" 100" Content="辅助校验最小值" HorizontalAlignment="Left" Margin="0,239,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_targetvalue_Copy1"  Height=" 30" Width=" 100" Content="大辅助校验值" HorizontalAlignment="Left" Margin="0,274,0,0" VerticalAlignment="Top"/>
+            <Label x:Name="lb_targetvalue_Copy"   Height=" 30" Width=" 100" Content="小辅助校验值" HorizontalAlignment="Left" Margin="0,239,0,0" VerticalAlignment="Top"/>
             <Label Content="*" HorizontalAlignment="Left" Margin="234,199,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.453,0.627"/>
             <Label Content="*" HorizontalAlignment="Left" Margin="234,162,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.453,0.627"/>
             <Label Content="最近维护时间" HorizontalAlignment="Left" Margin="18,422,0,0" VerticalAlignment="Top"/>
@@ -117,7 +117,7 @@
         </Grid>
     </Border>
 
-    <Border Grid.Row=" 2" BorderBrush="Silver" BorderThickness="1,0,1,1" Grid.Column="1" Margin="10,0,20,20">
+    <Border Grid.Row=" 2" BorderBrush="Silver" BorderThickness="1,0,1,1" Grid.Column="1" Margin="5,0,20,20">
         <Grid Margin="4">
             <Grid.RowDefinitions >
                 <RowDefinition Height="30"></RowDefinition>

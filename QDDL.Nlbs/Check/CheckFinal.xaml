@@ -162,13 +162,13 @@
             <Border BorderBrush="Silver"  BorderThickness="1,0,0,0">
                 <StackPanel  VerticalAlignment="Center" Margin="5,0">
                     <StackPanel Orientation="Horizontal"  >
-                        <StackPanel Orientation="Horizontal" Width="237" >
-                            <Label Height="25" Width="30">
+                        <StackPanel Orientation="Horizontal" Width="270" >
+                            <Label Height="25" Width="25">
                                 <Label.Background>
                                     <ImageBrush ImageSource="/QDDL.Nlbs;component/Images/tool.png"/>
                                 </Label.Background>
                             </Label>
-                            <Label FontSize="15" Margin="10,0" Height="30" HorizontalContentAlignment ="Left" >条 码</Label>
+                            <Label FontSize="15" Margin="10,0" Height="30" HorizontalContentAlignment ="Left" >条码/标签</Label>
                             <TextBox Name="tb_wrenchbarcode" FontSize="15" Height="30" Width="140" VerticalContentAlignment="Center"   GotFocus="tb_wrenchbarcode_GotFocus" KeyDown="tb_wrenchbarcode_KeyDown"></TextBox>
                            
                             <Button Width="0" Height="32" Name="bt_wrenchbarcode" Margin="10,0" Click="bt_wrenchbarcode_Click" Background="{x:Null}">
